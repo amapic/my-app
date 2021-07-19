@@ -3,11 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DataProvider,RegionSelectedProvider,VaccinSelectedProvider,RangeProvider } from './context/DataContext';
 
 ReactDOM.render(
-  <React.StrictMode>
+  
+
+  <RegionSelectedProvider>
+    <VaccinSelectedProvider>
+    <DataProvider>
+      
     <App />
-  </React.StrictMode>,
+    
+    </DataProvider>
+    </VaccinSelectedProvider>
+    </RegionSelectedProvider>
+
+  ,
+  
   document.getElementById('root')
 );
 
