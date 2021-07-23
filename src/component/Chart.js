@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, {useEffect, useState} from 'react';
+// import from 'react-dom';
 import {
     useTheme
 }
@@ -9,30 +10,27 @@ import {
     XAxis,
     YAxis,
     Label,
+    Tooltip,
+    Legend,
+    CartesianGrid,
     ResponsiveContainer
 }
     from 'recharts';
 import Title from './Title';
-// import { DataContext, RegionSelectedContext, VaccinSelectedContext, RangeContext } from '../context/DataContext';
 
-import { RangeService, VaccinService } from './observable/observable'
+import {subjectvac,subjectrange,subjectregion} from './observable/observable'
+ 
+import {liste_nom_region} from '../fonction/fonction'
 
-// Generate Sales Data
-function createData(time, amount, amount2) {
-    return {
-        time,
-        amount,
-        amount2
-    };
-}
 
 
 const chercheData = async (url) => {
 
     const response = await fetch(url);
     const responseData = await response.json();
-    // console.log(response)
-    // console.log(responseData)
+    console.log(response)
+    console.log(responseData)
+    console.log(url)
 
     if (response.ok) {
         console.log("ok");
@@ -42,8 +40,9 @@ const chercheData = async (url) => {
         for (const [key, value] of Object.entries(responseData)) {
             dictOfResponseData[key] = value
         }
-        var indexDatetime = Object.keys(dictOfResponseData[1]);
+        
         var keylist = Object.keys(dictOfResponseData);
+        var indexDatetime = Object.keys(dictOfResponseData[keylist[0]]);
 
         console.log(keylist);
 
@@ -51,16 +50,13 @@ const chercheData = async (url) => {
             for (const [key, value] of Object.entries(dictOfResponseData)) {
                 miniDict['time'] = indexDatetime[i].slice(-12, -2)
                 miniDict[key] = value[indexDatetime[i]]
-                // yahoo[key]=i
+                 
             }
             data.push(miniDict);
             miniDict = {}
         }
 
-        // console.log(data)
-
-        var ff = data.slice(1, 100);
-        // console.log(ff);
+        // conversionkey(data)
         return data
 
     } else {
@@ -70,45 +66,94 @@ const chercheData = async (url) => {
 
 }
 
+const format = num => 
+    String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
+
+;
 
 export default function Chart(props) {
     let instancesCount = 0
-    let vaccin = "0"
+    var liste_region=liste_nom_region
     const theme = useTheme();
-const [items, setItems] = useState('');
+    const valeurReginitial="11"
+    const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
+    console.log("rr")
+
+    const labelFormatter= function(x) {
+        return x
+    }
+
+    const valueFormatter= function(x,y,z) {
+        // console.log(x,y,z);
+        // console.log(liste_region[z.dataKey]);
+        return [format(x),liste_region[z.dataKey],]
+    }
+
+    const legendFormatter= function(value, entry, index) {
+        // console.log(liste_region[value])
+        return [liste_region[entry.dataKey]]
+    }
+
+     
     useEffect(() => {
-        instancesCount += 1
-        console.log({ instancesCount })
-        return () => {
-            instancesCount -= 1
-            console.log({ instancesCount })
-        }
+        subjectvac.subscribe({
+            next: (v) =>{ 
+
+                        let re=subjectregion.getValue()
+                        re=re.join('_')
+                        let rr=subjectrange.getValue()
+                        let url="http://localhost:8052/detail3/" + re + "/" + v + "/" + rr
+                        
+                        console.log(url);
+                        if (re!=='' && typeof re==="string" && typeof rr==="string" && typeof v==="string"){
+                            chercheData(url).then((tt)=>
+                            setItems(tt));
+                        }
+                        
+                        
+                    }
+          });
+        // subjectvac.unsubscribe();
     }, [])
-    // var items;
-    // const regionSelected = useContext(RegionSelectedContext);
-    // const vaccin= useContext(VaccinSelectedContext);
-    // const aa= useContext(RangeContext);
-    console.log("hh");
-    // dataService.setData(this.state.productField);
-    // RangeService.getData().subscribe(message => {
-    //     console.log(message.value);
-    //     setItems(message.value);
-    // });
-    // VaccinService.getData().subscribe(message => {
-    //     console.log(message.value);
-    // },console.log(message.value + vaccin));
-    // useEffect(() => {
 
-    //     if (regionSelected.regionSelectedlist.length!=0){
-    //         // console.log(regionSelected.regionSelectedlist)
-    //         // let ggg={};
-    //         console.log("prout")
-    //         // console.log(regionSelected.regionSelectedlist);
-    //         chercheData("http://localhost:8052/detail2/" + regionSelected.regionSelectedlist.join('_') + "/" + vaccin.vaccinSelected).then((tt)=>setItems(tt))
-    //     }
-    //   }, [regionSelected.regionSelectedlast,vaccin.vaccinSelected,aa.monthRange]);
+    useEffect(() => {
+        subjectregion.subscribe({
+            next: (v) =>{ 
+                        let re=subjectvac.getValue()
+                        v=v.join('_')
+                        let rr=subjectrange.getValue()
+                        let url="http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
+                        
+                        // console.log(url);
+                        if (v!=='' && typeof re==="string" && typeof rr==="string" && typeof v==="string"){
+                            chercheData(url).then((tt)=>
+                            setItems(tt));
+                        }
+                        
+                        
+                    }
+          });
+         
+    }, [])
 
-    //   items.map((object,i)=>console.log())
+    useEffect(() => {
+        subjectrange.subscribe({
+            next: (v) =>{ 
+                        let re=subjectvac.getValue()
+                        let rr=subjectregion.getValue()
+                        rr=rr.join('_')
+                        let url="http://localhost:8052/detail3/" + rr + "/" + re + "/" + v
+                        
+                        // console.log(url);
+                        if (typeof re==="string" && typeof rr==="string" && typeof v==="string"
+                        && rr!==''){
+                            chercheData(url).then((tt)=>setItems(tt));
+                        }
+                        
+                        
+                    }
+          });
+    }, [])
 
     return (
         <  >
@@ -126,8 +171,19 @@ const [items, setItems] = useState('');
                         }
                         }
                     >
-                        {Object.keys(items).map((object, i) =>
-                            <Line key={i} type="monotone" dataKey={object} stroke="#556CD6" dot={false} />)
+                        
+                        <Legend formatter={legendFormatter} />
+                        
+                        <Tooltip labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        {
+                        
+                        Object.keys(items[0]).map((object, i) =>
+                            
+                            object !== 'time'? <Line key={i} type="monotone" dataKey={object} stroke="#556CD6" dot={false} />:null
+                        
+                            )
+                        
                         }
 
                         {/* <Line type="monotone" dataKey="2" stroke="#556CD6" dot={false} />  */}
@@ -142,12 +198,13 @@ const [items, setItems] = useState('');
                         }
                         />
                         <YAxis stroke={theme.palette.text.secondary}>
+                            
                             <Label
                                 angle={270}
                                 position="left"
                                 style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
                             >
-                                Vaccination
+                                {/* Vaccination */}
                             </Label >
                             <  / YAxis >
 

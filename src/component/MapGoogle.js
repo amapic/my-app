@@ -1,24 +1,20 @@
-import React, {
-  Component,
+import React, {Component,
   useState,
-  useContext,
-  useRef,
-  useCallback,
-  ReactDOM
+  useEffect
 } from 'react';
-import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   GoogleMap,
-  Polyline,
   Polygon,
-  useJsApiLoader,
   LoadScript
 } from '@react-google-maps/api';
 import list_poly from "../fonction/region_load"
-
 import {
-  RegionSelectedContext
-} from '../context/DataContext';
+  subjectregion,subjectregionswitch
+} from './observable/observable'
+
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 
 const mapStyles2 = [
 
@@ -87,25 +83,36 @@ const containerStyle = {
   height: '400px'
 };
 
+const containerStyle_petit = {
+  width: '200px',
+  height: '200px'
+};
+
 const center = {
   lat: 46.7833,
   lng: 3.0833
 };
 
-const options = {
+const options_style = {
   draggable: false,
   mapTypeControl: false,
   streetViewControl: false,
   fullscreenControl: false,
   draggableCursor: 'default',
-  draggable: false,
   zoomControl: false,
   scrollwheel: false,
   disableDoubleClickZoom: false,
   styles: mapStyles2
 }
 
-
+const useStyles = makeStyles((theme) => ({
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
+}));
 
 const mapOptionsClicked = {
   strokeColor: "#212527",
@@ -125,89 +132,186 @@ const mapOptionsNotClicked = {
   polygonKey: 1
 }
 
-export default function Map_google() {
+export default function MapGoogle({ region_excluded = [], region_included = [],zoom=5,center={}}) {
+  // const classes = useStyles();
+  // var options=Component.defaultProps;
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const [mapProps,setmapProps]=useState({
-    ttest: "ee",
-    selectedItems: [],
-    selectedItem:0
+  const handlePopoverOpen = (event) => {
+    console.log("qdgqdg");
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    console.log("sfhgsfh");
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  const [mapProps, setmapProps] = useState({
+    etat: "init",
+    selectedItems: ["11"],
+    selectedItem: 0
   });
-
-  const RegionSelected = useContext(RegionSelectedContext);
   
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const clickk=(i) =>{
+  // const handlePopoverOpen = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+
+  // const handlePopoverClose = () => {
+  //   setAnchorEl(null);
+  // };
+
+  // const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    subjectregionswitch.subscribe({
+        next: (v) =>{ setmapProps({
+          selectedItem: 0,
+          selectedItems: v,
+          etat: "pas_init"
+        })}
+      });
+    },[])
+
+
+  const list_poly2 = list_poly
+  var keys = Object.keys(list_poly2);
+  if (region_excluded.length>0){
+    keys=keys.filter(item => {
+      let jj=!region_excluded.includes(item)
+      return jj
+    })
     
-    let listeRegion=mapProps.selectedItems
-    if (listeRegion.includes(i)){
-      listeRegion = listeRegion.filter(item => item !== i)
-    }else{
+  }else{
+    keys=keys.filter(item => region_included.includes(item))
+  }
+
+  const clickk = function (i) {
+
+    let listeRegion = mapProps.selectedItems
+    if (listeRegion.includes(i)) {
+      if (listeRegion.length > 1) {
+        listeRegion = listeRegion.filter(item => item !== i)
+      }
+    } else {
       listeRegion.push(i)
     }
-    // console.log(listeRegion)
-    RegionSelected.setRegionSelectedlast(i);
-    RegionSelected.setRegionSelectedlist(listeRegion);
+    subjectregion.next(listeRegion)
     setmapProps({
-      selectedItem:i,
+      selectedItem: i,
       selectedItems: listeRegion,
       ttest: i
     })
-    
-
   }
-  
-  return ( <
-    LoadScript googleMapsApiKey = "AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
-    <
-    >
-    <
-    GoogleMap mapContainerStyle = {
-      containerStyle
-    }
-    center = {
-      {
-        lat: 46.7833,
-        lng: 3.0833
+  if (mapProps.etat==="init"){
+    return null
+  }else{
+    return ( <
+      LoadScript googleMapsApiKey = "AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
+      
+      <
+      GoogleMap mapContainerStyle = {
+        (zoom>5?containerStyle_petit:containerStyle)
+        
       }
-    }
-    zoom = {
-      5
-    }
-    options = {
-      options
-    }
-  
-    >
-    {
-      list_poly.map((object, i) =>
+
+      center = { center
+        
+      }
+      zoom = {
+        zoom
+      }
+      options = {
+        options_style
+      }
+
+      >
+      
+      {
+        keys.map((object, i) => {
+
+            if (list_poly2[object].length === 1) {
+              console.log("rrrrrrrrrrrrrrrrrrrrr");
+              return ( <
+                Polygon key = {
+                  object
+                }
+
+                path = {
+                  list_poly2[object]
+                }
+                onClick = {
+                  () => clickk(object)
+                }
 
 
-        <
-        Polygon key = {
-          i
+                options = {
+                  (mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
+                }
+                />)
+              }
+              else {
+                console.log("ttttt");
+                return ( 
+                  // <>
+                  <Polygon key = {
+                    object
+                  }
+
+                  // aria-owns={open ? 'mouse-over-popover' : undefined}
+                  // aria-haspopup="true"
+                  // mouseover={handlePopoverOpen}
+                  // mouseout={handlePopoverClose}
+
+                  paths = {
+                    list_poly2[object]
+                  }
+                  onClick = {
+                    () => clickk(object)
+                  }
+                  options = {
+                    (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
+                  }
+                  />
+                  // <Popover
+                  //   id="mouse-over-popover"
+                  //   className={classes.popover}
+                  //   classes={{
+                  //     paper: classes.paper,
+                  //   }}
+                  //   open={open}
+                  //   anchorEl={anchorEl}
+                  //   anchorOrigin={{
+                  //     vertical: 'bottom',
+                  //     horizontal: 'left',
+                  //   }}
+                  //   transformOrigin={{
+                  //     vertical: 'top',
+                  //     horizontal: 'left',
+                  //   }}
+                  //   onClose={handlePopoverClose}
+                  //   disableRestoreFocus
+                  // >
+                  //   <Typography>I use Popover.</Typography>
+                  // </Popover>
+                  // </>
+                  )
+                }
+
+
+
+              })
+
+          }
+        
+           </GoogleMap >
+           
+          </LoadScript>
+          )
         }
-        path = {
-          object
         }
-        onClick = {
-          () => clickk(i)
-        }
-        options = {
-          (Array.isArray(mapProps.selectedItems) && mapProps.selectedItems.includes(i)) ? mapOptionsClicked : mapOptionsNotClicked
-        }
-        />
-
-      )
-
-    } <
-    >
-    < /> < /
-    GoogleMap > <
-    h1 > {
-      mapProps.ttest
-    } < /h1> < /
-    > <
-    /LoadScript>)
-
-  }
-  

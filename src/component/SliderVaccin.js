@@ -1,18 +1,13 @@
-import React,{useEffect,useState,useContext} from 'react';
-// import {
-//     useTheme
-// }
-import Slider from '@material-ui/core/Slider';
+import React from 'react';
 
-import { VaccinSelectedContext } from '../context/DataContext';
+import Slider from '@material-ui/core/Slider';
 
 import Typography from '@material-ui/core/Typography';
 
+import {subjectvac} from './observable/observable'
 
-export default function Slider_vaccin() {
+export default function SliderVaccin() {
     
-    const vaccin = useContext(VaccinSelectedContext);
-
     var marks = [
         {
           value: 0,
@@ -37,8 +32,7 @@ export default function Slider_vaccin() {
       ];
 
     const handleChange = (event, newValue) => {
-        console.log(newValue);
-        vaccin.setVaccinSelected(newValue);
+        subjectvac.next(newValue.toString());
     };
 
     return(
