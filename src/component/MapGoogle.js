@@ -277,6 +277,7 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
                   options = {
                     (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
                   }
+                  
                   />
                   // <Popover
                   //   id="mouse-over-popover"
