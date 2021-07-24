@@ -136,11 +136,11 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
   // const classes = useStyles();
   // var options=Component.defaultProps;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(false);
 
   const handlePopoverOpen = (event) => {
     console.log("qdgqdg");
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(event.domEvent.currentTarget);
   };
 
   const handlePopoverClose = () => {
@@ -156,17 +156,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
     selectedItem: 0
   });
   
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // const handlePopoverOpen = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const handlePopoverClose = () => {
-  //   setAnchorEl(null);
-  // };
-
-  // const open = Boolean(anchorEl);
 
   useEffect(() => {
     subjectregionswitch.subscribe({
@@ -217,7 +206,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
       <
       GoogleMap mapContainerStyle = {
         (zoom>5?containerStyle_petit:containerStyle)
-        
       }
 
       center = { center
@@ -258,11 +246,16 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
               else {
                 console.log("ttttt");
                 return ( 
-                  // <>
+                  <PolyPoly>
+                  </PolyPoly>
                   <Polygon key = {
                     object
                   }
-
+                  
+                  aria-owns={open ? "mouse-over-popover" : undefined}
+                  aria-haspopup="true"
+                  onMouseOut={(e)=>handlePopoverClose(e,object)}
+                  onMouseOver={(e)=>handlePopoverOpen(e,object)}
                   // aria-owns={open ? 'mouse-over-popover' : undefined}
                   // aria-haspopup="true"
                   // mouseover={handlePopoverOpen}
@@ -278,31 +271,8 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
                     (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
                   }
 
-
-                  
                   />
-                  // <Popover
-                  //   id="mouse-over-popover"
-                  //   className={classes.popover}
-                  //   classes={{
-                  //     paper: classes.paper,
-                  //   }}
-                  //   open={open}
-                  //   anchorEl={anchorEl}
-                  //   anchorOrigin={{
-                  //     vertical: 'bottom',
-                  //     horizontal: 'left',
-                  //   }}
-                  //   transformOrigin={{
-                  //     vertical: 'top',
-                  //     horizontal: 'left',
-                  //   }}
-                  //   onClose={handlePopoverClose}
-                  //   disableRestoreFocus
-                  // >
-                  //   <Typography>I use Popover.</Typography>
-                  // </Popover>
-                  // </>
+                  
                   )
                 }
 
@@ -313,6 +283,27 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
           }
         
            </GoogleMap >
+           <Popover
+                    id={"mouse-over-popover"}
+                    className={classes.popover}
+                    classes={{
+                      paper: classes.paper,
+                    }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                  >
+                    <Typography>I use Popover.</Typography>
+                  </Popover>
            
           </LoadScript>
           )
