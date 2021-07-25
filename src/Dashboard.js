@@ -108,14 +108,28 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(2),
+    flexWrap:'nowrap'
   },
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'column',
+  },
+  paper_row: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'visible',
+    flexDirection: 'row',
+  },
+  paper_droite: {
+    padding: theme.spacing(0),
+    display: 'flex',
+    overflow: 'visible',
+    flexDirection: 'column',
+    alignContent:'center'
   },
   containerprinc: {
     display: 'flex',
@@ -148,7 +162,8 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const radiovac = clsx(classes.fixedWidth);
+  const radiovac = clsx(classes.paper_row);
+  const paper_droite = clsx(classes.paper_droite);
   const fixedHeightPaperx3 = clsx(classes.paper, classes.fixedHeightx3);
 
   return (
@@ -178,14 +193,14 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container fixed className={classes.container}>
-          <Grid className={classes.container} item xs={12} md={8} lg={12}>
-            <Paper className={fixedHeightPaper} spacing={3}>
+          {/* <Grid id="container_1" className={classes.container}>
+            {/* <Paper className={fixedHeightPaper} spacing={3}> */}
               <Paper className={radiovac} spacing={3}>
                 <ToggleButtonPerso />
-                <Slider_zone />
+                
               </Paper>
-            </Paper>
-          </Grid>
+            {/* </Paper> */}
+          </Grid> */}
 
           <Grid id="AA" container className={classes.container} spacing={3}>
             {/* <Grid container spacing={3}> */}
@@ -193,7 +208,13 @@ export default function Dashboard() {
             <Grid id="BB" container direction="column" item xs={12} md={8} lg={12} spacing={3}>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper className={fixedHeightPaper}>
-
+                  <div id="entete_chart">
+                    <div id="div_slider">
+                    
+                    <Slider_zone />
+                    </div>
+                  <ToggleButtonPerso />
+                  </div>
                   <Chart />
 
 
@@ -201,20 +222,28 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper >
-                  <Map_google region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5} />
-                  {/* <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9.5}/> */}
-                  {/* <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9.5}/> */}
+                  <div id="wrap_map1">
+                    <Map_google region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5.1} />
+                    <div id="wrap_map2">
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9}/>
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9}/>
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9}/>
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9}/>
+                    
+                    </div>
+                  
                   {/* <SwitchMap /> */}
                   {/* <Slider_zone /> */}
+                  </div>
                 </Paper>
               </Grid>
 
             </Grid>
             <Grid item xs={12} md={8} lg={2}>
-              <Paper >
+              <Paper className={paper_droite} spacing={3} >
 
                 <Camembert />
-                {/* <Deposits /> */}
+                <Deposits />
               </Paper>
 
 
