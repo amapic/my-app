@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu'; 
+import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './component/Chart';
 import Deposits from './component/Deposits';
@@ -20,7 +20,7 @@ import Deposits from './component/Deposits';
 import Slider_zone from './component/Slider';
 import Map_google from './component/MapGoogle';
 import Slider_vaccin from './component/SliderVaccin';
-import {Camembert} from './component/PieChart';
+import { Camembert } from './component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButton, ToggleButtonPerso } from './component/RadioButton';
 
@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     boxsizing: 'border-box',
     padding: theme.spacing(2),
-    aligncontent:'flex-start'
+    aligncontent: 'flex-start'
   },
   fixedHeight: {
     height: 240,
@@ -150,7 +150,7 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const radiovac = clsx(classes.fixedWidth);
   const fixedHeightPaperx3 = clsx(classes.paper, classes.fixedHeightx3);
-  
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -177,60 +177,60 @@ export default function Dashboard() {
       </AppBar>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="xl" className={classes.container}>
-        <Grid className={classes.container} item xs={12} md={8} lg={12}>
-          <Paper className={fixedHeightPaper} spacing={3}>
-          <Paper className={radiovac} spacing={3}>
-            <ToggleButtonPerso />
-            <Slider_zone />
-          </Paper>
-          </Paper>
-        </Grid>
-        
-        <Grid id="AA" container direction="row" className={classes.container} spacing={3}>
-          {/* <Grid container spacing={3}> */}
+        <Container fixed className={classes.container}>
+          <Grid className={classes.container} item xs={12} md={8} lg={12}>
+            <Paper className={fixedHeightPaper} spacing={3}>
+              <Paper className={radiovac} spacing={3}>
+                <ToggleButtonPerso />
+                <Slider_zone />
+              </Paper>
+            </Paper>
+          </Grid>
+
+          <Grid id="AA" container className={classes.container} spacing={3}>
+            {/* <Grid container spacing={3}> */}
             {/* Chart */}
-            <Grid id="BB" container direction="column" item xs={12} md={8} lg={10} spacing={3}>
+            <Grid id="BB" container direction="column" item xs={12} md={8} lg={12} spacing={3}>
               <Grid item xs={12} md={8} lg={12} >
-                <Paper className={fixedHeightPaper} spacing={3}>
-                  
-                    <Chart />
-                    
-                  
+                <Paper className={fixedHeightPaper}>
+
+                  <Chart />
+
+
                 </Paper>
               </Grid>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper >
-                <Map_google region_excluded={["1","2","3","4"]} center={{lat: 46.7833,lng: 3.0833}} zoom={5}/>
-                <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9.5}/>
-                <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9.5}/>
-                {/* <SwitchMap /> */}
-                {/* <Slider_zone /> */}
+                  <Map_google region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5} />
+                  {/* <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9.5}/> */}
+                  {/* <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9.5}/> */}
+                  {/* <SwitchMap /> */}
+                  {/* <Slider_zone /> */}
                 </Paper>
               </Grid>
-              
+
             </Grid>
             <Grid item xs={12} md={8} lg={2}>
               <Paper >
-                
+
                 <Camembert />
                 {/* <Deposits /> */}
               </Paper>
 
-              
+
             </Grid>
             {/* <Grid item xs={12} md={8} lg={6}>
               
             </Grid> */}
           </Grid>
           {/* </Grid> */}
-            {/* </Grid> 
+          {/* </Grid> 
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Slider_zone />
               </Paper>
             </Grid> */}
-          
+
           <Box pt={4}>
             <Copyright />
           </Box>

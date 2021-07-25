@@ -15,6 +15,7 @@ import {
 
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import Popoverwrap from './Popoverwrap';
 
 const mapStyles2 = [
 
@@ -209,7 +210,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
       }
 
       center = { center
-        
       }
       zoom = {
         zoom
@@ -244,34 +244,9 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
                 />)
               }
               else {
-                console.log("ttttt");
                 return ( 
-                  <PolyPoly>
-                  </PolyPoly>
-                  <Polygon key = {
-                    object
-                  }
-                  
-                  aria-owns={open ? "mouse-over-popover" : undefined}
-                  aria-haspopup="true"
-                  onMouseOut={(e)=>handlePopoverClose(e,object)}
-                  onMouseOver={(e)=>handlePopoverOpen(e,object)}
-                  // aria-owns={open ? 'mouse-over-popover' : undefined}
-                  // aria-haspopup="true"
-                  // mouseover={handlePopoverOpen}
-                  // mouseout={handlePopoverClose}
-
-                  paths = {
-                    list_poly2[object]
-                  }
-                  onClick = {
-                    () => clickk(object)
-                  }
-                  options = {
-                    (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
-                  }
-
-                  />
+                  <Popoverwrap object={object} paths={list_poly2[object]}/>
+                
                   
                   )
                 }
@@ -283,27 +258,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [],z
           }
         
            </GoogleMap >
-           <Popover
-                    id={"mouse-over-popover"}
-                    className={classes.popover}
-                    classes={{
-                      paper: classes.paper,
-                    }}
-                    open={open}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
-                    }}
-                    onClose={handlePopoverClose}
-                    disableRestoreFocus
-                  >
-                    <Typography>I use Popover.</Typography>
-                  </Popover>
            
           </LoadScript>
           )
