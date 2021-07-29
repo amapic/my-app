@@ -20,7 +20,7 @@ export function ToggleButtonPerso (){
         <br />
         <ButtonGroup className="mb-2">
           {radios.map((radio, idx) => {
-              // console.log(radio);
+              
               return (
             <ToggleButton
               key={idx}

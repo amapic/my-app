@@ -14,32 +14,21 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Chart from './component/Chart';
-import Deposits from './component/Deposits';
+import Chart from '../component/Chart';
+import Deposits from '../component/Deposits';
 
-import Slider_zone from './component/Slider';
-import Map_google from './component/MapGoogle';
-import Slider_vaccin from './component/SliderVaccin';
-import { Camembert } from './component/PieChart';
+import Slider_zone from '../component/Slider';
+import Map_google from '../component/MapGoogle';
+// import Slider_vaccin from './component/SliderVaccin';
+import { Camembert } from '../component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
-import { ToggleButton, ToggleButtonPerso } from './component/RadioButton';
+import { ToggleButton, ToggleButtonPerso } from '../component/RadioButton';
 
-import { SwitchMap } from './component/SwitchMap';
+import { SwitchMap } from '../component/SwitchMap';
+
+import Title from '../component/Title';
 
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 0;
 
@@ -122,23 +111,29 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'visible',
-    flexDirection: 'row',
+    flexDirection: 'row'
+    
   },
   paper_droite: {
-    padding: theme.spacing(0),
+    padding: theme.spacing(2),
+    // paddingRight: theme.spacing(1),
+    // paddingLeft: theme.spacing(1),
+    // paddingBottom:theme.spacing(4),
+    // paddingTop:theme.spacing(2),
+    marginBottom:theme.spacing(2),
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'column',
-    alignContent:'center'
+    alignContent:'center',
+    boxSizing: 'border-box'
   },
   containerprinc: {
-    display: 'flex',
-    boxsizing: 'border-box',
-    padding: theme.spacing(2),
-    aligncontent: 'flex-start'
+    paddingTop:theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    flexWrap:'nowrap'
   },
   fixedHeight: {
-    height: 240,
+    height: 280,
   },
   fixedWidth: {
     width: 600,
@@ -166,6 +161,7 @@ export default function Dashboard() {
   const paper_droite = clsx(classes.paper_droite);
   const fixedHeightPaperx3 = clsx(classes.paper, classes.fixedHeightx3);
 
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -181,7 +177,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+          Chiffres sur la vaccination en France
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -192,16 +188,7 @@ export default function Dashboard() {
       </AppBar>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container fixed className={classes.container}>
-          {/* <Grid id="container_1" className={classes.container}>
-            {/* <Paper className={fixedHeightPaper} spacing={3}> */}
-              <Paper className={radiovac} spacing={3}>
-                <ToggleButtonPerso />
-                
-              </Paper>
-            {/* </Paper> */}
-          </Grid> */}
-
+        <Container className={classes.containerprinc}>
           <Grid id="AA" container className={classes.container} spacing={3}>
             {/* <Grid container spacing={3}> */}
             {/* Chart */}
@@ -225,8 +212,8 @@ export default function Dashboard() {
                   <div id="wrap_map1">
                     <Map_google region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5.1} />
                     <div id="wrap_map2">
-                      <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9}/>
-                      <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9}/>
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.5}} zoom={8.5}/>
+                      <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={8.9}/>
                       <Map_google region_included={["1","2","3","4"]} center={{lat: 16.15,lng: -61.6}} zoom={9}/>
                       <Map_google region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={9}/>
                     
@@ -239,10 +226,12 @@ export default function Dashboard() {
               </Grid>
 
             </Grid>
-            <Grid item xs={12} md={8} lg={2}>
+            <Grid id="CC" container direction="column" xs={12} md={8} lg={2} >
               <Paper className={paper_droite} spacing={3} >
-
+              
                 <Camembert />
+              </Paper>
+              <Paper className={paper_droite} spacing={3} >
                 <Deposits />
               </Paper>
 
@@ -260,9 +249,7 @@ export default function Dashboard() {
               </Paper>
             </Grid> */}
 
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          
         </Container>
       </main>
     </div>

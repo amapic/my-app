@@ -13,9 +13,9 @@ code {
 }
 
 .gmnoprint
-
 {display:none;}
 
-a[href^="http://maps.google.com/maps"]{display:none !important}
+
+a[href^="https://maps.google.com/maps"]{display:none !important}
 
 

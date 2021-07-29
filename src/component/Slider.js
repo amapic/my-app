@@ -67,7 +67,7 @@ export default function SliderZone() {
 </Typography> 
 
 <Slider
-  
+  // valueLabelDisplay
   defaultValue={[1608359008,1626330208]}
   valueLabelDisplay="off"
   min={range.min_text}

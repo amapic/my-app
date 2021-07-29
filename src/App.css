@@ -12,6 +12,72 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+label[id^="radio-"] {
+  font-size: 12px;
+}
+
+#div_slider .MuiTypography-root {
+  display: none!important;
+}
+
+.MuiLinearProgress-root{
+  /* width:80% !important; */
+/* padding:0px 0px 0px 0px; */
+/* margin:0px 0px 0px 0px; */
+
+}
+
+.btn-group {
+  width:45%;
+  flex-wrap: nowrap;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  max-height: 40px;
+}
+
+.btn-secondary {
+  padding: 0px 0px 0px 0px !important;
+
+}
+
+#entete_chart {
+  display:flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  align-items: center;
+}
+
+#BB{
+  flex-wrap: nowrap;
+}
+
+#CC{
+  margin-top: 12px;
+}
+.MuiSlider-markLabel{
+  top:17px !important;
+}
+
+#div_slider{
+  padding: 0px 0px 0px 0px;
+  width:45%;
+  max-height: 50px;
+}
+
+#wrap_map1{
+  display:flex;
+  flex-direction: row;
+  height: 100%;
+  /* flex-wrap: nowrap; */
+}
+
+#wrap_map2{
+  /* padding: 0px 30px 0px 30px; */
+  display:flex;
+  flex-direction: column;
+  /* width:50px; */
+}
+
 
 .App-header {
   background-color: #282c34;

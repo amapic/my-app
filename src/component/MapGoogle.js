@@ -80,19 +80,15 @@ const mapStyles2 = [
 
 ];
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '800px',
+  height: '800px'
 };
 
 const containerStyle_petit = {
-  width: '200px',
-  height: '200px'
+  width: '100px',
+  height: '100px'
 };
 
-const center = {
-  lat: 46.7833,
-  lng: 3.0833
-};
 
 const options_style = {
   draggable: false,

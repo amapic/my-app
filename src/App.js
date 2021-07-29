@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 
 function App() {
   return (
