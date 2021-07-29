@@ -9,14 +9,14 @@ import {
   Polygon,
   LoadScript
 } from '@react-google-maps/api';
-import list_poly from "../fonction/region_load"
+// import list_poly from "../fonction/region_load"
 import {
   subjectregion,subjectregionswitch
 } from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import { Camembert2 } from './PieChart';
+// import Typography from '@material-ui/core/Typography';
+// import { Camembert2 } from './PieChart';
 
 const chercheData = async (url) => {
 
@@ -53,17 +53,43 @@ const mapOptionsNotClicked = {
   fillOpacity: 0.35,
   polygonKey: 1
 }
-// import { useState } from 'react'
+
+const useStyles = makeStyles((theme) => ({
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
+}));
+
+const handlePopoverOpen = (event,region,open,setAnchorEl) => {
+  if (!open){
+    setAnchorEl({a:event.domEvent.currentTarget,b:event.domEvent.pageX,c:event.domEvent.pageY,d:"rr"});
+  }
+};
+
+const handlePopoverClose = (open,setAnchorEl) => {
+  if (open){
+    setAnchorEl({a:null,b:null,c:0,d:""});
+  }
+};
+
+const clickk = function (i,mapProps) {
+
+  let listeRegion = mapProps.selectedItems
+  if (listeRegion.includes(i)) {
+    if (listeRegion.length > 1) {
+      listeRegion = listeRegion.filter(item => item !== i)
+    }
+  } else {
+    listeRegion.push(i)
+  }
+  subjectregion.next(listeRegion)
+}
+
 export default function Popoverwrap({object,paths}){
-  const useStyles = makeStyles((theme) => ({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }));
-  console.log('rr');
+  
   const myContainer = useRef(null);
 
   useEffect(() => {
@@ -71,13 +97,11 @@ export default function Popoverwrap({object,paths}){
         next: (v) =>{ 
           if (v.includes(object)){
             setmapProps({
-              selected: true,
               selectedItems: v,
               etat: "pas_init"
               })
           }else{
             setmapProps({
-              selected: false,
               selectedItems: v,
               etat: "pas_init"
               })}
@@ -89,34 +113,8 @@ export default function Popoverwrap({object,paths}){
   const [anchorEl, setAnchorEl] = React.useState({a:false,b:0,c:0,d:""});
   const [mapProps, setmapProps] = useState({
     etat: "init",
-    selectedItems: ["11"],
-    selected: false
+    selectedItems: ["11"]
   });
-
-  const handlePopoverOpen = (event,region) => {
-    if (!open){
-      setAnchorEl({a:event.domEvent.currentTarget,b:event.domEvent.pageX,c:event.domEvent.pageY,d:"rr"});
-    }
-  };
-
-  const handlePopoverClose = () => {
-    if (open){
-      setAnchorEl({a:null,b:null,c:0,d:""});
-    }
-  };
-
-  const clickk = function (i) {
-
-    let listeRegion = mapProps.selectedItems
-    if (listeRegion.includes(i)) {
-      if (listeRegion.length > 1) {
-        listeRegion = listeRegion.filter(item => item !== i)
-      }
-    } else {
-      listeRegion.push(i)
-    }
-    subjectregion.next(listeRegion)
-  }
 
   const open = Boolean(anchorEl.b);
 
@@ -126,15 +124,15 @@ export default function Popoverwrap({object,paths}){
     }
       aria-owns={open ? "mouse-over-popover" : undefined}
       aria-haspopup="true"
-      onMouseOut={(e) => handlePopoverClose(e, object)}
-      onMouseOver={(e) => handlePopoverOpen(e, object)}
+      onMouseOut={(e) => handlePopoverClose(e, object,open,setAnchorEl)}
+      onMouseOver={(e) => handlePopoverOpen(e, object,open,setAnchorEl)}
 
       ref={myContainer}
       paths={
         paths
       }
       onClick={
-        () => clickk(object)
+        () => clickk(object,mapProps)
       }
       options={
         (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
