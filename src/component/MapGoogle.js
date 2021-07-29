@@ -13,6 +13,7 @@ import {
 } from './observable/observable'
 
 import Popoverwrap from './Popoverwrap';
+import PopoverwrapLogic from './PopoverwrapLogic';
 
 const mapStyles2 = [
 
@@ -77,8 +78,8 @@ const mapStyles2 = [
 
 ];
 const containerStyle = {
-  width: '800px',
-  height: '800px'
+  width: '400px',
+  height: '400px'
 };
 
 const containerStyle_petit = {
@@ -112,9 +113,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {} }) {
  
-  const [anchorEl, setAnchorEl] = React.useState(false);
+  // const [anchorEl, setAnchorEl] = React.useState(false);
+  const [ loaded, setLoaded ] = useState(false);
 
-
+  useEffect(() => {
+    setLoaded(true);
+  });
 
 
   const [mapProps, setmapProps] = useState({
@@ -149,16 +153,20 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
     keys = keys.filter(item => region_included.includes(item))
   }
 
-
-  if (mapProps.etat === "init") {
+  if (!loaded){
+    console.log("AA",Date.now())
+    return <img src = "./img/circles.svg" />
+  }
+  else if (mapProps.etat === "init" || !loaded) {
     return null
   } else {
+    console.log(">BB",Date.now(),loaded)
     return (<
       LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 
       <
         GoogleMap mapContainerStyle={
-          (zoom > 5 ? containerStyle_petit : containerStyle)
+          (zoom > 5.2 ? containerStyle_petit : containerStyle)
         }
 
         center={center
@@ -177,8 +185,8 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
 
 
             return (
-              <Popoverwrap object={object} paths={list_poly2[object]} />
-
+              <PopoverwrapLogic key={object} object={object} paths={list_poly2[object]} />
+              // null
 
             )
           })
