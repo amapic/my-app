@@ -1,19 +1,12 @@
 import React, {
-  Component,
-  useState,
-  useEffect,
   useRef
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  GoogleMap,
-  Polygon,
-  LoadScript
-} from '@react-google-maps/api';
+  Polygon} from '@react-google-maps/api';
 // import list_poly from "../fonction/region_load"
 import {
-  subjectregion, subjectregionswitch
-} from './observable/observable'
+  subjectregion} from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
 // import Typography from '@material-ui/core/Typography';
@@ -24,7 +17,7 @@ const mapOptionsClicked = {
   strokeColor: "#212527",
   strokeOpacity: 0.8,
   strokeWeight: 2,
-  fillColor: "#0088FE",
+  fillColor: "rgb(0, 136, 254)",
   fillOpacity: 0.35,
   polygonKey: 1
 }
@@ -37,6 +30,16 @@ const mapOptionsNotClicked = {
   fillOpacity: 0.35,
   polygonKey: 1
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
+}));
 
 const clickk = function (i, mapProps) {
 
@@ -51,15 +54,6 @@ const clickk = function (i, mapProps) {
   subjectregion.next(listeRegion)
 }
 
-const useStyles = makeStyles((theme) => ({
-  popover: {
-    pointerEvents: 'none',
-  },
-  paper: {
-    padding: theme.spacing(1),
-  },
-}));
-
 
 
 
@@ -69,7 +63,6 @@ export default function Popoverwrap(props) {
   const myContainer = useRef(null);
   const { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }=props
 
-  // const [object, paths, mapProps, anchorEl,open,handlePopoverClose,handlePopoverOpen]=PopoverwrapLogic()
 
   const classes = useStyles();
 

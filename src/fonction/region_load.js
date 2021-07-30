@@ -47,11 +47,9 @@ DATA.features.forEach(function (item,i) {
 		return list;
 	  }, []);
 	});
-	// console.log(paths.length);
 	paths_list.push(paths[0]); //[0]iitialement
 }		
 // list_poly[item.properties.code]=paths_list;
-  	    // console.log(item.properties.code);
 	  if (paths_list.length === 1) {
 		list_poly[item.properties.code]=paths_list[0];
 	  }else{

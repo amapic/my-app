@@ -8,12 +8,8 @@ const chercheData = async (url) => {
 
   const response = await fetch(url);
   const responseData = await response.json();
-  console.log(response)
-  console.log(responseData)
-  console.log(url)
 
   if (response.ok) {
-    console.log("ok");
     return responseData
 
   } else {
@@ -34,6 +30,17 @@ const PopoverwrapLogic = ({object, paths}) => {
     etat: "init",
     selectedItems: ["11"]
   });
+
+  useEffect(() => {
+    subjectregionswitch.subscribe({
+      next: (v) => {
+        setmapProps({
+          selectedItems: v,
+          etat: "pas_init"
+        })
+      }
+    });
+  }, [])
 
   const open = Boolean(anchorEl.b);
 
@@ -56,9 +63,6 @@ const PopoverwrapLogic = ({object, paths}) => {
   }, [])
 
   const handlePopoverOpen = (event) => {
-    // "region-poly-" + object
-    console.log(hovered);
-    console.log(lasttimestamp);
     if (!hovered){
       hovered=true;
     };

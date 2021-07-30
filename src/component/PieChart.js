@@ -14,12 +14,8 @@ const chercheData = async (url) => {
 
     const response = await fetch(url);
     const responseData = await response.json();
-    console.log(response)
-    console.log(responseData)
-    console.log(url)
 
     if (response.ok) {
-        console.log("ok");
         return responseData
 
     } else {

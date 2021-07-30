@@ -112,13 +112,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {} }) {
- 
-  // const [anchorEl, setAnchorEl] = React.useState(false);
-  const [ loaded, setLoaded ] = useState(false);
 
-  useEffect(() => {
-    setLoaded(true);
-  });
+  // const [anchorEl, setAnchorEl] = React.useState(false);
+  // const [loaded, setLoaded] = useState(false);
+
+  // useEffect(() => {
+  //   setLoaded(true);
+  // });
 
 
   const [mapProps, setmapProps] = useState({
@@ -126,19 +126,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
     selectedItems: ["11"],
     selectedItem: 0
   });
-
-
-  useEffect(() => {
-    subjectregionswitch.subscribe({
-      next: (v) => {
-        setmapProps({
-          selectedItem: 0,
-          selectedItems: v,
-          etat: "pas_init"
-        })
-      }
-    });
-  }, [])
 
 
   const list_poly2 = list_poly
@@ -153,14 +140,12 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
     keys = keys.filter(item => region_included.includes(item))
   }
 
-  if (!loaded){
-    console.log("AA",Date.now())
-    return <img src = "./img/circles.svg" />
-  }
-  else if (mapProps.etat === "init" || !loaded) {
-    return null
-  } else {
-    console.log(">BB",Date.now(),loaded)
+  // if (!loaded) {
+  //   return <img src="./img/circles.svg" />
+  // }
+  // if (mapProps.etat === "init") {
+  //   return null
+  // } else {
     return (<
       LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 
@@ -186,7 +171,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
 
             return (
               <PopoverwrapLogic key={object} object={object} paths={list_poly2[object]} />
-              // null
 
             )
           })
@@ -195,5 +179,5 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
       </GoogleMap >
 
     </LoadScript>)
-  }
+  // }
 }

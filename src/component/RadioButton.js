@@ -14,7 +14,6 @@ export function ToggleButtonPerso (){
         subjectvac.next(newValue);
     };
 
-    console.log(radios);
     return (
       <>
         <br />

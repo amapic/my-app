@@ -41,7 +41,7 @@ liste_id_region["Corse"]="94"
 export function conversionkey(obj){
     var new_obj=[]
     const keys = Object.keys(obj);
-    keys.map((object, i) =>{
+    keys.map((object) =>{
         new_obj[liste_nom_region[object.toString()]]=obj[object]
     })
 
@@ -55,20 +55,14 @@ function createData(time, amount) {
     };
 }
 
-export function setDataLim(data){
-console.log(data);
-   console.log(data.jour);
-    console.log(data.timestamp);
+export function setDataLim(){
 
 }
 
 export async function getdata(url) {
     const response = await fetch(url)
     const responseData = await response.json()
-    console.log(response)
-    console.log(responseData)
     if (response.ok) {
-        console.log("ok");
         var data = [];
     var arrayTime = [];
     var arrayAmount = [];

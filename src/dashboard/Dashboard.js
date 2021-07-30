@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'; 
+// , { Suspense, lazy }
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,8 +28,10 @@ import { ToggleButton, ToggleButtonPerso } from '../component/RadioButton';
 import { SwitchMap } from '../component/SwitchMap';
 
 import Title from '../component/Title';
+import Maps from '../component/Maps'
+// const Maps = lazy(() => import('../component/Maps'));
 
-
+import Data_carre_logique from '../component/Data_carre'
 
 const drawerWidth = 0;
 
@@ -99,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(2),
-    flexWrap:'nowrap'
+    flexWrap: 'nowrap'
   },
   paper: {
     padding: theme.spacing(2),
@@ -112,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'row'
-    
+
   },
   paper_droite: {
     padding: theme.spacing(2),
@@ -120,17 +123,17 @@ const useStyles = makeStyles((theme) => ({
     // paddingLeft: theme.spacing(1),
     // paddingBottom:theme.spacing(4),
     // paddingTop:theme.spacing(2),
-    marginBottom:theme.spacing(2),
+    marginBottom: theme.spacing(2),
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'column',
-    alignContent:'center',
+    alignContent: 'center',
     boxSizing: 'border-box'
   },
   containerprinc: {
-    paddingTop:theme.spacing(2),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    flexWrap:'nowrap'
+    flexWrap: 'nowrap'
   },
   fixedHeight: {
     height: 280,
@@ -177,7 +180,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          Chiffres sur la vaccination en France
+            Chiffres sur la vaccination en France
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -197,10 +200,10 @@ export default function Dashboard() {
                 <Paper className={fixedHeightPaper}>
                   <div id="entete_chart">
                     <div id="div_slider">
-                    
-                    <Slider_zone />
+
+                      <Slider_zone />
                     </div>
-                  <ToggleButtonPerso />
+                    <ToggleButtonPerso />
                   </div>
                   <Chart />
 
@@ -209,40 +212,31 @@ export default function Dashboard() {
               </Grid>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper >
-                  <div id="wrap_map1">
-                    <Map_google key="a" region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5.1} />
-                    <div id="wrap_map2">
-                      <Map_google key="b" region_included={["1","2","3","4"]} center={{lat: 16.2,lng: -61.5}} zoom={7.4}/>
-                      <Map_google key="c" region_included={["1","2","3","4"]} center={{lat: 14.6,lng: -61}} zoom={8}/>
-                      <Map_google key="d" region_included={["1","2","3","4"]} center={{lat: 3.59,lng: -53}} zoom={5.4}/>
-                      <Map_google key="e" region_included={["1","2","3","4"]} center={{lat: -21.1,lng: 55.5}} zoom={7}/>
-                    
-                    </div>
-                  
-                  {/* <SwitchMap /> */}
-                  {/* <Slider_zone /> */}
-                  </div>
+               
+                    <Maps/>
+                  <SwitchMap />
+                  {/* <Data_carre_logique/> */}
                 </Paper>
-              </Grid>
-
             </Grid>
-            <Grid id="CC" container direction="column" xs={12} md={8} lg={2} >
-              <Paper className={paper_droite} spacing={3} >
-              
-                <Camembert />
-              </Paper>
-              <Paper className={paper_droite} spacing={3} >
-                <Deposits />
-              </Paper>
+
+          </Grid>
+          <Grid id="CC" container direction="column" xs={12} md={8} lg={2} >
+            <Paper className={paper_droite} spacing={3} >
+
+              <Camembert />
+            </Paper>
+            <Paper className={paper_droite} spacing={3} >
+              <Deposits />
+            </Paper>
 
 
-            </Grid>
-            {/* <Grid item xs={12} md={8} lg={6}>
+          </Grid>
+          {/* <Grid item xs={12} md={8} lg={6}>
               
             </Grid> */}
           </Grid>
-          {/* </Grid> */}
-          {/* </Grid> 
+        {/* </Grid> */}
+        {/* </Grid> 
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Slider_zone />
@@ -252,6 +246,6 @@ export default function Dashboard() {
           
         </Container>
       </main>
-    </div>
+    </div >
   );
 }
