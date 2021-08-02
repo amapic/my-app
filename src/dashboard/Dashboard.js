@@ -1,5 +1,5 @@
-import React from 'react'; 
-// , { Suspense, lazy }
+import React,{ Suspense, lazy } from 'react'; 
+// , 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -31,7 +31,7 @@ import Title from '../component/Title';
 import Maps from '../component/Maps'
 // const Maps = lazy(() => import('../component/Maps'));
 
-import Data_carre_logique from '../component/Data_carre'
+import Data_carre_logique from '../component/Data_carre_logique'
 
 const drawerWidth = 0;
 
@@ -195,7 +195,7 @@ export default function Dashboard() {
           <Grid id="AA" container className={classes.container} spacing={3}>
             {/* <Grid container spacing={3}> */}
             {/* Chart */}
-            <Grid id="BB" container direction="column" item xs={12} md={8} lg={12} spacing={3}>
+            <Grid id="BB"  direction="column" item xs={12} md={8} lg={12} spacing={3}>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper className={fixedHeightPaper}>
                   <div id="entete_chart">
@@ -206,21 +206,23 @@ export default function Dashboard() {
                     <ToggleButtonPerso />
                   </div>
                   <Chart />
-
+                  
 
                 </Paper>
               </Grid>
               <Grid item xs={12} md={8} lg={12} >
                 <Paper >
-               
+                {/* <Suspense fallback={<div>Loading Component</div>}> */}
                     <Maps/>
-                  <SwitchMap />
-                  {/* <Data_carre_logique/> */}
+                    <Data_carre_logique/>
+                    {/* </Suspense> */}
+                  {/* <SwitchMap /> */}
+                  
                 </Paper>
             </Grid>
 
           </Grid>
-          <Grid id="CC" container direction="column" xs={12} md={8} lg={2} >
+          <Grid id="CC" container direction="column"  >
             <Paper className={paper_droite} spacing={3} >
 
               <Camembert />

@@ -111,14 +111,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {} }) {
+export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {} ,list_poly2}) {
 
   // const [anchorEl, setAnchorEl] = React.useState(false);
   // const [loaded, setLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   setLoaded(true);
-  // });
+  useEffect(() => {
+    // setLoaded(true);
+  });
 
 
   const [mapProps, setmapProps] = useState({
@@ -128,7 +128,7 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   });
 
 
-  const list_poly2 = list_poly
+  // const list_poly2 = list_poly
   var keys = Object.keys(list_poly2);
   if (region_excluded.length > 0) {
     keys = keys.filter(item => {
@@ -140,9 +140,7 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
     keys = keys.filter(item => region_included.includes(item))
   }
 
-  // if (!loaded) {
-  //   return <img src="./img/circles.svg" />
-  // }
+
   // if (mapProps.etat === "init") {
   //   return null
   // } else {

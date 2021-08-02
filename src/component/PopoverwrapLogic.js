@@ -24,7 +24,7 @@ const chercheData = async (url) => {
 const PopoverwrapLogic = ({object, paths}) => {
   // const []=
   var hovered=false;
-  var lasttimestamp=0;
+  // var lasttimestamp=0;
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({
     etat: "init",
@@ -45,8 +45,8 @@ const PopoverwrapLogic = ({object, paths}) => {
   const open = Boolean(anchorEl.b);
 
   useEffect(() => {
-    subjectregion.subscribe({
-      next: (v) => {
+    subjectregion.subscribe(
+      v=> {
         if (v.includes(object)) {
           setmapProps({
             selectedItems: v,
@@ -59,31 +59,31 @@ const PopoverwrapLogic = ({object, paths}) => {
           })
         }
       }
-    });
+    );
   }, [])
 
   const handlePopoverOpen = (event) => {
     if (!hovered){
-      hovered=true;
+      // hovered=true;
     };
    
       if (!open) {
         setTimeout(
         chercheData("http://localhost:8052/bilan_par_region_dose1/"+object).then((x)=>{
           if (hovered){
-            x=(x.value*100).toFixed(2) + "%"
-            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: x});
+            var y=(x*100).toFixed(2) + "%"
+            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y});
           }
       }),1000);
       }
-    // }
+   
   };
 
   const handlePopoverClose = () => {
-    lasttimestamp=0
+    // lasttimestamp=0
     hovered=false;
     if (open) {
-      setAnchorEl({ a: null, b: null, c: 0, d: "" });
+      setAnchorEl({ a: null, b: 0, c: 0, d: "" });
     }
   };
 

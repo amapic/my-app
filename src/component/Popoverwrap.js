@@ -4,14 +4,10 @@ import React, {
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Polygon} from '@react-google-maps/api';
-// import list_poly from "../fonction/region_load"
 import {
   subjectregion} from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
-// import Typography from '@material-ui/core/Typography';
-// import { Camembert2 } from './PieChart';
-// import PopoverwrapLogic from './PopoverwrapLogic';
 
 const mapOptionsClicked = {
   strokeColor: "#212527",

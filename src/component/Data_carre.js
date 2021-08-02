@@ -1,8 +1,8 @@
 import { Treemap } from 'recharts'
-import React from 'react'
+import React,{useState} from 'react'
 import shortid from 'shortid';
-export default function DDD(){
-
+export default function Data_carre(data2){
+ const [x,setx]=useState();
   const data = [
     {
       "name": "axis",
@@ -352,7 +352,7 @@ export default function DDD(){
     key={shortid.generate()}
       width={730}
       height={250}
-      data={data}
+      data={data2}
       dataKey="size"
       ratio={4 / 3}
       stroke="#fff"
