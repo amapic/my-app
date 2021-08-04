@@ -1,6 +1,6 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  subjectregion,subjectregionswitch
+  subjectregion, subjectregionswitch
 } from './observable/observable'
 import Popoverwrap from './Popoverwrap';
 
@@ -21,9 +21,9 @@ const chercheData = async (url) => {
 
 
 
-const PopoverwrapLogic = ({object, paths}) => {
+const PopoverwrapLogic = ({ object, paths }) => {
   // const []=
-  var hovered=false;
+  var hovered = false;
   // var lasttimestamp=0;
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({
@@ -46,7 +46,7 @@ const PopoverwrapLogic = ({object, paths}) => {
 
   useEffect(() => {
     subjectregion.subscribe(
-      v=> {
+      v => {
         if (v.includes(object)) {
           setmapProps({
             selectedItems: v,
@@ -63,32 +63,40 @@ const PopoverwrapLogic = ({object, paths}) => {
   }, [])
 
   const handlePopoverOpen = (event) => {
-    if (!hovered){
-      // hovered=true;
+    if (!hovered) {
+      hovered=true;
     };
-   
-      if (!open) {
-        setTimeout(
-        chercheData("http://localhost:8052/bilan_par_region_dose1/"+object).then((x)=>{
-          if (hovered){
-            var y=(x*100).toFixed(2) + "%"
-            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y});
+
+    if (!open) {
+      let timer1 = setTimeout(
+        chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((x) => {
+          if (hovered) {
+            var y = (x * 100).toFixed(2) + "%"
+            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y });
           }
-      }),1000);
-      }
-   
+        }), 1000);
+
+      clearTimeout(timer1)
+
+    }
+
   };
 
   const handlePopoverClose = () => {
     // lasttimestamp=0
-    hovered=false;
+    ;
+    // let timer2 = setTimeout({
     if (open) {
       setAnchorEl({ a: null, b: 0, c: 0, d: "" });
+      hovered = false
     }
+    // },1000)
+
+    // clearTimeout(timer2)
   };
 
-  const props={object, paths, mapProps, anchorEl,open,handlePopoverClose,handlePopoverOpen}
-  return (<Popoverwrap key={object} {...props}/>)
+  const props = { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }
+  return (<Popoverwrap key={object} {...props} />)
 
 }
 export default PopoverwrapLogic;

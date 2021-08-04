@@ -106,34 +106,34 @@ export default function Chart(props) {
     }, [])
 
     useEffect(() => {
-        subjectregion.subscribe(
-                v=>{
-                            let re = subjectvac.getValue()
-                            v = v.join('_')
-                            let rr = subjectrange.getValue()
-                            let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
+    //     subjectregion.subscribe(
+    //             v=>{
+    //                         let re = subjectvac.getValue()
+    //                         v = v.join('_')
+    //                         let rr = subjectrange.getValue()
+    //                         let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
             
-                            if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
-                                chercheData(url).then((tt) =>
-                                    setItems(tt));
-                            }
-    })
-        // subjectregion.subscribe({
-        //     next: (v) => {
-        //         let re = subjectvac.getValue()
-        //         v = v.join('_')
-        //         let rr = subjectrange.getValue()
-        //         let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
+    //                         if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
+    //                             chercheData(url).then((tt) =>
+    //                                 setItems(tt));
+    //                         }
+    // })
+        subjectregion.subscribe({
+            next: (v) => {
+                let re = subjectvac.getValue()
+                v = v.join('_')
+                let rr = subjectrange.getValue()
+                let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
 
-        //         // console.log(url);
-        //         if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
-        //             chercheData(url).then((tt) =>
-        //                 setItems(tt));
-        //         }
+                // console.log(url);
+                if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
+                    chercheData(url).then((tt) =>
+                        setItems(tt));
+                }
 
 
-        //     }
-        // });
+            }
+        });
 
     }, [])
 
@@ -191,12 +191,6 @@ export default function Chart(props) {
 
                         }
 
-                        {/* <Line type="monotone" dataKey="2" stroke="#556CD6" dot={false} />  */}
-                        {/* } */}
-                        {/* <Line type="monotone" dataKey="amount2" stroke="#556CD6" dot={false} /> */}
-                        {/* < Line type = "monotone" dataKey = "1" stroke = {
-            theme.palette.primary.main
-        }/> */}
 
                         < XAxis dataKey="time" stroke={
                             theme.palette.text.secondary
@@ -209,7 +203,6 @@ export default function Chart(props) {
                                 position="left"
                                 style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
                             >
-                                {/* Vaccination */}
                             </Label >
                             <  / YAxis >
 

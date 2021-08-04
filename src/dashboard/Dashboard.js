@@ -1,5 +1,5 @@
-import React,{ Suspense, lazy } from 'react'; 
-// , 
+import React from 'react'; 
+// , ,{ unstable_Profiler as Profiler}
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -150,6 +150,19 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Dashboard() {
+  function onRenderCallback(
+    id, // the "id" prop of the Profiler tree that has just committed
+    phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
+    actualDuration, // time spent rendering the committed update
+    baseDuration, // estimated time to render the entire subtree without memoization
+    startTime, // when React began rendering this update
+    commitTime, // when React committed this update
+    interactions // the Set of interactions belonging to this update
+  ) {
+    // Aggregate or log render timings...
+    console.log(phase)
+  }
+  const Profiler = React.unstable_Profiler;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -200,8 +213,9 @@ export default function Dashboard() {
                 <Paper className={fixedHeightPaper}>
                   <div id="entete_chart">
                     <div id="div_slider">
-
+                    {/* <Profiler id="Navigation" onRender={onRenderCallback}> */}
                       <Slider_zone />
+                      {/* </Profiler> */}
                     </div>
                     <ToggleButtonPerso />
                   </div>
@@ -214,7 +228,7 @@ export default function Dashboard() {
                 <Paper >
                 {/* <Suspense fallback={<div>Loading Component</div>}> */}
                     <Maps/>
-                    <Data_carre_logique/>
+                    {/* <Data_carre_logique/> */}
                     {/* </Suspense> */}
                   {/* <SwitchMap /> */}
                   
