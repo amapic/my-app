@@ -34,11 +34,6 @@ export default function Data_carre_logique() {
           let promises = [];
           v.map((object, i) => {
             promises.push(chercheData("http://localhost:8052/bilan_par_region_dose1/" + object.toString()))
-            // .then((x) => {
-            //  console.log(x);
-            // tt.push({
-            //   "name": liste_nom_region2[object],
-            //   "size": (x * 100)
             // })
           })
 

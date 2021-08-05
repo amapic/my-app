@@ -37,7 +37,7 @@ export default function Data_carre(data2) {
       dataKey="size"
       ratio={4 / 3}
       stroke="#fff"
-      fill="#8884d8"
+      fill="rgb(0, 136, 254)"
     />
   )
 }

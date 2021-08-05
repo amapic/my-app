@@ -67,7 +67,7 @@ const format = num =>
     ;
 
 export default function Chart(props) {
-    let instancesCount = 0
+    //chart est sensé être rerender qd la valeur range de date est remodifié depuis le composant Slider
     var liste_region = liste_nom_region
     const theme = useTheme();
     const valeurReginitial = "11"
@@ -87,22 +87,25 @@ export default function Chart(props) {
 
 
     useEffect(() => {
-        subjectvac.subscribe({
-            next: (v) => {
+        subjectvac.subscribe(
+            (v) => {
 
                 let re = subjectregion.getValue()
                 re = re.join('_')
                 let rr = subjectrange.getValue()
-                let url = "http://localhost:8052/detail3/" + re + "/" + v + "/" + rr
+                
 
-                if (re !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
+                if (typeof rr === "object") {
+                    var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    let url = "http://localhost:8052/detail3/" + re + "/" + v + "/" + date1 +"/"+ date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
 
 
             }
-        });
+        );
     }, [])
 
     useEffect(() => {
@@ -118,45 +121,49 @@ export default function Chart(props) {
     //                                 setItems(tt));
     //                         }
     // })
-        subjectregion.subscribe({
-            next: (v) => {
+        subjectregion.subscribe(
+            v => {
                 let re = subjectvac.getValue()
                 v = v.join('_')
                 let rr = subjectrange.getValue()
-                let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
+                
 
-                // console.log(url);
-                if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
+                if (typeof rr === "object") {
+                    var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    let url = "http://localhost:8052/detail3/"  + v + "/" + re + "/" + date1 + "/" + date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
 
 
             }
-        });
+        );
 
     }, [])
 
     useEffect(() => {
-        subjectrange.subscribe({
-            next: (v) => {
+        subjectrange.subscribe(
+            (v) => {
                 let re = subjectvac.getValue()
                 let rr = subjectregion.getValue()
                 rr = rr.join('_')
                 if (typeof v==='object') {
+                    // var date1=v[0]
+                    // var date2=v[1]
                     var date1 =new Date(v[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var date2 =new Date(v[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var url = "http://localhost:8052/detail3/" + rr + "/" + re + "/" + date1 + "/" + date2
 
-                    if (typeof re === "string" && typeof rr === "string" && rr !== '') {
+                    // if (typeof re === "string" && typeof rr === "string" && rr !== '') {
                         chercheData(url).then((tt) => {
                             setItems(tt)
                         });
-                    }
+                    // }
                 }
 
 
-            }
+            
         });
     }, [])
 

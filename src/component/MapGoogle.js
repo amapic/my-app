@@ -7,12 +7,7 @@ import {
   GoogleMap,
   LoadScript
 } from '@react-google-maps/api';
-import list_poly from "../fonction/region_load"
-import {
-  subjectregion, subjectregionswitch
-} from './observable/observable'
 
-import Popoverwrap from './Popoverwrap';
 import PopoverwrapLogic from './PopoverwrapLogic';
 
 const mapStyles2 = [

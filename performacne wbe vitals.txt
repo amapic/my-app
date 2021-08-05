@@ -9,3 +9,5 @@ TTFB 323
 FID  68
 LCP 4109
 CLS 0.17
+
+avec chart ki marche et tree map

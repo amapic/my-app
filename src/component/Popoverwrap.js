@@ -14,7 +14,6 @@ const mapOptionsClicked = {
   strokeOpacity: 0.8,
   strokeWeight: 2,
   fillColor: "rgb(0, 136, 254)",
-  fillOpacity: 0.35,
   polygonKey: 1
 }
 

@@ -160,7 +160,6 @@ export default function Dashboard() {
     interactions // the Set of interactions belonging to this update
   ) {
     // Aggregate or log render timings...
-    console.log(phase)
   }
   const Profiler = React.unstable_Profiler;
   const classes = useStyles();
@@ -195,11 +194,11 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Chiffres sur la vaccination en France
           </Typography>
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
       <main className={classes.content}>
@@ -228,7 +227,7 @@ export default function Dashboard() {
                 <Paper >
                 {/* <Suspense fallback={<div>Loading Component</div>}> */}
                     <Maps/>
-                    {/* <Data_carre_logique/> */}
+                    <Data_carre_logique/>
                     {/* </Suspense> */}
                   {/* <SwitchMap /> */}
                   

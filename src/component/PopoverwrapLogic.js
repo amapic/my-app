@@ -24,6 +24,7 @@ const chercheData = async (url) => {
 const PopoverwrapLogic = ({ object, paths }) => {
   // const []=
   var hovered = false;
+  var timer1;
   // var lasttimestamp=0;
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({
@@ -68,7 +69,7 @@ const PopoverwrapLogic = ({ object, paths }) => {
     };
 
     if (!open) {
-      let timer1 = setTimeout(
+      timer1 = setTimeout(
         chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((x) => {
           if (hovered) {
             var y = (x * 100).toFixed(2) + "%"
@@ -76,7 +77,7 @@ const PopoverwrapLogic = ({ object, paths }) => {
           }
         }), 1000);
 
-      clearTimeout(timer1)
+      
 
     }
 
@@ -86,10 +87,12 @@ const PopoverwrapLogic = ({ object, paths }) => {
     // lasttimestamp=0
     ;
     // let timer2 = setTimeout({
-    if (open) {
+    // if (open) {
+      clearTimeout(timer1)
       setAnchorEl({ a: null, b: 0, c: 0, d: "" });
       hovered = false
-    }
+      
+    // }
     // },1000)
 
     // clearTimeout(timer2)
