@@ -8,16 +8,18 @@ import {
   subjectregion} from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
+import theme from '../style/theme';
 
-const mapOptionsClicked = {
+var mapOptionsClicked = {
   strokeColor: "#212527",
   strokeOpacity: 0.8,
   strokeWeight: 2,
-  fillColor: "rgb(0, 136, 254)",
+  fillColor: theme.palette.primary.main,
+  fillOpacity: 1,
   polygonKey: 1
 }
 
-const mapOptionsNotClicked = {
+var mapOptionsNotClicked = {
   strokeColor: "#212527",
   strokeOpacity: 0.8,
   strokeWeight: 2,
@@ -56,10 +58,15 @@ const clickk = function (i, mapProps) {
 export default function Popoverwrap(props) {
 
   const myContainer = useRef(null);
-  const { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }=props
+  const { object, paths, mapProps, anchorEl, open,handlePopoverClose, handlePopoverOpen }=props
 
 
   const classes = useStyles();
+  
+  if (mapProps.hovered){
+    mapOptionsClicked.strokeColor="fffff";
+    mapOptionsNotClicked.strokeColor="fffff";
+  }
 
 
   return (<>
@@ -90,7 +97,6 @@ export default function Popoverwrap(props) {
         paper: classes.paper,
       }}
       open={open}
-      // anchorEl={myContainer.current}
       anchorReference="anchorPosition"
       anchorPosition={{ left: anchorEl.b, top: anchorEl.c }}
 

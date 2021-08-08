@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
 
-import useSWR from 'swr';
 
 const chercheData = async (url) => {
 
@@ -78,7 +77,6 @@ export default function SliderZone() {
   // subjectrange est mis à jour dans useFetch
   // const { range, error } = useSWR("http://localhost:8052/liste_mois_detail", chercheDataWrap)
   const [error, range] = useFetch("http://localhost:8052/liste_mois_detail")
-  const range_local = range
   const handleChange = (event, newValue) => {
 
     subjectrange.next(newValue);
@@ -102,6 +100,7 @@ export default function SliderZone() {
           max={range.max_text}
           aria-labelledby="range-slider"
           step={null}
+          color="primary"
           marks={range.marks}
           onChange={handleChange}
         />

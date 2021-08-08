@@ -47,7 +47,7 @@ export function Camembert(){
     },[]);
 return(
   <>
-<Title>Vaccin administré</Title>
+<Title align="center">Vaccin administré</Title>
 <PieChart width={180} height={200} margin={0,0,0,0}>
   <Pie data={items} nameKey="name" cx="50%" cy="50%" outerRadius={40} >
     {

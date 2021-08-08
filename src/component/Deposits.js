@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import CssBaseline from '@material-ui/core/CssBaseline';
+
+import theme from '../style/theme';
 function preventDefault(event) {
   event.preventDefault();
 }
@@ -46,9 +47,6 @@ export default function Deposits() {
   const [items2, setItems2] = useState(false);
   const classes = useStyles();
   
-//   const LinearProgress = styled.section`
-//   width:100%;
-// `;
   useEffect(() => {
     chercheData("http://localhost:8052/pourcentage_pop_vac_som_1").then((tt) => {
       setItems(tt);
@@ -69,7 +67,7 @@ export default function Deposits() {
       </Typography>
       <br />
       <LinearProgress variant="determinate" value={items2*100} />
-      <Typography color="textSecondary" className={classes.depositContext}>
+      <Typography color={theme.palette.secondary.main} className={classes.depositContext}>
         Seconde dose : {parseFloat(items2).toFixed(2)}
       </Typography>
 

@@ -102,3 +102,7 @@ label[id^="radio-"] {
     transform: rotate(360deg);
   }
 }
+
+.recharts-wrapper {
+  margin : 0 auto;
+}

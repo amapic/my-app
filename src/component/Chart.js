@@ -21,7 +21,7 @@ import Title from './Title';
 import { subjectvac, subjectrange, subjectregion } from './observable/observable'
 
 import { liste_nom_region } from '../fonction/fonction'
-
+import theme from '../style/theme';
 
 
 const chercheData = async (url) => {
@@ -70,7 +70,6 @@ export default function Chart(props) {
     //chart est sensé être rerender qd la valeur range de date est remodifié depuis le composant Slider
     var liste_region = liste_nom_region
     const theme = useTheme();
-    const valeurReginitial = "11"
     const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
 
     const labelFormatter = function (x) {
@@ -109,18 +108,6 @@ export default function Chart(props) {
     }, [])
 
     useEffect(() => {
-    //     subjectregion.subscribe(
-    //             v=>{
-    //                         let re = subjectvac.getValue()
-    //                         v = v.join('_')
-    //                         let rr = subjectrange.getValue()
-    //                         let url = "http://localhost:8052/detail3/" + v + "/" + re + "/" + rr
-            
-    //                         if (v !== '' && typeof re === "string" && typeof rr === "string" && typeof v === "string") {
-    //                             chercheData(url).then((tt) =>
-    //                                 setItems(tt));
-    //                         }
-    // })
         subjectregion.subscribe(
             v => {
                 let re = subjectvac.getValue()
@@ -170,7 +157,7 @@ export default function Chart(props) {
     return (
         <  >
             < Title >  <  / Title >
-                < ResponsiveContainer >
+                < ResponsiveContainer height={300} >
                     < LineChart
                         data={
                             items
@@ -192,7 +179,7 @@ export default function Chart(props) {
 
                             Object.keys(items[0]).map((object, i) =>
 
-                                object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke="#556CD6" dot={false} /> : null
+                                object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke={theme.palette.primary.main} dot={false} /> : null
 
                             )
 

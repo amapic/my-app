@@ -23,21 +23,26 @@ const chercheData = async (url) => {
 
 const PopoverwrapLogic = ({ object, paths }) => {
   // const []=
-  var hovered = false;
+  // var hovered = false;
   var timer1;
   // var lasttimestamp=0;
+  console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({
     etat: "init",
-    selectedItems: ["11"]
+    selectedItems: ["11"],
+    hovered: false
   });
+
+
 
   useEffect(() => {
     subjectregionswitch.subscribe({
       next: (v) => {
         setmapProps({
           selectedItems: v,
-          etat: "pas_init"
+          etat: "pas_init",
+          hovered: mapProps.hovered
         })
       }
     });
@@ -51,12 +56,14 @@ const PopoverwrapLogic = ({ object, paths }) => {
         if (v.includes(object)) {
           setmapProps({
             selectedItems: v,
-            etat: "pas_init"
+            etat: "pas_init",
+            hovered: mapProps.hovered
           })
         } else {
           setmapProps({
             selectedItems: v,
-            etat: "pas_init"
+            etat: "pas_init",
+            hovered: mapProps.hovered
           })
         }
       }
@@ -64,22 +71,28 @@ const PopoverwrapLogic = ({ object, paths }) => {
   }, [])
 
   const handlePopoverOpen = (event) => {
-    if (!hovered) {
-      hovered=true;
-    };
+    // if (!mapProps.hovered) {
+    //   // hovered=true;
+    //   setmapProps({
+    //     selectedItems: mapProps.selectedItems,
+    //     etat: "pas_init",
+    //     hovered :true
+    //   })
+    // };
 
     if (!open) {
-      timer1 = setTimeout(
+      timer1 = setTimeout(() => {
         chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((x) => {
-          if (hovered) {
+          if (mapProps.hovered) {
             var y = (x * 100).toFixed(2) + "%"
             setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y });
           }
-        }), 1000);
-
-      
-
+        })
+      }, 500);
     }
+
+
+
 
   };
 
@@ -88,10 +101,14 @@ const PopoverwrapLogic = ({ object, paths }) => {
     ;
     // let timer2 = setTimeout({
     // if (open) {
-      clearTimeout(timer1)
-      setAnchorEl({ a: null, b: 0, c: 0, d: "" });
-      hovered = false
-      
+    clearTimeout(timer1)
+    setAnchorEl({ a: null, b: 0, c: 0, d: "" });
+    setmapProps({
+      selectedItems: mapProps.selectedItems,
+      etat: "pas_init",
+      hovered: false
+    })
+
     // }
     // },1000)
 
