@@ -23,7 +23,7 @@ const chercheData = async (url) => {
 
 const PopoverwrapLogic = ({ object, paths }) => {
   // const []=
-  // var hovered = false;
+  var hovered = false;
   var timer1;
   // var lasttimestamp=0;
   console.log("rr");
@@ -71,22 +71,18 @@ const PopoverwrapLogic = ({ object, paths }) => {
   }, [])
 
   const handlePopoverOpen = (event) => {
-    // if (!mapProps.hovered) {
-    //   // hovered=true;
-    //   setmapProps({
-    //     selectedItems: mapProps.selectedItems,
-    //     etat: "pas_init",
-    //     hovered :true
-    //   })
-    // };
 
+    if (!hovered) {
+      hovered = true;
+    }
+    
     if (!open) {
       timer1 = setTimeout(() => {
         chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((x) => {
-          if (mapProps.hovered) {
+          if (hovered){
             var y = (x * 100).toFixed(2) + "%"
             setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y });
-          }
+           }
         })
       }, 500);
     }
@@ -101,13 +97,15 @@ const PopoverwrapLogic = ({ object, paths }) => {
     ;
     // let timer2 = setTimeout({
     // if (open) {
+    hovered = false
     clearTimeout(timer1)
     setAnchorEl({ a: null, b: 0, c: 0, d: "" });
-    setmapProps({
-      selectedItems: mapProps.selectedItems,
-      etat: "pas_init",
-      hovered: false
-    })
+    // setmapProps({
+    //   selectedItems: mapProps.selectedItems,
+    //   etat: "pas_init",
+    //   hovered: false
+    // })
+
 
     // }
     // },1000)

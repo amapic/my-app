@@ -62,12 +62,12 @@ export default function Deposits() {
       <Title className={classes.title}>Population vacciné</Title>
       
       <LinearProgress variant="determinate" value={items*100} />
-      <Typography color="textSecondary" className={classes.depositContext}>
+      <Typography align="center" color={theme.palette.secondary.main} className={classes.depositContext}>
         Première dose : {parseFloat(items).toFixed(2)}
       </Typography>
       <br />
       <LinearProgress variant="determinate" value={items2*100} />
-      <Typography color={theme.palette.secondary.main} className={classes.depositContext}>
+      <Typography align="center" color={theme.palette.secondary.main} className={classes.depositContext}>
         Seconde dose : {parseFloat(items2).toFixed(2)}
       </Typography>
 

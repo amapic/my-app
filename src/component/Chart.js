@@ -157,7 +157,7 @@ export default function Chart(props) {
     return (
         <  >
             < Title >  <  / Title >
-                < ResponsiveContainer height={300} >
+                < ResponsiveContainer height={300} width={'100%'}>
                     < LineChart
                         data={
                             items

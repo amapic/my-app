@@ -2,6 +2,8 @@
   text-align: center;
 }
 
+html { font-size: 20px; }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -13,30 +15,29 @@
   }
 }
 label[id^="radio-"] {
-  font-size: 12px;
+  font-size: 1rem;
+  align-items:center;
+  padding:auto;
 }
 
 #div_slider .MuiTypography-root {
   display: none!important;
 }
 
-.MuiLinearProgress-root{
-  /* width:80% !important; */
-/* padding:0px 0px 0px 0px; */
-/* margin:0px 0px 0px 0px; */
-
-}
 
 .btn-group {
   width:45%;
   flex-wrap: nowrap;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  max-height: 40px;
+  height: 50px;
 }
 
 .btn-secondary {
   padding: 0px 0px 0px 0px !important;
+  align-items:center;
+  min-height:40px;
+  line-height: 2.2;
 
 }
 
@@ -54,9 +55,7 @@ label[id^="radio-"] {
 #CC{
   margin-top: 12px;
 }
-.MuiSlider-markLabel{
-  top:17px !important;
-}
+
 
 #div_slider{
   padding: 0px 0px 0px 0px;
@@ -105,4 +104,25 @@ label[id^="radio-"] {
 
 .recharts-wrapper {
   margin : 0 auto;
+}
+
+.recharts-treemap-depth-1 text{
+  font-size:1rem
+}
+
+.recharts-legend-item-text{
+  font-size:1rem
+}
+
+.recharts-responsive-container{
+  margin: 0 2rem 0 0;
+}
+
+
+.recharts-cartesian-axis-ticks{
+  font-size:0.9rem
+}
+
+text{
+  white-space: normal;
 }

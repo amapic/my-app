@@ -5,7 +5,7 @@ import { red } from '@material-ui/core/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: 'rgb(0, 136, 254)',
+      main: '#3f51b5',
     },
     secondary: {
       main: '#19857b',
@@ -17,6 +17,24 @@ const theme = createTheme({
       default: '#fff',
     },
   },
+  overrides: {
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: '#3f51b5'
+      }
+    },
+    MuiSlider: {
+      markLabel: {
+        top: '20px',
+        fontSize: '1rem'
+      }
+    },
+    MuiTypography: {
+      body1: {
+        fontSize: '1rem'
+      }
+    },
+  }
 });
 
 export default theme;

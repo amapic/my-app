@@ -16,8 +16,8 @@ import Slider_zone from '../component/Slider';
 import { Camembert } from '../component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
-
-
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import theme from '../style/theme';
 import Maps from '../component/Maps'
 
 
@@ -27,9 +27,6 @@ import Data_carre_logique from '../component/Data_carre_logique'
 const drawerWidth = 0;
 
 const useStyles = makeStyles((theme) => ({
-  aaa: {
-    color: "#ff0000",
-  },
   root: {
     display: 'flex',
   },
@@ -66,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    textAlign: 'center',
-    backgroundColor:theme.palette.primary.main
+    textAlign: 'center'
 
   },
   drawerPaper: {
@@ -177,6 +173,7 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
+      <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
@@ -199,7 +196,7 @@ export default function Dashboard() {
                     </div>
                     <ToggleButtonPerso />
                   </div>
-                  <Chart />
+                  <Chart id="container_graph"/>
 
 
                 </Paper>
@@ -233,7 +230,9 @@ export default function Dashboard() {
 
         </Container>
       </main>
+      </ThemeProvider>
     </div >
+    
   );
 }
 
