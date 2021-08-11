@@ -22,11 +22,9 @@ const chercheData = async (url) => {
 
 
 const PopoverwrapLogic = ({ object, paths }) => {
-  // const []=
   var hovered = false;
   var timer1;
-  // var lasttimestamp=0;
-  console.log("rr");
+  // console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({
     etat: "init",
@@ -78,12 +76,16 @@ const PopoverwrapLogic = ({ object, paths }) => {
     
     if (!open) {
       timer1 = setTimeout(() => {
-        chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((x) => {
+        chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((dose1) => {
+          var dose1forward=dose1
           if (hovered){
-            var y = (x * 100).toFixed(2) + "%"
-            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: y });
-           }
-        })
+            chercheData("http://localhost:8052/bilan_par_region_dose2/" + object).then((dose2) => {
+            dose1forward = (dose1forward * 100).toFixed(2) + "%"
+            var dose2 = (dose2 * 100).toFixed(2) + "%"
+            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: dose1forward,e:dose2 });
+           })
+        }
+      })
       }, 500);
     }
 

@@ -1,6 +1,7 @@
 import React, {
   useState,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,6 +11,7 @@ import {
 
 
 import PopoverwrapLogic from './PopoverwrapLogic';
+import { subjectmapfr } from './observable/observable'
 
 const mapStyles2 = [
 
@@ -107,14 +109,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {} ,list_poly2}) {
+export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {}, list_poly2 }) {
 
-  // const [anchorEl, setAnchorEl] = React.useState(false);
-  // const [loaded, setLoaded] = useState(false);
+  const mapFr = useRef(null);
 
   useEffect(() => {
-    // setLoaded(true);
-  });
+    if (zoom < 5.2) {
+      subjectmapfr.next(mapFr)
+    }
+  }, [mapFr]);
 
 
   const [mapProps, setmapProps] = useState({
@@ -140,38 +143,36 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   // if (mapProps.etat === "init") {
   //   return null
   // } else {
-    return (<
-      LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
+  return (<
+    LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 
-      <
-        GoogleMap mapContainerStyle={
-          (zoom > 5.2 ? containerStyle_petit : containerStyle)
-        }
+    <
+      GoogleMap mapContainerStyle={
+        (zoom > 5.2 ? containerStyle_petit : containerStyle)
+      }
 
-        center={center
-        }
-        zoom={
-          zoom
-        }
-        options={
-          options_style
-        }
+      ref={mapFr}
+      center={center
+      }
+      zoom={
+        zoom
+      }
+      options={
+        options_style
+      }
 
-      >
+    >
 
-        {
-          keys.map((object) => {
+      {
+        keys.map((object) => {
+        return (
+            <PopoverwrapLogic key={object} object={object} paths={list_poly2[object]} />
+          )
+        })
+      }
 
+    </GoogleMap >
 
-            return (
-              <PopoverwrapLogic key={object} object={object} paths={list_poly2[object]} />
-
-            )
-          })
-        }
-
-      </GoogleMap >
-
-    </LoadScript>)
+  </LoadScript>)
   // }
 }

@@ -51,7 +51,6 @@ const chercheData = async (url) => {
             miniDict = {}
         }
 
-        // conversionkey(data)
         return data
 
     } else {

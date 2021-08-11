@@ -19,6 +19,7 @@ import { ToggleButtonPerso } from '../component/RadioButton';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import theme from '../style/theme';
 import Maps from '../component/Maps'
+import BarChartWrap from '../component/BarChart'
 
 
 
@@ -103,7 +104,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'column',
-    height:'auto'
+    height:'auto',
+    backgroundColor:theme.palette.secondary.bgpaper
   },
   paper_row: {
     padding: theme.spacing(2),
@@ -120,7 +122,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignContent: 'center',
     boxSizing: 'border-box',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor:theme.palette.secondary.bgpaper
   },
   containerprinc: {
     paddingTop: theme.spacing(2),
@@ -144,9 +147,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap:'wrap'
   },
 }));
-
-
-
 
 export default function Dashboard() {
 
@@ -198,7 +198,6 @@ export default function Dashboard() {
                   </div>
                   <Chart id="container_graph"/>
 
-
                 </Paper>
               </Grid>
               <Grid  item xs={12} md={8} lg={12} >
@@ -208,7 +207,8 @@ export default function Dashboard() {
                   </div> */}
                   <div className={classes.flexRow}>
                   <Maps />
-                  <Data_carre_logique />
+                  {/* <Data_carre_logique /> */}
+                  {/* <BarChartWrap /> */}
                   </div>
                   {/* <SwitchMap /> */}
 

@@ -1,14 +1,18 @@
 import React, {
-  useRef, useState,useEffect
+  useRef, useState, useEffect
 } from 'react';
+import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Polygon} from '@react-google-maps/api';
+  Polygon
+} from '@react-google-maps/api';
 import {
-  subjectregion} from './observable/observable'
+  subjectregion, subjectmapfr
+} from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
 import theme from '../style/theme';
+import { randomInt } from 'mathjs'
 
 var mapOptionsClicked = {
   strokeColor: "#212527",
@@ -35,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   popovernotvisible: {
     pointerEvents: 'none',
-    display:'none'
+    display: 'none'
   },
   paper: {
     padding: theme.spacing(1),
@@ -59,21 +63,23 @@ const clickk = function (i, mapProps) {
 export default function Popoverwrap(props) {
 
   const myContainer = useRef(null);
-  const [visiblePopup,setvisiblePopup]=useState(true)
-  const { object, paths, mapProps, anchorEl, open,handlePopoverClose, handlePopoverOpen }=props
+  const [visiblePopup, setvisiblePopup] = useState(true)
+  const [color, setColor] = useState(null)
+  const { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
 
 
   const classes = useStyles();
-
+  const mapFr = subjectmapfr.getValue()
+  const refMapFr = ReactDOM.findDOMNode(mapFr.current)
   var mapOptionsClicked = {
     strokeColor: "#212527",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: theme.palette.primary.main,
+    fillColor: color,
     fillOpacity: 1,
     polygonKey: 1
   }
-  
+
   var mapOptionsNotClicked = {
     strokeColor: "#212527",
     strokeOpacity: 0.8,
@@ -82,19 +88,23 @@ export default function Popoverwrap(props) {
     fillOpacity: 0.35,
     polygonKey: 1
   }
-  
+  if (!color) {
+    const COLORS = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
+    setColor(COLORS[randomInt(COLORS.length)]);
+    mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
+  }
+
   // if (mapProps.hovered){
-  //   mapOptionsClicked.strokeColor="white";
-  //   mapOptionsNotClicked.strokeColor="white";
-  //   mapOptionsClicked.strokeWeight= 3,
-  //   mapOptionsNotClicked.strokeWeight= 3
+  // mapOptionsClicked.strokeColor="white";
+
+  // mapOptionsNotClicked.strokeColor="white";
+  // mapOptionsClicked.strokeWeight= 3,
+  // mapOptionsNotClicked.strokeWeight= 3
   // }
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setvisiblePopup(false);
-  //   }, 5000);
-  // }, [open]);
+  useEffect(() => {
+    console.log("rr");
+  }, []);
 
 
   return (<>
@@ -105,7 +115,7 @@ export default function Popoverwrap(props) {
       aria-haspopup="true"
       onMouseOut={(e) => handlePopoverClose(e, object)}
       onMouseOver={(e) => handlePopoverOpen(e, object)}
-      id ={"region-poly-" + object}
+      id={"region-poly-" + object}
       ref={myContainer}
       paths={
         paths
@@ -120,17 +130,19 @@ export default function Popoverwrap(props) {
     />
     <Popover
       id={"mouse-over-popover-" + object}
-      className={visiblePopup?classes.popovervisible:classes.popovernotvisible}
+      className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
         paper: classes.paper,
       }}
       open={open}
-      anchorReference="anchorPosition"
-      anchorPosition={{ left: anchorEl.b, top: anchorEl.c }}
-
+      anchorReference="anchorEl"
+      anchorPosition={{ left: -100, top: 100 }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+      anchorEl={refMapFr}
       onClose={handlePopoverClose}
       disableRestoreFocus
     >
-      {anchorEl.d}
+      Première dose : {anchorEl.d} <br />
+      Seconde dose : {anchorEl.e}
     </Popover></>)
 }

@@ -38,7 +38,7 @@ export default function Data_carre(data2) {
       dataKey="size"
       ratio={4 / 3}
       stroke="#fff"
-      fill={theme.palette.primary.main}
+      fill={theme.palette.secondary.first}
     />
   )
 }

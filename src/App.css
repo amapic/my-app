@@ -119,8 +119,9 @@ label[id^="radio-"] {
 }
 
 
-.recharts-cartesian-axis-ticks{
-  font-size:0.9rem
+.recharts-cartesian-axis-ticks tspan{
+  font-size:0.9rem;
+  color:#ffffff;
 }
 
 text{

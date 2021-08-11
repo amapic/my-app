@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'
-import logo from '../img/dribbble.gif';
+import logo from '../img/ezgif.com-gif-maker.gif'
 
 const Maps = () => {
     const [style, setStyle] = useState({ display: "none" });
     useEffect(() => {
-        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 3000);
+        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 6000);
         return () => {
             clearTimeout(timer1)
         }
