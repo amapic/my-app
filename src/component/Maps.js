@@ -7,7 +7,7 @@ import logo from '../img/ezgif.com-gif-maker.gif'
 const Maps = () => {
     const [style, setStyle] = useState({ display: "none" });
     useEffect(() => {
-        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 6000);
+        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 0);
         return () => {
             clearTimeout(timer1)
         }
@@ -20,7 +20,15 @@ const Maps = () => {
         <div id="RRR3" style={{ height: '400px', maxWidth: '100%', maxHeight: '100%' }}>
             <div id="wrap_map1" style={style}>
 
-                <Map_google key="a" region_excluded={["1", "2", "3", "4"]} center={{ lat: 46.7833, lng: 3.0833 }} zoom={5.1} list_poly2={list_poly2} />
+                <Map_google
+                    id="map_fr"
+                    key="a"
+                    region_excluded={["1", "2", "3", "4"]}
+                    center={{ lat: 46.7833, lng: 3.0833 }}
+                    zoom={5.1} list_poly2={list_poly2}
+                    aria-owns="mouse-over-popover"
+                    aria-haspopup="true"
+                />
                 <div id="wrap_map2">
                     <Map_google key="b" region_included={["1", "2", "3", "4"]} center={{ lat: 16.2, lng: -61.5 }} zoom={7.4} list_poly2={list_poly2} />
                     <Map_google key="c" region_included={["1", "2", "3", "4"]} center={{ lat: 14.6, lng: -61 }} zoom={8} list_poly2={list_poly2} />
@@ -30,7 +38,7 @@ const Maps = () => {
                 </div>
 
             </div>
-            <div id="RR"  style={style_image}>
+            <div id="RR" style={style_image}>
                 <Image src={logo} alt="Logo" />
             </div>
 

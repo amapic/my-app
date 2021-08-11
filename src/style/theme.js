@@ -6,6 +6,8 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#ffffff',
+      bar_droite1:'rgb(206,136,87)',
+      bar_droite2:'rgb(5,98,138)',
     },
     secondary: {
       main: '#ffffff',
@@ -58,6 +60,11 @@ const theme = createTheme({
         color:'#ffffff'
       }
     },
+    MuiLinearProgress:{
+      barColorPrimary: {
+        backgroundColor:'rgb(154,80,82)'
+      }
+    }
   }
 });
 

@@ -15,7 +15,7 @@ import {
     from 'recharts';
 import Title from './Title';
 
-import { subjectregion, subjectrange } from './observable/observable'
+import { subjectregion, subjectrange,subjectregioncolor } from './observable/observable'
 
 import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
@@ -74,41 +74,8 @@ export default function BarChartWrap(props) {
     const theme = useTheme();
     const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
 
-    // const labelFormatter = function (x) {
-    //     return x
-    // }
-
-    // const valueFormatter = function (x, y, z) {
-    //     return [format(x), liste_region[z.dataKey],]
-    // }
-
-    // const legendFormatter = function (value, entry, index) {
-    //     return [liste_region[entry.dataKey]]
-    // }
-
-
-    // useEffect(() => {
-    //     subjectvac.subscribe(
-    //         (v) => {
-
-    //             let re = subjectregion.getValue()
-    //             re = re.join('_')
-    //             let rr = subjectrange.getValue()
-
-
-    //             if (typeof rr === "object") {
-    //                 var date1 = new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-    //                 var date2 = new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-    //                 let url = "http://localhost:8052/detail3/" + re + "/" + v + "/" + date1 + "/" + date2
-    //                 chercheData(url).then((tt) =>
-    //                     setItems(tt));
-    //             }
-
-
-    //         }
-    //     );
-    // }, [])
-
+    const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
+    var g=subjectregioncolor.getValue()
     useEffect(() => {
         subjectregion.subscribe(
             v => {
@@ -189,16 +156,16 @@ export default function BarChartWrap(props) {
             <Tooltip />
             <Legend />
             <Bar dataKey="1ere dose" fill="#8884d8" >
-                {
-                    this.state.chartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
-                    ))
-                }
+            {
+                        g.map((entry, index) =>
+                            <Cell key={`cell-${index}`} fill={barColors[index]} />
+                        )
+                    }
                 </Bar >
                 <Bar dataKey="2eme dose" fill="#82ca9d" >
                     {
-                        subjectregion.getValue().map((entry, index) =>
-                            <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
+                        g.map((entry, index) =>
+                            <Cell key={`cell-${index}`} fill={barColors[index]} />
                         )
                     }
                     </Bar >

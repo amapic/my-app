@@ -67,7 +67,7 @@ export default function Deposits() {
       </Typography>
       <br />
       <LinearProgress variant="determinate" value={items2*100} />
-      <Typography align="center" color="secondary" className={classes.depositContext}>
+      <Typography align="center" color="primary.bar_droite1" className={classes.depositContext}>
         Seconde dose : {parseFloat(items2).toFixed(2)}
       </Typography>
 

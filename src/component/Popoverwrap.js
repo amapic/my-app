@@ -7,7 +7,7 @@ import {
   Polygon
 } from '@react-google-maps/api';
 import {
-  subjectregion, subjectmapfr
+  subjectregion, subjectmapfr, subjectregioncolor
 } from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const clickk = function (i, mapProps) {
+const clickk = function (i, mapProps, color) {
 
   let listeRegion = mapProps.selectedItems
   if (listeRegion.includes(i)) {
@@ -55,8 +55,26 @@ const clickk = function (i, mapProps) {
     }
   } else {
     listeRegion.push(i)
+    var old_value=subjectregioncolor.getValue()
+    if (old_value===null)
+      subjectregioncolor.next({ [i]: color });
+    else{
+      // old_value.push({ [i]: color })
+      subjectregioncolor.next({ [i]: color });
+      // subjectregioncolor.next(old_value);
+    }
+    // subjectregioncolor.next(() => {
+    //   if (subjectregioncolor.subjectregioncolor.getValue()===null) {
+    //     return { i: color }
+    //   } else {
+    //     return subjectregioncolor.getValue().push({ i: color })
+    //   }
+    // }
+
+    // )
   }
   subjectregion.next(listeRegion)
+
 }
 
 
@@ -89,7 +107,7 @@ export default function Popoverwrap(props) {
     polygonKey: 1
   }
   if (!color) {
-    const COLORS = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
+    const COLORS = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.fourth,theme.palette.secondary.fifth,theme.palette.secondary.sixth];
     setColor(COLORS[randomInt(COLORS.length)]);
     mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
   }
@@ -111,8 +129,8 @@ export default function Popoverwrap(props) {
     <Polygon key={
       object
     }
-      aria-owns={open ? "mouse-over-popover" : undefined}
-      aria-haspopup="true"
+      // aria-owns={open ? "mouse-over-popover" : undefined}
+      // aria-haspopup="true"
       onMouseOut={(e) => handlePopoverClose(e, object)}
       onMouseOver={(e) => handlePopoverOpen(e, object)}
       id={"region-poly-" + object}
@@ -121,7 +139,7 @@ export default function Popoverwrap(props) {
         paths
       }
       onClick={
-        () => clickk(object, mapProps)
+        () => clickk(object, mapProps, mapOptionsClicked.fillColor)
       }
       options={
         (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
@@ -129,15 +147,21 @@ export default function Popoverwrap(props) {
 
     />
     <Popover
-      id={"mouse-over-popover-" + object}
+      id="mouse-over-popover"
       className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
         paper: classes.paper,
       }}
       open={open}
       anchorReference="anchorEl"
-      anchorPosition={{ left: -100, top: 100 }}
-      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
       anchorEl={refMapFr}
       onClose={handlePopoverClose}
       disableRestoreFocus
