@@ -188,8 +188,10 @@ export default function Chart(props) {
                         < XAxis dataKey="time" stroke={
                             theme.palette.text.secondary
                         }
+
+                        tick={{color: '#ffffff' }}
                         />
-                        <YAxis stroke={theme.palette.text.secondary}>
+                        <YAxis stroke={theme.palette.text.secondary} tick={{color: '#ffffff' }}>
 
                             <Label
                                 angle={270}

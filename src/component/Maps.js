@@ -26,8 +26,8 @@ const Maps = () => {
                     region_excluded={["1", "2", "3", "4"]}
                     center={{ lat: 46.7833, lng: 3.0833 }}
                     zoom={5.1} list_poly2={list_poly2}
-                    aria-owns="mouse-over-popover"
-                    aria-haspopup="true"
+                    // aria-owns="mouse-over-popover"
+                    // aria-haspopup="true"
                 />
                 <div id="wrap_map2">
                     <Map_google key="b" region_included={["1", "2", "3", "4"]} center={{ lat: 16.2, lng: -61.5 }} zoom={7.4} list_poly2={list_poly2} />
@@ -41,9 +41,32 @@ const Maps = () => {
             <div id="RR" style={style_image}>
                 <Image src={logo} alt="Logo" />
             </div>
+            {/* <Popover
+                id="mouse-over-popover"
+                className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
+                classes={{
+                    paper: classes.paper,
+                }}
+                open={open}
+                anchorReference="anchorEl"
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                }}
+                anchorEl={refMapFr}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+            >
+                Première dose : {anchorEl.d} <br />
+                Seconde dose : {anchorEl.e}
+            </Popover> */}
 
 
-        </div>
+        </div >
     )
 }
 export default Maps;

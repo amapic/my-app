@@ -10,22 +10,25 @@ import {
     Legend,
     CartesianGrid,
     Bar,
-    BarChart
+    BarChart,
+    Cell
 }
     from 'recharts';
 import Title from './Title';
 
-import { subjectregion, subjectrange,subjectregioncolor } from './observable/observable'
+import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 
 import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
 
 
-const chercheData = async (url) => {
+const chercheData = async (url, liste_selected) => {
 
     const response = await fetch(url);
     const responseData = await response.json();
-
+    var liste_nom_region2 = liste_nom_region
+    var liste_selected_str=[]
+    liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
         var data = [];
         var dictOfResponseData = {}
@@ -35,26 +38,17 @@ const chercheData = async (url) => {
         }
 
         for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
-            miniDict['name'] = Object.values(dictOfResponseData.reg)[i]
+            // liste_nom_region[Object.values(dictOfResponseData.reg)[i]]
+            console.log(Object.values(dictOfResponseData.reg)[i]);
+            miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
             miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
             miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
-            data.push(miniDict);
+            if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
+                data.push(miniDict);
+            }
             miniDict = {}
         }
 
-        // var keylist = Object.keys(dictOfResponseData);
-        // var indexDatetime = Object.keys(dictOfResponseData[keylist[0]]);
-
-
-        // for (let i = 0; i < indexDatetime.length; i++) {
-        //     for (const [key, value] of Object.entries(dictOfResponseData)) {
-        //         miniDict['time'] = indexDatetime[i].slice(-12, -2)
-        //         miniDict[key] = value[indexDatetime[i]]
-
-        //     }
-        //     data.push(miniDict);
-        //     miniDict = {}
-        // }
 
         return data
 
@@ -73,16 +67,17 @@ const format = num =>
 export default function BarChartWrap(props) {
     const theme = useTheme();
     const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
-
+    var g = []
     const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
-    var g=subjectregioncolor.getValue()
+    g = subjectregioncolor.getValue()
     useEffect(() => {
         subjectregion.subscribe(
             v => {
-                v = v.join('_')
+                // v = v.join('_')
 
                 let url = "http://localhost:8052/req_bar_chart"
-                chercheData(url).then((tt) =>
+                chercheData(url, v).then((tt) =>
+
                     setItems(tt));
 
 
@@ -91,20 +86,20 @@ export default function BarChartWrap(props) {
 
     }, [])
 
-    useEffect(() => {
-        subjectrange.subscribe(
-            v => {
-                v = subjectregion.getValue().join('_')
+    // useEffect(() => {
+    //     subjectrange.subscribe(
+    //         v => {
+    //             v = subjectregion.getValue().join('_')
 
-                let url = "http://localhost:8052/req_bar_chart"
-                chercheData(url).then((tt) =>
-                    setItems(tt));
+    //             let url = "http://localhost:8052/req_bar_chart"
+    //             chercheData(url).then((tt) =>
+    //                 setItems(tt));
 
 
-            }
-        );
+    //         }
+    //     );
 
-    }, [])
+    // }, [])
 
 
     var data = [
@@ -144,38 +139,40 @@ export default function BarChartWrap(props) {
             "pv": 4300
         }
     ]
-    if (!items) {
+    if (!items || g === null) {
         return null
     }
+    {/* Object.keys(object1) */ }
     return (
 
-        <BarChart width={1000} height={400} data={items}>
+        <BarChart width="100%" height={300} data={items}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis scale="log" domain={['auto', 'auto']} />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="1ere dose" fill="#8884d8" >
-            {
-                        g.map((entry, index) =>
-                            <Cell key={`cell-${index}`} fill={barColors[index]} />
-                        )
-                    }
-                </Bar >
-                <Bar dataKey="2eme dose" fill="#82ca9d" >
-                    {
-                        g.map((entry, index) =>
-                            <Cell key={`cell-${index}`} fill={barColors[index]} />
-                        )
-                    }
-                    </Bar >
+            <XAxis dataKey="name" angle={45} textAnchor="begin" />
+            <YAxis scale="log" domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
+            {/* <Tooltip /> */}
+            {/* <Legend /> */}
+            <Bar dataKey="1ere dose"  >
+                {
+                    g.map((entry, index) =>
+                        <Cell key={`cell-${index}`} fill={entry} />
+                    )
+                }
+            </Bar >
+
+            <Bar dataKey="2eme dose"  >
+                {
+                    g.map((entry, index) =>
+                        <Cell key={`cell-${index}`} fill={entry} />
+                    )
+                }
+            </Bar >
         </BarChart>
-    //     Object.keys(items[0]).map((object, i) =>
+        //     Object.keys(items[0]).map((object, i) =>
 
-    //     object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke={theme.palette.primary.main} dot={false} /> : null
+        //     object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke={theme.palette.primary.main} dot={false} /> : null
 
-                // )
+        // )
 
-                )
+    )
 
 }

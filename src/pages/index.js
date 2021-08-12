@@ -208,7 +208,7 @@ export default function Dashboard() {
                   <div className={classes.flexRow}>
                   <Maps />
                   {/* <Data_carre_logique /> */}
-                  {/* <BarChartWrap /> */}
+                  <BarChartWrap />
                   </div>
                   {/* <SwitchMap /> */}
 

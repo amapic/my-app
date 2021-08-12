@@ -88,31 +88,12 @@ const PopoverwrapLogic = ({ object, paths }) => {
       })
       }, 500);
     }
-
-
-
-
   };
 
   const handlePopoverClose = () => {
-    // lasttimestamp=0
-    ;
-    // let timer2 = setTimeout({
-    // if (open) {
     hovered = false
     clearTimeout(timer1)
     setAnchorEl({ a: null, b: 0, c: 0, d: "" });
-    // setmapProps({
-    //   selectedItems: mapProps.selectedItems,
-    //   etat: "pas_init",
-    //   hovered: false
-    // })
-
-
-    // }
-    // },1000)
-
-    // clearTimeout(timer2)
   };
 
   const props = { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }
