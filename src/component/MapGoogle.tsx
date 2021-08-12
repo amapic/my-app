@@ -1,7 +1,7 @@
 import React, {
   useState,
   useEffect,
-  useRef
+  useRef,FC 
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -107,15 +107,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface MapGoogleParam {
+  region_excluded: string[];
+  region_included?: string[];
+  zoom: number;
+  center: {lat:number,lng:number};
+  list_poly2: any;
+}
 
-
-export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {}, list_poly2 }) {
-
-  const mapFr = useRef(null);
+function MapGoogle({ region_excluded, region_included = [], zoom = 5, center, list_poly2 }:MapGoogleParam){
+// export default function MapGoogle({ region_excluded:string[]=[], region_included = [], zoom = 5, center = {}, list_poly2 }) {
+  // { region_excluded, region_included = [], zoom = 5, center = {}, list_poly2 }=props
+  const mapFr = useRef<HTMLDivElement | void>(null);
 
   useEffect(() => {
     if (zoom < 5.2) {
-      subjectmapfr.next(mapFr)
+      if (null !== mapFr.current) {
+        subjectmapfr.next(mapFr)
+      }
     }
   }, [mapFr]);
 

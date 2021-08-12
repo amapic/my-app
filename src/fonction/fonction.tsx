@@ -1,4 +1,4 @@
-export var liste_nom_region=[]
+export var liste_nom_region:string[]=[]
 liste_nom_region["1"]="Guadeloupe"
 liste_nom_region["2"]="Martinique"
 liste_nom_region["3"]="Guyane"
@@ -18,7 +18,7 @@ liste_nom_region["93"]="Provence-Alpes-Côte d’Azur"
 liste_nom_region["94"]="Corse"
 
 
-export var liste_id_region=[]
+export var liste_id_region:string[]=[]
 liste_id_region["Guadeloupe"]="1"
 liste_id_region["Martinique"]="2"
 liste_id_region["Guyane"]="3"
@@ -38,49 +38,46 @@ liste_id_region["Provence-Alpes-Côte d’Azur"]="93"
 liste_id_region["Corse"]="94"
 
 
-export function conversionkey(obj){
-    var new_obj=[]
-    const keys = Object.keys(obj);
-    keys.map((object) =>{
-        new_obj[liste_nom_region[object.toString()]]=obj[object]
-    })
+// export function conversionkey(obj){
+//     var new_obj=[]
+//     const keys = Object.keys(obj);
+//     keys.map((object) =>{
+//         new_obj[liste_nom_region[object.toString()]]=obj[object]
+//     })
 
-    return new_obj
-}
+//     return new_obj
+// }
 
-function createData(time, amount) {
-    return {
-        time,
-        amount
-    };
-}
+// function createData(time, amount) {
+//     return {
+//         time,
+//         amount
+//     };
+// }
 
-export function setDataLim(){
 
-}
-
-export async function getdata(url) {
-    const response = await fetch(url)
-    const responseData = await response.json()
-    if (response.ok) {
-        var data = [];
-    var arrayTime = [];
-    var arrayAmount = [];
+// export async function getdata(url) {
+//     const response = await fetch(url)
+//     const responseData = await response.json()
+//     if (response.ok) {
+//         var data = [];
+//     var arrayTime = [];
+//     var arrayAmount = [];
         
-        for (let key in responseData.datetime){
-            let value = responseData.datetime[key];
-            arrayTime.push(value);
-        }
-        for (let key in responseData.n_cum_dose1){
-            let value = responseData.n_cum_dose1[key];
-            arrayAmount.push(value);
-        }
-         arrayAmount.forEach((x, i) => data.push(createData(arrayTime[i].toString(), i,i/2)));
-         var ff=data.slice(1,10);
-         return ff
-    } else {
-        alert(JSON.stringify(responseData))
-        return {responseData, loading: false}
-    }
-}
+//         for (let key in responseData.datetime){
+//             let value = responseData.datetime[key];
+//             arrayTime.push(value);
+//         }
+//         for (let key in responseData.n_cum_dose1){
+//             let value = responseData.n_cum_dose1[key];
+//             arrayAmount.push(value);
+//         }
+//          arrayAmount.forEach((x, i) => data.push(createData(arrayTime[i].toString(), i,i/2)));
+//          var ff=data.slice(1,10);
+//          return ff
+//     } else {
+//         alert(JSON.stringify(responseData))
+//         return {responseData, loading: false}
+//     }
+// }
 

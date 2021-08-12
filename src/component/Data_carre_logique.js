@@ -4,7 +4,7 @@ import {
 } from './observable/observable'
 import Data_carre from './Data_carre';
 import shortid from 'shortid';
-import { liste_nom_region } from '../fonction/fonction'
+import { liste_nom_region } from '../fonction/fonction.tsx'
 
 const chercheData = async (url) => {
 

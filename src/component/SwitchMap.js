@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import { liste_id_region } from '../fonction/fonction';
+import { liste_id_region } from '../fonction/fonction.tsx';
 import { subjectregionswitch } from "./observable/observable";
 import { Switch } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Map_google from './MapGoogle';
-import list_poly from "../fonction/region_load"
+import Map_google from './MapGoogle.tsx';
+import list_poly from "../fonction/region_load.tsx"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker.gif'
 
 const Maps = () => {
-    const [style, setStyle] = useState({ display: "none" });
+    const [style, setStyle] = useState<{}>({ display: "none" });
     useEffect(() => {
         let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 0);
         return () => {

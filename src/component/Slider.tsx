@@ -7,8 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
 
+import {SyntheticEvent} from './interface'
 
-const chercheData = async (url) => {
+const chercheData = async (url:string) :Promise<any>=> {
 
   const response = await fetch(url)
   const responseData = await response.json()
@@ -16,8 +17,8 @@ const chercheData = async (url) => {
   if (response.ok) {
     let local_range = responseData;
 
-    let datetime = Object.values(local_range.timestamp)
-    let datetext = Object.values(local_range.datetime)
+    let datetime:number[] = Object.values(local_range.timestamp)
+    let datetext:string[] = Object.values(local_range.datetime)
     var marks2 = []
     for (const [index, element] of datetext.entries()) {
       marks2.push({ label: element, value: datetime[index] });
@@ -30,13 +31,13 @@ const chercheData = async (url) => {
   }
 }
 
-const chercheDataWrap=async(url)=>{
+const chercheDataWrap=async(url:string):Promise<any>=>{
   return chercheData(url).then(x=>
     x)
 }
 
-function useFetch(url) {
-  const [state, setState] = useState({
+function useFetch(url:string) {
+  const [state, setState] = useState<{items:any[],loading:boolean}>({
     items: [],
     loading: true
   })
@@ -49,8 +50,8 @@ function useFetch(url) {
       if (response.ok) {
         let local_range = responseData;
 
-        let datetime = Object.values(local_range.timestamp)
-        let datetext = Object.values(local_range.datetime)
+        let datetime:number[] = Object.values(local_range.timestamp)
+        let datetext:string[] = Object.values(local_range.datetime)
         var marks2 = []
         for (const [index, element] of datetext.entries()) {
           marks2.push({ label: element, value: datetime[index] });
@@ -73,11 +74,11 @@ function useFetch(url) {
 }
 
 export default function SliderZone() {
-
+  
   // subjectrange est mis à jour dans useFetch
   // const { range, error } = useSWR("http://localhost:8052/liste_mois_detail", chercheDataWrap)
-  const [error, range] = useFetch("http://localhost:8052/liste_mois_detail")
-  const handleChange = (event, newValue) => {
+  const [error:boolean, range:any] = useFetch("http://localhost:8052/liste_mois_detail")
+  const handleChange = (event:SyntheticEvent, newValue:[number,number]) => {
 
     subjectrange.next(newValue);
 

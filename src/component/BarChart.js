@@ -18,7 +18,7 @@ import Title from './Title';
 
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 
-import { liste_nom_region } from '../fonction/fonction'
+import { liste_nom_region } from '../fonction/fonction.tsx'
 import theme from '../style/theme';
 
 

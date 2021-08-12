@@ -20,7 +20,7 @@ import Title from './Title';
 
 import { subjectvac, subjectrange, subjectregion } from './observable/observable'
 
-import { liste_nom_region } from '../fonction/fonction'
+import { liste_nom_region } from '../fonction/fonction.tsx'
 import theme from '../style/theme';
 
 

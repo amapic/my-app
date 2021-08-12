@@ -9,16 +9,16 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../component/Chart';
-import Deposits from '../component/Deposits';
+import Deposits from '../component/Deposits.tsx';
 
-import Slider_zone from '../component/Slider';
+import Slider_zone from '../component/Slider.tsx';
 // import Slider_vaccin from './component/SliderVaccin';
-import { Camembert } from '../component/PieChart';
+import { Camembert } from '../component/PieChart.tsx';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import theme from '../style/theme';
-import Maps from '../component/Maps'
+import Maps from '../component/Maps.tsx'
 import BarChartWrap from '../component/BarChart'
 
 import Data_carre_logique from '../component/Data_carre_logique'
@@ -189,7 +189,7 @@ export default function Dashboard() {
                 <Paper id="AAAA" className={fixedHeightPaper}>
                   <div id="entete_chart">
                     <div id="div_slider">
-                      {/* <Slider_zone /> */}
+                      <Slider_zone />
 
                     </div>
                     {/* <ToggleButtonPerso /> */}
@@ -206,7 +206,7 @@ export default function Dashboard() {
                   <div className={classes.flexRow}>
                   {/* <Maps /> */}
                   {/* <Data_carre_logique /> */}
-                  {/* <BarChartWrap /> */}
+                  <BarChartWrap />
                   </div>
                   {/* <SwitchMap /> */}
 
@@ -217,7 +217,7 @@ export default function Dashboard() {
             <Grid id="CC" container direction="column" xs={2} md={2} lg={2}  >
               <Paper className={classes.paper_droite} spacing={3} >
 
-                {/* <Camembert /> */}
+                <Camembert />
               </Paper>
               <Paper className={classes.paper_droite} spacing={3} >
                 <Deposits />
