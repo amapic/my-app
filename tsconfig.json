@@ -76,7 +76,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/component/observable/observable.js"  ],
   "exclude": [
     "node_modules"
   ]
