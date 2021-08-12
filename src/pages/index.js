@@ -21,8 +21,6 @@ import theme from '../style/theme';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 
-
-
 import Data_carre_logique from '../component/Data_carre_logique'
 
 const drawerWidth = 0;
@@ -191,10 +189,10 @@ export default function Dashboard() {
                 <Paper id="AAAA" className={fixedHeightPaper}>
                   <div id="entete_chart">
                     <div id="div_slider">
-                      <Slider_zone />
+                      {/* <Slider_zone /> */}
 
                     </div>
-                    <ToggleButtonPerso />
+                    {/* <ToggleButtonPerso /> */}
                   </div>
                   <Chart id="container_graph"/>
 
@@ -206,9 +204,9 @@ export default function Dashboard() {
                     <Image src={logo} alt="Logo" />
                   </div> */}
                   <div className={classes.flexRow}>
-                  <Maps />
+                  {/* <Maps /> */}
                   {/* <Data_carre_logique /> */}
-                  <BarChartWrap />
+                  {/* <BarChartWrap /> */}
                   </div>
                   {/* <SwitchMap /> */}
 
@@ -219,7 +217,7 @@ export default function Dashboard() {
             <Grid id="CC" container direction="column" xs={2} md={2} lg={2}  >
               <Paper className={classes.paper_droite} spacing={3} >
 
-                <Camembert />
+                {/* <Camembert /> */}
               </Paper>
               <Paper className={classes.paper_droite} spacing={3} >
                 <Deposits />
