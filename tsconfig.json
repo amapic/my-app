@@ -77,7 +77,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/component/MapGoogle.jsx" ],
+    "**/*.tsx", "src/component/BarChart.jsx", "src/component/Popoverwrap.jsx", "src/component/PopoverwrapLogic.jsx", "src/component/MapGoogle.jsx", "src/component/MapGoogle.jsx" ],
   "exclude": [
     "node_modules"
   ]
