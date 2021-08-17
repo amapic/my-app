@@ -22,12 +22,12 @@ import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
 
 
-const chercheData = async (url:string, liste_selected:[string]|null):Promise<any> => {
+const chercheData = async (url, liste_selected) => {
 
     const response = await fetch(url);
     const responseData = await response.json();
     var liste_nom_region2 = liste_nom_region
-    var liste_selected_str:[string]=[]
+    var liste_selected_str=[]
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
         var data = [];
@@ -39,7 +39,7 @@ const chercheData = async (url:string, liste_selected:[string]|null):Promise<any
 
         for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
             // liste_nom_region[Object.values(dictOfResponseData.reg)[i]]
-            console.log(Object.values(dictOfResponseData.reg)[i]);
+            // console.log(Object.values(dictOfResponseData.reg)[i]);
             miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
             miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
             miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
@@ -59,7 +59,7 @@ const chercheData = async (url:string, liste_selected:[string]|null):Promise<any
 
 }
 
-const format = (num:number) :string =>
+const format = (num) =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
     ;
@@ -67,7 +67,7 @@ const format = (num:number) :string =>
 export default function BarChartWrap(props) {
     const theme = useTheme();
     const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
-    var g:[string]|null
+    var g;
     const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
     g = subjectregioncolor.getValue()
     useEffect(() => {
@@ -134,19 +134,19 @@ export default function BarChartWrap(props) {
             <XAxis dataKey="name" angle={45} textAnchor="begin" />
             <YAxis scale="log" domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
             <Bar dataKey="1ere dose"  >
-                {
+                {/* {
                     g.map((entry, index) =>
                         <Cell key={`cell-${index}`} fill={entry} />
                     )
-                }
+                } */}
             </Bar >
 
             <Bar dataKey="2eme dose"  >
-                {
+                {/* {
                     g.map((entry, index) =>
                         <Cell key={`cell-${index}`} fill={entry} />
                     )
-                }
+                } */}
             </Bar >
         </BarChart>
 

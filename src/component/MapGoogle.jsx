@@ -107,18 +107,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface MapGoogleParam {
-  region_excluded?: string[];
-  region_included?: string[];
-  zoom: number;
-  center: {lat:number,lng:number};
-  list_poly2: any;
-}
+// interface MapGoogleParam {
+//   region_excluded?: string[];
+//   region_included?: string[];
+//   zoom: number;
+//   center: {lat:number,lng:number};
+//   list_poly2: any;
+// }
 
-export default function MapGoogle({ region_excluded= [], region_included = [], zoom, center, list_poly2 }:MapGoogleParam){
+export default function MapGoogle({ region_excluded= [], region_included = [], zoom, center, list_poly2 }){
 // export default function MapGoogle({ region_excluded:string[]=[], region_included = [], zoom = 5, center = {}, list_poly2 }) {
   // { region_excluded, region_included = [], zoom = 5, center = {}, list_poly2 }=props
-  const mapFr = useRef<HTMLDivElement>(null);
+  const mapFr = useRef(null);
 
   useEffect(() => {
     if (zoom < 5.2) {
@@ -160,7 +160,7 @@ export default function MapGoogle({ region_excluded= [], region_included = [], z
         (zoom > 5.2 ? containerStyle_petit : containerStyle)
       }
 
-      ref={mapFr}
+      // ref={mapFr}
       center={center
       }
       zoom={

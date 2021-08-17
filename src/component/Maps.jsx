@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
-import Map_google from './MapGoogle.tsx';
+import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker.gif'
-
+import {subjectregioncolor} from './observable/observable'
 const Maps = () => {
-    const [style, setStyle] = useState<{}>({ display: "none" });
+    const [style, setStyle] = useState({ display: "none" });
     useEffect(() => {
         let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 0);
         return () => {
             clearTimeout(timer1)
         }
     }, [])
+
+
+    //initialisation
+    subjectregioncolor.next(['rgb(5,98,138)']);
 
     var list_poly2 = list_poly
     //mettre imeratif
@@ -21,7 +25,7 @@ const Maps = () => {
             <div id="wrap_map1" style={style}>
 
                 <Map_google
-                    id="map_fr"
+                    // id="map_fr"
                     key="a"
                     region_excluded={["1", "2", "3", "4"]}
                     center={{ lat: 46.7833, lng: 3.0833 }}
