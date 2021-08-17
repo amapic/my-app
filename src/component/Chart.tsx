@@ -20,19 +20,20 @@ import Title from './Title';
 
 import { subjectvac, subjectrange, subjectregion } from './observable/observable'
 
-import { liste_nom_region } from '../fonction/fonction.tsx'
+import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
+import { string } from 'mathjs';
 
 
-const chercheData = async (url) => {
+const chercheData = async (url: string): Promise<any> => {
 
-    const response = await fetch(url);
+    const response: Response = await fetch(url);
     const responseData = await response.json();
 
     if (response.ok) {
         var data = [];
-        var dictOfResponseData = {}
-        var miniDict = {}
+        var dictOfResponseData: { [key: string]: number } = {}
+        var miniDict = { time: string, key: string }
         for (const [key, value] of Object.entries(responseData)) {
             dictOfResponseData[key] = value
         }
@@ -60,7 +61,7 @@ const chercheData = async (url) => {
 
 }
 
-const format = num =>
+const format = (num: number): string =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
     ;
@@ -76,7 +77,8 @@ export default function Chart(props) {
     }
 
     const valueFormatter = function (x, y, z) {
-        return [format(x), liste_region[z.dataKey],]
+        console.log({ ...props, style: { color: 'white' } });
+        return [format(x), liste_region[z.dataKey], { ...props, style: { color: 'white' } }]
     }
 
     const legendFormatter = function (value, entry, index) {
@@ -88,15 +90,15 @@ export default function Chart(props) {
         subjectvac.subscribe(
             (v) => {
 
-                let re = subjectregion.getValue()
-                re = re.join('_')
+                let re: (string[]|string) = subjectregion.getValue()
+                var reString = re.join('_')
                 let rr = subjectrange.getValue()
-                
+
 
                 if (typeof rr === "object") {
-                    var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    let url = "http://localhost:8052/detail3/" + re + "/" + v + "/" + date1 +"/"+ date2
+                    var date1 = new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var date2 = new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    let url = "http://localhost:8052/detail3/" + reString + "/" + v + "/" + date1 + "/" + date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
@@ -110,14 +112,14 @@ export default function Chart(props) {
         subjectregion.subscribe(
             v => {
                 let re = subjectvac.getValue()
-                v = v.join('_')
+                var vString:string = v.join('_')
                 let rr = subjectrange.getValue()
-                
+
 
                 if (typeof rr === "object") {
-                    var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    let url = "http://localhost:8052/detail3/"  + v + "/" + re + "/" + date1 + "/" + date2
+                    var date1 = new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var date2 = new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    let url = "http://localhost:8052/detail3/" + vString + "/" + re + "/" + date1 + "/" + date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
@@ -133,24 +135,22 @@ export default function Chart(props) {
             (v) => {
                 let re = subjectvac.getValue()
                 let rr = subjectregion.getValue()
-                rr = rr.join('_')
-                if (typeof v==='object') {
-                    // var date1=v[0]
-                    // var date2=v[1]
-                    var date1 =new Date(v[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    var date2 =new Date(v[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    var url = "http://localhost:8052/detail3/" + rr + "/" + re + "/" + date1 + "/" + date2
+                var rrString: string = rr.join('_')
+                if (typeof v === 'object') {
+                    var date1 = new Date(v[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var date2 = new Date(v[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
+                    var url = "http://localhost:8052/detail3/" + rrString + "/" + re + "/" + date1 + "/" + date2
 
                     // if (typeof re === "string" && typeof rr === "string" && rr !== '') {
-                        chercheData(url).then((tt) => {
-                            setItems(tt)
-                        });
+                    chercheData(url).then((tt) => {
+                        setItems(tt)
+                    });
                     // }
                 }
 
 
-            
-        });
+
+            });
     }, [])
 
     return (
@@ -172,7 +172,7 @@ export default function Chart(props) {
 
                         <Legend formatter={legendFormatter} />
 
-                        <Tooltip labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <Tooltip labelFormatter={labelFormatter} contentStyle={{ color: theme.palette.secondary.fonttooltip }} labelStyle={{ color: theme.palette.secondary.fonttooltip }} formatter={valueFormatter} />
                         <CartesianGrid strokeDasharray="3 3" />
                         {
 
@@ -185,13 +185,12 @@ export default function Chart(props) {
                         }
 
 
-                        < XAxis dataKey="time" stroke={
-                            theme.palette.text.secondary
-                        }
+                        < XAxis dataKey="time"
 
-                        tick={{color: '#ffffff' }}
+                            tick={{ color: theme.palette.text.secondary.main }}
                         />
-                        <YAxis stroke={theme.palette.text.secondary} tick={{color: '#ffffff' }}>
+                        <YAxis
+                            tick={{ color: theme.palette.text.secondary.main }}>
 
                             <Label
                                 angle={270}
@@ -199,14 +198,14 @@ export default function Chart(props) {
                                 style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
                             >
                             </Label >
-                            <  / YAxis >
+                        </YAxis>
 
-                            dot = {
-                                false
-                            }
-        
-                        </LineChart >
-                        <  / ResponsiveContainer >
-                        <  /> );
+                        dot = {
+                            false
+                        }
+
+                    </LineChart >
+                    <  / ResponsiveContainer >
+                    <  /> );
     
 }

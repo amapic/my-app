@@ -63,20 +63,21 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+	  "es2017"
     ],
     "allowJs": true,
     "noEmit": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+	"suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/component/observable/observable.js"  ],
+    "**/*.tsx", "src/component/MapGoogle.jsx" ],
   "exclude": [
     "node_modules"
   ]

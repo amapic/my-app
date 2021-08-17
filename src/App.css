@@ -127,3 +127,11 @@ label[id^="radio-"] {
 text{
   white-space: normal;
 }
+
+.tooltipLabel {
+  color:#000!important;
+}
+
+.tooltipContent p{
+  color:#000!important;
+}

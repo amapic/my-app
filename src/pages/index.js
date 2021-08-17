@@ -9,16 +9,16 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../component/Chart';
-import Deposits from '../component/Deposits.tsx';
+import Deposits from '../component/Deposits';
 
-import Slider_zone from '../component/Slider.tsx';
+import Slider_zone from '../component/Slider';
 // import Slider_vaccin from './component/SliderVaccin';
-import { Camembert } from '../component/PieChart.tsx';
+import { Camembert } from '../component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import theme from '../style/theme';
-import Maps from '../component/Maps.tsx'
+import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 
 import Data_carre_logique from '../component/Data_carre_logique'
@@ -192,7 +192,7 @@ export default function Dashboard() {
                       <Slider_zone />
 
                     </div>
-                    {/* <ToggleButtonPerso /> */}
+                    <ToggleButtonPerso />
                   </div>
                   <Chart id="container_graph"/>
 
@@ -204,7 +204,7 @@ export default function Dashboard() {
                     <Image src={logo} alt="Logo" />
                   </div> */}
                   <div className={classes.flexRow}>
-                  {/* <Maps /> */}
+                  <Maps />
                   {/* <Data_carre_logique /> */}
                   <BarChartWrap />
                   </div>

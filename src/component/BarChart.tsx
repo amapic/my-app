@@ -18,16 +18,16 @@ import Title from './Title';
 
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 
-import { liste_nom_region } from '../fonction/fonction.tsx'
+import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
 
 
-const chercheData = async (url, liste_selected) => {
+const chercheData = async (url:string, liste_selected:[string]|null):Promise<any> => {
 
     const response = await fetch(url);
     const responseData = await response.json();
     var liste_nom_region2 = liste_nom_region
-    var liste_selected_str=[]
+    var liste_selected_str:[string]=[]
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
         var data = [];
@@ -59,7 +59,7 @@ const chercheData = async (url, liste_selected) => {
 
 }
 
-const format = num =>
+const format = (num:number) :string =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
     ;
@@ -67,13 +67,12 @@ const format = num =>
 export default function BarChartWrap(props) {
     const theme = useTheme();
     const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
-    var g = []
+    var g:[string]|null
     const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
     g = subjectregioncolor.getValue()
     useEffect(() => {
         subjectregion.subscribe(
             v => {
-                // v = v.join('_')
 
                 let url = "http://localhost:8052/req_bar_chart"
                 chercheData(url, v).then((tt) =>
@@ -86,20 +85,6 @@ export default function BarChartWrap(props) {
 
     }, [])
 
-    // useEffect(() => {
-    //     subjectrange.subscribe(
-    //         v => {
-    //             v = subjectregion.getValue().join('_')
-
-    //             let url = "http://localhost:8052/req_bar_chart"
-    //             chercheData(url).then((tt) =>
-    //                 setItems(tt));
-
-
-    //         }
-    //     );
-
-    // }, [])
 
 
     var data = [
@@ -142,15 +127,12 @@ export default function BarChartWrap(props) {
     if (!items || g === null) {
         return null
     }
-    {/* Object.keys(object1) */ }
     return (
 
         <BarChart width="100%" height={300} data={items}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" angle={45} textAnchor="begin" />
             <YAxis scale="log" domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
-            {/* <Tooltip /> */}
-            {/* <Legend /> */}
             <Bar dataKey="1ere dose"  >
                 {
                     g.map((entry, index) =>
@@ -167,11 +149,6 @@ export default function BarChartWrap(props) {
                 }
             </Bar >
         </BarChart>
-        //     Object.keys(items[0]).map((object, i) =>
-
-        //     object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke={theme.palette.primary.main} dot={false} /> : null
-
-        // )
 
     )
 

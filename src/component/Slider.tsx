@@ -7,39 +7,20 @@ import Typography from '@material-ui/core/Typography';
 import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
 
-import {SyntheticEvent} from './interface'
+import { SyntheticEvent } from './interface'
 
-const chercheData = async (url:string) :Promise<any>=> {
-
-  const response = await fetch(url)
-  const responseData = await response.json()
-
-  if (response.ok) {
-    let local_range = responseData;
-
-    let datetime:number[] = Object.values(local_range.timestamp)
-    let datetext:string[] = Object.values(local_range.datetime)
-    var marks2 = []
-    for (const [index, element] of datetext.entries()) {
-      marks2.push({ label: element, value: datetime[index] });
-    }
-    let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
-    subjectrange.next(datetext.sort()[0] + "-01/" + datetext.sort()[datetext.length - 1] + "-01")
-    return [local_range2, false]
-  } else {
-    return [null, true]
-  }
+interface itemstype {
+  max_text: number,
+  min_text: number,
+  min: string,
+  max: string,
+  marks: { label: string, value: number }[]
 }
 
-const chercheDataWrap=async(url:string):Promise<any>=>{
-  return chercheData(url).then(x=>
-    x)
-}
-
-function useFetch(url:string) {
-  const [state, setState] = useState<{items:any[],loading:boolean}>({
-    items: [],
-    loading: true
+function useFetch(url: string): [boolean,itemstype] {
+  const [state, setState] = useState<{loading: boolean,items:itemstype}>({
+    loading: true,
+    items: []
   })
 
   useEffect(function () {
@@ -50,16 +31,15 @@ function useFetch(url:string) {
       if (response.ok) {
         let local_range = responseData;
 
-        let datetime:number[] = Object.values(local_range.timestamp)
-        let datetext:string[] = Object.values(local_range.datetime)
+        let datetime: { [key: number]: number } = Object.values(local_range.timestamp)
+        let datetext: { [key: number]: string } = Object.values(local_range.datetime)
         var marks2 = []
         for (const [index, element] of datetext.entries()) {
           marks2.push({ label: element, value: datetime[index] });
         }
-        // let datetext   sortBy(datetext,['age'])
-        let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
-        subjectrange.next([Math.min(...datetime),Math.max(...datetime)])
-        setState({ items: local_range2, loading: false });
+        let local_range2:itemstype = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
+        subjectrange.next([Math.min(...datetime), Math.max(...datetime)])
+        setState({ 'items': local_range2, loading: false });
       } else {
         alert(JSON.stringify(responseData))
         setState(s => ({ ...s, loading: false }))
@@ -74,11 +54,11 @@ function useFetch(url:string) {
 }
 
 export default function SliderZone() {
-  
+
   // subjectrange est mis à jour dans useFetch
   // const { range, error } = useSWR("http://localhost:8052/liste_mois_detail", chercheDataWrap)
-  const [error:boolean, range:any] = useFetch("http://localhost:8052/liste_mois_detail")
-  const handleChange = (event:SyntheticEvent, newValue:[number,number]) => {
+  const [error, range] = useFetch("http://localhost:8052/liste_mois_detail")
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, newValue: [number, number]): void => {
 
     subjectrange.next(newValue);
 

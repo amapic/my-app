@@ -108,17 +108,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface MapGoogleParam {
-  region_excluded: string[];
+  region_excluded?: string[];
   region_included?: string[];
   zoom: number;
   center: {lat:number,lng:number};
   list_poly2: any;
 }
 
-function MapGoogle({ region_excluded, region_included = [], zoom = 5, center, list_poly2 }:MapGoogleParam){
+export default function MapGoogle({ region_excluded= [], region_included = [], zoom, center, list_poly2 }:MapGoogleParam){
 // export default function MapGoogle({ region_excluded:string[]=[], region_included = [], zoom = 5, center = {}, list_poly2 }) {
   // { region_excluded, region_included = [], zoom = 5, center = {}, list_poly2 }=props
-  const mapFr = useRef<HTMLDivElement | void>(null);
+  const mapFr = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (zoom < 5.2) {

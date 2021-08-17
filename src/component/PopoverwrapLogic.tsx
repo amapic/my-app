@@ -4,7 +4,7 @@ import {
 } from './observable/observable'
 import Popoverwrap from './Popoverwrap';
 
-const chercheData = async (url) => {
+const chercheData = async (url:string):promise => {
 
   const response = await fetch(url);
   const responseData = await response.json();
@@ -21,9 +21,9 @@ const chercheData = async (url) => {
 
 
 
-const PopoverwrapLogic = ({ object, paths }) => {
-  var hovered = false;
-  var timer1;
+const PopoverwrapLogic = ({ object:string, paths }) => {
+  var hovered:boolean = false;
+  var timer1:number;
   // console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [mapProps, setmapProps] = useState({

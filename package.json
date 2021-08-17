@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/recharts": "^2.0.0",
     "mathjs": "^9.4.4",
     "next": "^11.0.1",
     "next-images": "^1.8.1",
@@ -26,7 +27,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "eject":"eject"
+    "eject": "eject"
   },
   "browserslist": {
     "production": [
@@ -44,9 +45,11 @@
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
+    "@types/googlemaps": "^3.43.3",
     "@types/node": "^16.6.0",
     "@types/react": "^17.0.17",
     "@types/react-dom": "^17.0.9",
+    "@types/shortid": "^0.0.29",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.13.2",
     "bootstrap": "^5.0.2",

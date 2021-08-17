@@ -20,6 +20,7 @@ const theme = createTheme({
       seventh:'rgb(204,182,82)',
       heigth:'rgb(164,135,105)',
       bgPaper: 'rgb(33,37,39)',
+      fonttooltip: '#000',
       
     },
     error: {

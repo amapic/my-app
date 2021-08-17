@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Map_google from './MapGoogle.tsx';
-import list_poly from "../fonction/region_load.tsx"
+import list_poly from "../fonction/region_load"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker.gif'
 

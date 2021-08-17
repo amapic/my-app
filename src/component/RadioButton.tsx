@@ -10,7 +10,7 @@ export function ToggleButtonPerso (){
   
     const radios = liste_vaccin
     
-    const handleChange = (newValue) => {
+    const handleChange = (newValue:string):void => {
         subjectvac.next(newValue);
     };
 

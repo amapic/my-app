@@ -1,4 +1,4 @@
-export const liste_vaccin=[
+export const liste_vaccin:{value:string,name:string}[]=[
 {value:"0",name:"Tous vaccins"},
 {value:"1",name:"Pfizer"},
 {value:"2",name:"Moderna"},
