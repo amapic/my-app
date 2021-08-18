@@ -3,17 +3,18 @@ import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker.gif'
-
+import {subjectregioncolor} from './observable/observable'
 const Maps = () => {
     const [style, setStyle] = useState({ display: "none" });
     useEffect(() => {
-        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 0);
+        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 3000);
         return () => {
             clearTimeout(timer1)
         }
     }, [])
 
     var list_poly2 = list_poly
+    // subjectregioncolor.next(['rgb(5,98,138)'])
     //mettre imeratif
     var style_image = (Object.keys(style)[0] === 'display') ? { visibility: "visible" } : { display: "none" }
     return (

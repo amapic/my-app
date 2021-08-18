@@ -189,10 +189,10 @@ export default function Chart(props) {
                             theme.palette.text.secondary
                         }
 
-                        tick={{color: '#ffffff' }}
+                    stroke={theme.palette.text.secondary.main}
                         />
-                        <YAxis stroke={theme.palette.text.secondary} tick={{color: '#ffffff' }}>
-
+                        <YAxis stroke={theme.palette.text.secondary.main} >
+                            
                             <Label
                                 angle={270}
                                 position="left"

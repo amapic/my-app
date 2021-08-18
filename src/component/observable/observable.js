@@ -5,7 +5,7 @@ export const subjectrange = new BehaviorSubject(1)
 export const subjectregion = new BehaviorSubject([11])
 export const subjectregionswitch = new BehaviorSubject([11])
 export const subjectmapfr = new BehaviorSubject(null)
-export const subjectregioncolor = new BehaviorSubject(null)
+export const subjectregioncolor = new BehaviorSubject(['rgb(5,98,138)'])
 
 const subscription = subjectrange.subscribe(v=>console.log(v,"subjectrange"))
 const subscription2 = subjectregion.subscribe(v=>console.log(v,"subjectregion"))

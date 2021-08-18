@@ -11,26 +11,9 @@ import {
 } from './observable/observable'
 
 import Popover from '@material-ui/core/Popover';
-import theme from '../style/theme';
-import { randomInt } from 'mathjs'
 
-// var mapOptionsClicked = {
-//   strokeColor: "#212527",
-//   strokeOpacity: 0.8,
-//   strokeWeight: 2,
-//   fillColor: theme.palette.primary.main,
-//   fillOpacity: 1,
-//   polygonKey: 1
-// }
 
-// var mapOptionsNotClicked = {
-//   strokeColor: "#212527",
-//   strokeOpacity: 0.8,
-//   strokeWeight: 2,
-//   fillColor: "#212527",
-//   fillOpacity: 0.35,
-//   polygonKey: 1
-// }
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,27 +39,23 @@ const clickk = function (i, mapProps, color) {
   } else {
     listeRegion.push(i)
     var old_value = subjectregioncolor.getValue()
-    if (old_value === null)
-      subjectregioncolor.next([color]);
-    else {
-      old_value.push(color)
-      subjectregioncolor.next(old_value);
-    }
-    subjectregion.next(listeRegion)
+    
+    old_value.push(color)
+    subjectregioncolor.next(old_value);
+    
+    
 
   }
+  subjectregion.next(listeRegion)
 }
 
   export default function Popoverwrap(props) {
 
-    const COLORS = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.fourth, theme.palette.secondary.fifth, theme.palette.secondary.sixth];
 
     const myContainer = useRef(null);
     const [visiblePopup, setvisiblePopup] = useState(true)
-    const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
-    const { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
-
-    
+    // const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
+    const { color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
 
     const classes = useStyles();
     const mapFr = subjectmapfr.getValue()
@@ -100,19 +79,18 @@ const clickk = function (i, mapProps, color) {
       polygonKey: 1
     }
     //on fixe la couleur qd ça sera cliqué
-    mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
-
-    useEffect(() => {
-      console.log("rr");
-    }, []);
+    // mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
+    // if (object !== "11") {
+    mapOptionsClicked.fillColor = color
+    
 
 
     return (<>
       <Polygon key={
         object
       }
-        aria-owns={open ? "mouse-over-popover-" + object : undefined}
-        aria-haspopup="true"
+        // aria-owns={open ? "mouse-over-popover-" + object : undefined}
+        // aria-haspopup="true"
         onMouseOut={(e) => handlePopoverClose(e, object)}
         onMouseOver={(e) => handlePopoverOpen(e, object)}
         id={"region-poly-" + object}

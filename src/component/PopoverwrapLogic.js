@@ -3,7 +3,8 @@ import {
   subjectregion, subjectregionswitch
 } from './observable/observable'
 import Popoverwrap from './Popoverwrap';
-
+import theme from '../style/theme';
+import { randomInt } from 'mathjs'
 const chercheData = async (url) => {
 
   const response = await fetch(url);
@@ -26,11 +27,23 @@ const PopoverwrapLogic = ({ object, paths }) => {
   var timer1;
   // console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
+  const [color, setColor] = React.useState(null);
   const [mapProps, setmapProps] = useState({
     etat: "init",
     selectedItems: ["11"],
     hovered: false
   });
+
+  const COLORS = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.fourth, theme.palette.secondary.fifth, theme.palette.secondary.sixth];
+
+  if (color === null){
+    if (object !== "11") {
+      setColor(COLORS[randomInt(COLORS.length)])
+    }
+    else {
+      setColor(theme.palette.secondary.first);
+    }
+  }
 
 
 
@@ -96,7 +109,7 @@ const PopoverwrapLogic = ({ object, paths }) => {
     setAnchorEl({ a: null, b: 0, c: 0, d: "" });
   };
 
-  const props = { object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }
+  const props = {color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen }
   return (<Popoverwrap key={object} {...props} />)
 
 }

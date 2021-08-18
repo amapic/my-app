@@ -11,7 +11,10 @@ import {
     CartesianGrid,
     Bar,
     BarChart,
-    Cell
+    Cell,
+    ResponsiveContainer,
+    Label,
+    Text
 }
     from 'recharts';
 import Title from './Title';
@@ -27,7 +30,7 @@ const chercheData = async (url, liste_selected) => {
     const response = await fetch(url);
     const responseData = await response.json();
     var liste_nom_region2 = liste_nom_region
-    var liste_selected_str=[]
+    var liste_selected_str = []
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
         var data = [];
@@ -39,7 +42,7 @@ const chercheData = async (url, liste_selected) => {
 
         for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
             // liste_nom_region[Object.values(dictOfResponseData.reg)[i]]
-            console.log(Object.values(dictOfResponseData.reg)[i]);
+            // console.log(Object.values(dictOfResponseData.reg)[i]);
             miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
             miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
             miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
@@ -59,6 +62,8 @@ const chercheData = async (url, liste_selected) => {
 
 }
 
+
+
 const format = num =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
@@ -73,7 +78,6 @@ export default function BarChartWrap(props) {
     useEffect(() => {
         subjectregion.subscribe(
             v => {
-                // v = v.join('_')
 
                 let url = "http://localhost:8052/req_bar_chart"
                 chercheData(url, v).then((tt) =>
@@ -86,93 +90,63 @@ export default function BarChartWrap(props) {
 
     }, [])
 
-    // useEffect(() => {
-    //     subjectrange.subscribe(
-    //         v => {
-    //             v = subjectregion.getValue().join('_')
-
-    //             let url = "http://localhost:8052/req_bar_chart"
-    //             chercheData(url).then((tt) =>
-    //                 setItems(tt));
-
-
-    //         }
-    //     );
-
-    // }, [])
-
-
-    var data = [
-        {
-            "name": "Page A",
-            "uv": 4000,
-            "pv": 2400
-        },
-        {
-            "name": "Page B",
-            "uv": 3000,
-            "pv": 1398
-        },
-        {
-            "name": "Page C",
-            "uv": 2000,
-            "pv": 9800
-        },
-        {
-            "name": "Page D",
-            "uv": 2780,
-            "pv": 3908
-        },
-        {
-            "name": "Page E",
-            "uv": 1890,
-            "pv": 4800
-        },
-        {
-            "name": "Page F",
-            "uv": 2390,
-            "pv": 3800
-        },
-        {
-            "name": "Page G",
-            "uv": 3490,
-            "pv": 4300
+    function CustomizedLabel(props) {
+        const { x, y, fill, value,gg} = props;
+        if (gg!==undefined){
+        console.log(gg[0].name);
         }
-    ]
+        return (<Text
+            x={x}
+            y={y}
+            dy={0}
+            fontSize='16'
+            fontFamily='sans-serif'
+            fill="#fff"
+            angle="90"
+            textAnchor="middle">{
+                
+                gg!==undefined?gg[0].name:value + '%'
+                }</Text>)
+    }
+
+
     if (!items || g === null) {
         return null
     }
-    {/* Object.keys(object1) */ }
+    console.log(g);
     return (
+        <>
+            {/* <ResponsiveContainer width="100%" height="400px"> */}
+            <BarChart width={1000} height={300} data={items}>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                {/* angle={45} textAnchor="begin" */}
+                <XAxis dataKey="name" angle={45} textAnchor="begin" />
+                <YAxis scale="log" domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
+                {/* <Tooltip /> */}
+                {/* <Legend /> */}
+                <Bar dataKey="1ere dose"
+                    label={<CustomizedLabel gg={items} />}
+                >
+                    {
+                        g.map((entry, index) =>
+                            <Cell key={`cell-${index}`} fill={entry} />
+                        )
+                    }
+                </Bar >
 
-        <BarChart width="100%" height={300} data={items}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" angle={45} textAnchor="begin" />
-            <YAxis scale="log" domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
-            {/* <Tooltip /> */}
-            {/* <Legend /> */}
-            <Bar dataKey="1ere dose"  >
-                {
-                    g.map((entry, index) =>
-                        <Cell key={`cell-${index}`} fill={entry} />
-                    )
-                }
-            </Bar >
+                <Bar dataKey="2eme dose"
+                    label={<CustomizedLabel />}
+                >
+                    {
+                        g.map((entry, index) =>
+                            <Cell key={`cell-${index}`} fill={entry} />
 
-            <Bar dataKey="2eme dose"  >
-                {
-                    g.map((entry, index) =>
-                        <Cell key={`cell-${index}`} fill={entry} />
-                    )
-                }
-            </Bar >
-        </BarChart>
-        //     Object.keys(items[0]).map((object, i) =>
-
-        //     object !== 'time' ? <Line key={i} type="monotone" dataKey={object} stroke={theme.palette.primary.main} dot={false} /> : null
-
-        // )
-
+                        )
+                    }
+                </Bar >
+            </BarChart>
+            {/* </ResponsiveContainer> */}
+        </>
     )
 
 }
