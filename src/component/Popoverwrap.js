@@ -31,103 +31,110 @@ const useStyles = makeStyles((theme) => ({
 
 const clickk = function (i, mapProps, color) {
 
-  let listeRegion = mapProps.selectedItems
+  // let listeRegion = mapProps.selectedItems
+  let listeRegion = subjectregion.getValue()
   if (listeRegion.includes(i)) {
+    var pos = listeRegion.indexOf(i)
+    var old_value = subjectregioncolor.getValue()
+
     if (listeRegion.length > 1) {
       listeRegion = listeRegion.filter(item => item !== i)
+      old_value.splice(pos, 1);
     }
   } else {
     listeRegion.push(i)
     var old_value = subjectregioncolor.getValue()
-    
+
     old_value.push(color)
-    subjectregioncolor.next(old_value);
-    
-    
+    // subjectregioncolor.next(old_value);
+
+
 
   }
+  subjectregioncolor.next(old_value);
   subjectregion.next(listeRegion)
 }
 
-  export default function Popoverwrap(props) {
+export default function Popoverwrap(props) {
 
+  const myContainer = useRef(null);
+  const [visiblePopup, setvisiblePopup] = useState(true)
+  // const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
+  const { color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
 
-    const myContainer = useRef(null);
-    const [visiblePopup, setvisiblePopup] = useState(true)
-    // const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
-    const { color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
-
-    const classes = useStyles();
-    const mapFr = subjectmapfr.getValue()
+  const classes = useStyles();
+  const mapFr = subjectmapfr.getValue()
+  if (mapFr.current !== null) {
     const refMapFr = ReactDOM.findDOMNode(mapFr.current)
-
-    var mapOptionsClicked = {
-      strokeColor: "#212527",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: color,
-      fillOpacity: 1,
-      polygonKey: 1
-    }
-
-    var mapOptionsNotClicked = {
-      strokeColor: "#212527",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: "#212527",
-      fillOpacity: 0.35,
-      polygonKey: 1
-    }
-    //on fixe la couleur qd ça sera cliqué
-    // mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
-    // if (object !== "11") {
-    mapOptionsClicked.fillColor = color
-    
-
-
-    return (<>
-      <Polygon key={
-        object
-      }
-        // aria-owns={open ? "mouse-over-popover-" + object : undefined}
-        // aria-haspopup="true"
-        onMouseOut={(e) => handlePopoverClose(e, object)}
-        onMouseOver={(e) => handlePopoverOpen(e, object)}
-        id={"region-poly-" + object}
-        ref={myContainer}
-        paths={
-          paths
-        }
-        onClick={
-          () => clickk(object, mapProps, mapOptionsClicked.fillColor)
-        }
-        options={
-          (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
-        }
-
-      />
-      <Popover
-        id={"mouse-over-popover-" + object}
-        className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
-        classes={{
-          paper: classes.paper,
-        }}
-        open={open}
-        anchorReference="anchorEl"
-        // anchorPosition={{left:'10',top:'10'}}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right"
-        }}
-        anchorEl={mapFr}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        Première dose : {anchorEl.d} <br />
-        Seconde dose : {anchorEl.e}
-      </Popover></>)
   }
+
+  var mapOptionsClicked = {
+    strokeColor: "#212527",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: color,
+    fillOpacity: 1,
+    polygonKey: 1
+  }
+
+  var mapOptionsNotClicked = {
+    strokeColor: "#212527",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#212527",
+    fillOpacity: 0.35,
+    polygonKey: 1
+  }
+  //on fixe la couleur qd ça sera cliqué
+  // mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
+  // if (object !== "11") {
+  mapOptionsClicked.fillColor = color
+
+
+
+  return (<>
+    <Polygon key={
+      object
+    }
+      // aria-owns={open ? "mouse-over-popover-" + object : undefined}
+      // aria-haspopup="true"
+      onMouseOut={(e) => handlePopoverClose(e, object)}
+      onMouseOver={(e) => handlePopoverOpen(e, object)}
+      id={"region-poly-" + object}
+      ref={myContainer}
+      paths={
+        paths
+      }
+      onClick={
+        () => clickk(object, mapProps, mapOptionsClicked.fillColor)
+      }
+      options={
+        (mapProps.selectedItems.includes(parseInt(object)) || mapProps.selectedItems.includes(object)) ? mapOptionsClicked : mapOptionsNotClicked
+      }
+
+    />
+    <Popover
+      id={"mouse-over-popover-" + object}
+      className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
+      classes={{
+        paper: classes.paper,
+      }}
+      open={open}
+      anchorReference="anchorEl"
+      // anchorPosition={{left:'10',top:'10'}}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
+      anchorEl={mapFr}
+      onClose={handlePopoverClose}
+      disableRestoreFocus
+    >
+      Première dose : {anchorEl.d} <br />
+      Seconde dose : {anchorEl.e}
+    </Popover></>)
+}
