@@ -42,39 +42,28 @@ const chercheData = async (url) => {
 
 }
 
-export default function Deposits() {
+export default function Deposits2() {
   const [items, setItems] = useState(false);
-  const [items2, setItems2] = useState(false);
   const classes = useStyles();
   
   useEffect(() => {
-    chercheData("http://localhost:8052/pourcentage_pop_vac_som_1").then((tt) => {
-      setItems(tt);
+    chercheData("http://localhost:8052/doses_administrees").then((tt) => {
+      setItems(tt[0]);
     })
-    chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {
-      setItems2(tt);
-    })
+    // chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {
+    //   setItems2(tt);
+    // })
 
   }, []);
 
   return (
     <React.Fragment>
-      <Title className={classes.title}>Population vacciné</Title>
+      <Title className={classes.title}>Doses administrées </Title>
       
-      <LinearProgress variant="determinate" value={items*100} />
       <Typography align="center" color="secondary" className={classes.depositContext}>
-        Première dose : {parseFloat(items*100).toFixed(1)} %
-      </Typography>
-      <br />
-      <LinearProgress variant="determinate" value={items2*100} />
-      <Typography align="center" color="primary.bar_droite1" className={classes.depositContext}>
-        Seconde dose : {parseFloat(items2*100).toFixed(1)} %
+        {parseFloat(items/1000000).toFixed(1)} M
       </Typography>
 
-      <div>
-
-      </div>
-      {/* <Wrapper>qdqdddd</Wrapper> */}
     </React.Fragment>
   );
 }

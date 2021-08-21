@@ -41,8 +41,6 @@ const chercheData = async (url, liste_selected) => {
         }
 
         for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
-            // liste_nom_region[Object.values(dictOfResponseData.reg)[i]]
-            // console.log(Object.values(dictOfResponseData.reg)[i]);
             miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
             miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
             miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
@@ -110,6 +108,11 @@ export default function BarChartWrap(props) {
             }</Text>)
     }
 
+    function tickFormatter(value){
+        return value.toString() + "%"
+
+    }
+
 
     if (!items || g === null) {
         return null
@@ -117,12 +120,11 @@ export default function BarChartWrap(props) {
     console.log(g);
     return (
         <>
-            < ResponsiveContainer height={400} width={'100%'}>
-                <BarChart width={1000} height={300} data={items}>
+            < ResponsiveContainer id="responsive_cont_barcharts" height={360} width={'50%'}>
+                <BarChart width={1000}  data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    {/* angle={45} textAnchor="begin" */}
-                    <XAxis dataKey="name" angle={45} textAnchor="begin" />
-                    <YAxis domain={['auto', 'auto']} tickMargin={15} padding={{ right: 20 }} />
+                    <XAxis dataKey="name" angle={20} textAnchor="begin" interval={0}  />
+                    <YAxis tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
                     {/* <Tooltip /> */}
                     {/* <Legend /> */}
                     <Bar dataKey="1ere dose"

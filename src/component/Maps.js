@@ -16,9 +16,9 @@ const Maps = () => {
     var list_poly2 = list_poly
     // subjectregioncolor.next(['rgb(5,98,138)'])
     //mettre imeratif
-    var style_image = (Object.keys(style)[0] === 'display') ? { visibility: "visible" } : { display: "none" }
+    var style_image = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
-        <div id="RRR3" style={{ height: '400px', maxWidth: '100%', maxHeight: '100%' }}>
+        <div id="RRR3" style={{ height: '400px', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
             <div id="wrap_map1" style={style}>
 
                 <Map_google

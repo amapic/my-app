@@ -10,7 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
-
+import Deposits2 from '../component/Deposit_somme_vaccin';
+import Deposits3 from '../component/Deposit_europeen';
 import Slider_zone from '../component/Slider';
 // import Slider_vaccin from './component/SliderVaccin';
 import { Camembert } from '../component/PieChart';
@@ -209,7 +210,9 @@ export default function Dashboard() {
                   <div className={classes.flexRow}>
                   <Maps />
                   {/* <Data_carre_logique /> */}
+                  {/* <div width="50%"> */}
                   <BarChartWrap />
+                  {/* </div> */}
                   </div>
                   {/* <SwitchMap /> */}
 
@@ -224,6 +227,14 @@ export default function Dashboard() {
               </Paper>
               <Paper className={classes.paper_droite} spacing={3} >
                 <Deposits />
+              </Paper>
+
+              <Paper className={classes.paper_droite} spacing={3} >
+                <Deposits2 />
+              </Paper>
+
+              <Paper className={classes.paper_droite} spacing={3} >
+                <Deposits3 />
               </Paper>
 
             </Grid>
