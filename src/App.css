@@ -149,3 +149,7 @@ text {
 #dose {
   font-size: 2rem;
 }
+
+#contient_responsive{
+  width:calc(800px);
+}

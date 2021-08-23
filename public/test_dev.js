@@ -37,7 +37,7 @@ var doGetTEXT=async function () {
     // Work with Promise object:
     aPromise
     .then(response => {
-        console.log("OK! Server returns a response object:");
+        // console.log("OK! Server returns a response object:");
         // console.log(response.json());
         return response.json();
     })
@@ -92,11 +92,11 @@ const getdata=function(){
 export default function Chart() {
     const theme = useTheme();
     const data=getdata();
-	console.log(data);
+	// console.log(data);
 	useEffect(() => {
     // You need to restrict it at some point
     const data=getdata();
-	console.log(data);
+	// console.log(data);
   }, []);
     return (
          <  >

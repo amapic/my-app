@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'
-import logo from '../img/ezgif.com-gif-maker.gif'
+import logo from '../img/ezgif.com-gif-maker2.gif'
 import {subjectregioncolor} from './observable/observable'
 const Maps = () => {
     const [style, setStyle] = useState({ display: "none" });

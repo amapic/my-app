@@ -17,7 +17,8 @@ import {
     Text
 }
     from 'recharts';
-import Title from './Title';
+// import Title from './Title';
+import Maps from './Maps'
 
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 
@@ -92,7 +93,7 @@ export default function BarChartWrap(props) {
     function CustomizedLabel(props) {
         const { x, y, fill, value, gg } = props;
         if (gg !== undefined) {
-            console.log(gg[0].name);
+            // console.log(gg[0].name);
         }
         return (<Text
             x={x}
@@ -117,10 +118,12 @@ export default function BarChartWrap(props) {
     if (!items || g === null) {
         return null
     }
-    console.log(g);
+    // console.log(g);
     return (
         <>
-            < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="50%" >
+            <div id='contient_responsive'>
+            < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="80%" >
+            {/* <Maps /> */}
                 <BarChart width={1000} barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
                     <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
@@ -153,6 +156,7 @@ export default function BarChartWrap(props) {
                     </Bar >
                 </BarChart>
             </ResponsiveContainer>
+            </div>           
         </>
     )
 
