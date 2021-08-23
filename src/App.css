@@ -2,7 +2,9 @@
   text-align: center;
 }
 
-html { font-size: 14px; }
+html {
+  font-size: 14px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -14,65 +16,71 @@ html { font-size: 14px; }
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 label[id^="radio-"] {
   font-size: 1rem;
-  align-items:center;
-  padding:auto;
+  align-items: center;
+  padding: auto;
 }
 
 #div_slider .MuiTypography-root {
-  display: none!important;
+  display: none !important;
 }
 
 
 .btn-group {
-  width:45%;
+  width: 45%;
   flex-wrap: nowrap;
   padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 20px;
   height: 50px;
+  justify-content: center;
 }
 
 .btn-secondary {
   padding: 0px 0px 0px 0px !important;
-  align-items:center;
-  min-height:40px;
+  align-items: center;
+  min-height: 40px;
   line-height: 2.2;
 
 }
 
 #entete_chart {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  overflow:visible;
 }
 
-#BB{
-  flex-wrap: nowrap;
+#BB {
+  flex-wrap: wrap;
 }
 
-#CC{
+#CC {
   margin-top: 12px;
 }
 
 
-#div_slider{
+#div_slider {
   padding: 0px 0px 0px 0px;
-  width:45%;
+  width: 45%;
   max-height: 50px;
+  min-width:290px;
+  justify-content: center;
 }
 
-#wrap_map1{
-  display:flex;
+#wrap_map1 {
+  display: flex;
   flex-direction: row;
   height: 100%;
   /* flex-wrap: nowrap; */
 }
 
-#wrap_map2{
+#wrap_map2 {
   /* padding: 0px 30px 0px 30px; */
-  display:flex;
+  display: flex;
   flex-direction: column;
   /* width:50px; */
 }
@@ -97,21 +105,22 @@ label[id^="radio-"] {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .recharts-wrapper {
-  margin : 0 auto;
+  margin: 0 auto;
 }
 
-.recharts-treemap-depth-1 text{
-  font-size:1rem
+.recharts-treemap-depth-1 text {
+  font-size: 1rem
 }
 
-.recharts-legend-item-text{
-  font-size:1rem
+.recharts-legend-item-text {
+  font-size: 1rem
 }
 
 /* .recharts-responsive-container{
@@ -119,20 +128,24 @@ label[id^="radio-"] {
 } */
 
 
-.recharts-cartesian-axis-ticks tspan{
-  font-size:0.9rem;
-  color:#ffffff;
+.recharts-cartesian-axis-ticks tspan {
+  font-size: 0.9rem;
+  color: #ffffff;
 }
 
-text{
+text {
   white-space: normal;
 }
 
-.recharts-surface{
+.recharts-surface {
   /* width:"1100px"; */
   overflow: visible;
 }
 
-#responsive_cont_barcharts{
-  margin:0rem 2rem 0 3rem;
+#responsive_cont_barcharts {
+  margin: 1rem 2rem 0rem 3rem;
+}
+
+#dose {
+  font-size: 2rem;
 }

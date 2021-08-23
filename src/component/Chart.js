@@ -172,7 +172,7 @@ export default function Chart(props) {
 
                         <Legend formatter={legendFormatter} />
 
-                        <Tooltip PopperProps={{backgroundColor:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <Tooltip contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
                         <CartesianGrid strokeDasharray="3 3" />
                         {
 

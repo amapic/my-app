@@ -72,7 +72,7 @@ export default function Popoverwrap(props) {
   var mapOptionsClicked = {
     strokeColor: "#212527",
     strokeOpacity: 0.8,
-    strokeWeight: 2,
+    strokeWeight: 1,
     fillColor: color,
     fillOpacity: 1,
     polygonKey: 1
@@ -81,7 +81,7 @@ export default function Popoverwrap(props) {
   var mapOptionsNotClicked = {
     strokeColor: "#212527",
     strokeOpacity: 0.8,
-    strokeWeight: 2,
+    strokeWeight: 1,
     fillColor: "#212527",
     fillOpacity: 0.35,
     polygonKey: 1
@@ -116,7 +116,7 @@ export default function Popoverwrap(props) {
       }
 
     />
-    <Popover
+    {/* <Popover
       id={"mouse-over-popover"}
       className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
@@ -138,5 +138,6 @@ export default function Popoverwrap(props) {
     >
       Première dose : {anchorEl.d} <br />
       Seconde dose : {anchorEl.e}
-    </Popover></>)
+    </Popover> */}
+    </>)
 }

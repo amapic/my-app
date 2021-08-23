@@ -46,6 +46,9 @@ const theme = createTheme({
         top: '20px',
         fontSize: '1rem',
         color:'#ffffff'
+      },
+      root: {
+        margin: '0 2rem 0 0',
       }
     },
     MuiTypography: {

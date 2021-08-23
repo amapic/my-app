@@ -53,7 +53,7 @@ function useFetch(url) {
         let datetext = Object.values(local_range.datetime)
         var marks2 = []
         for (const [index, element] of datetext.entries()) {
-          marks2.push({ label: element, value: datetime[index] });
+          marks2.push({ label: element.substr(2), value: datetime[index] });
         }
         // let datetext   sortBy(datetext,['age'])
         let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }

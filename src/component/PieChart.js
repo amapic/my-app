@@ -50,7 +50,7 @@ export function Camembert(){
 return(
   <>
 <Title align="center">Vaccin administré</Title>
-<PieChart width={180} height={200} margin={0,0,0,0}>
+<PieChart width={180} height={160} margin={0,0,0,0}>
   <Pie data={items} nameKey="name" cx="50%" cy="50%" outerRadius={40} >
     {
       items.map((entry, index) => (

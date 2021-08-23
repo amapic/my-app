@@ -61,7 +61,9 @@ export default function Deposits2() {
       <Title className={classes.title}>Doses administrées </Title>
       
       <Typography align="center" color="secondary" className={classes.depositContext}>
+        <div id="dose">
         {parseFloat(items/1000000).toFixed(1)} M
+        </div>
       </Typography>
 
     </React.Fragment>

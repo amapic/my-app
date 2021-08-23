@@ -120,10 +120,10 @@ export default function BarChartWrap(props) {
     console.log(g);
     return (
         <>
-            < ResponsiveContainer id="responsive_cont_barcharts" height={200} width={'50%'}>
+            < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="50%" >
                 <BarChart width={1000} barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    <XAxis dataKey="name"  angle={10} textAnchor="begin" interval={0} dy={2} />
+                    <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
                     <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
                     {/* <Tooltip /> */}
                     {/* <Legend /> */}
