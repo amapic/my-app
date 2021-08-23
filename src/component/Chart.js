@@ -156,7 +156,7 @@ export default function Chart(props) {
     return (
         <  >
             < Title >  <  / Title >
-                < ResponsiveContainer height={300} width={'100%'}>
+                < ResponsiveContainer height={200} width={'100%'}>
                     < LineChart
                         data={
                             items
@@ -185,7 +185,7 @@ export default function Chart(props) {
                         }
 
 
-                        < XAxis dataKey="time" stroke={
+                        < XAxis tickLine={false} dataKey="time" stroke={
                             theme.palette.text.secondary
                         }
 

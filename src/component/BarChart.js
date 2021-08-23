@@ -120,11 +120,11 @@ export default function BarChartWrap(props) {
     console.log(g);
     return (
         <>
-            < ResponsiveContainer id="responsive_cont_barcharts" height={360} width={'50%'}>
-                <BarChart width={1000}  data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
+            < ResponsiveContainer id="responsive_cont_barcharts" height={200} width={'50%'}>
+                <BarChart width={1000} barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    <XAxis dataKey="name" angle={20} textAnchor="begin" interval={0}  />
-                    <YAxis tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
+                    <XAxis dataKey="name"  angle={10} textAnchor="begin" interval={0} dy={2} />
+                    <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
                     {/* <Tooltip /> */}
                     {/* <Legend /> */}
                     <Bar dataKey="1ere dose"
@@ -135,17 +135,18 @@ export default function BarChartWrap(props) {
                             //     <Cell key={`cell-${key}`} fill={value} />
                             // }
                             g.map((entry, index) =>
-                                <Cell key={`cell-${index}`} fill={entry} />
+                                <Cell key={`cell-${index}`}  stroke={entry} fill={'rgb(33,37,39)'} strokeWidth={3}/>
                             )
                         }
                     </Bar >
 
                     <Bar dataKey="2eme dose"
+                    
                     // label={<CustomizedLabel />}
                     >
                         {
                             g.map((entry, index) =>
-                                <Cell key={`cell-${index}`} fill={entry} />
+                                <Cell key={`cell-${index}`} stroke={entry} fill={'rgb(33,37,39)'} strokeWidth={3}/>
 
                             )
                         }

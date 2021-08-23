@@ -212,6 +212,8 @@ export default function Dashboard() {
                   {/* <Data_carre_logique /> */}
                   {/* <div width="50%"> */}
                   <BarChartWrap />
+
+                  {/* <Deposits3 /> */}
                   {/* </div> */}
                   </div>
                   {/* <SwitchMap /> */}
@@ -233,9 +235,9 @@ export default function Dashboard() {
                 <Deposits2 />
               </Paper>
 
-              <Paper className={classes.paper_droite} spacing={3} >
+              {/* <Paper className={classes.paper_droite} spacing={3} >
                 <Deposits3 />
-              </Paper>
+              </Paper> */}
 
             </Grid>
           </Grid>

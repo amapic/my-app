@@ -64,8 +64,9 @@ export default function Popoverwrap(props) {
 
   const classes = useStyles();
   const mapFr = subjectmapfr.getValue()
+  var refMapFr = null
   if (mapFr.current !== null) {
-    const refMapFr = ReactDOM.findDOMNode(mapFr.current)
+    refMapFr = ReactDOM.findDOMNode(mapFr.current)
   }
 
   var mapOptionsClicked = {
@@ -90,7 +91,9 @@ export default function Popoverwrap(props) {
   // if (object !== "11") {
   mapOptionsClicked.fillColor = color
 
-
+  if (refMapFr===null){
+    return null
+  }
 
   return (<>
     <Polygon key={
@@ -114,14 +117,13 @@ export default function Popoverwrap(props) {
 
     />
     <Popover
-      id={"mouse-over-popover-" + object}
+      id={"mouse-over-popover"}
       className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
         paper: classes.paper,
       }}
       open={open}
       anchorReference="anchorEl"
-      // anchorPosition={{left:'10',top:'10'}}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right"
@@ -130,7 +132,7 @@ export default function Popoverwrap(props) {
         vertical: "top",
         horizontal: "right"
       }}
-      anchorEl={mapFr}
+      anchorEl={refMapFr}
       onClose={handlePopoverClose}
       disableRestoreFocus
     >

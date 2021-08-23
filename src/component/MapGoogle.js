@@ -76,13 +76,13 @@ const mapStyles2 = [
 
 ];
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '200px',
+  height: '200px'
 };
 
 const containerStyle_petit = {
-  width: '100px',
-  height: '100px'
+  width: '50px',
+  height: '50px'
 };
 
 
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {}, list_poly2 }) {
+export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {}, list_poly2,idreact }) {
 
   const mapFr = useRef(null);
 
@@ -148,7 +148,7 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
 
     <
       GoogleMap mapContainerStyle={
-        (zoom > 5.2 ? containerStyle_petit : containerStyle)
+        (idreact !=="map_fr" ? containerStyle_petit : containerStyle)
       }
 
       ref={mapFr}
