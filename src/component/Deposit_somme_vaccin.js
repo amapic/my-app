@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
-import LinearProgress from "@material-ui/core/LinearProgress";
 
-import theme from '../style/theme';
-function preventDefault(event) {
-  event.preventDefault();
-}
+
 
 const useStyles = makeStyles((theme) => ({
   depositContext: {
@@ -47,7 +43,7 @@ export default function Deposits2() {
   const classes = useStyles();
   
   useEffect(() => {
-    chercheData("http://localhost:8052/doses_administrees").then((tt) => {
+    chercheData("http://68.183.74.150:8052/doses_administrees").then((tt) => {
       setItems(tt[0]);
     })
     // chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {

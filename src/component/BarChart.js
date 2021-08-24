@@ -37,17 +37,27 @@ const chercheData = async (url, liste_selected) => {
         var data = [];
         var dictOfResponseData = {}
         var miniDict = {}
-        for (const [key, value] of Object.entries(responseData)) {
-            dictOfResponseData[key] = value
-        }
+        // for (const [key, value] of Object.entries(responseData)) {
+        //     dictOfResponseData[key] = value
+        // }
 
-        for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
-            miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
-            miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
-            miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
-            if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
+        // for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
+        //     miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
+        //     miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
+        //     miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
+        //     if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
+        //         data.push(miniDict);
+        //     }
+        //     miniDict = {}
+        // }
+
+        for (let i = 0; i < liste_selected_str.length; i++) {
+            miniDict['name'] = liste_nom_region2[liste_selected[i]]
+            miniDict['1ere dose'] = responseData.n_cum_dose1[i]
+            miniDict['2eme dose'] = responseData.n_cum_dose2[i]
+            // if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
                 data.push(miniDict);
-            }
+            // }
             miniDict = {}
         }
 
@@ -118,7 +128,6 @@ export default function BarChartWrap(props) {
     if (!items || g === null) {
         return null
     }
-    // console.log(g);
     return (
         <>
             <div id='contient_responsive'>
