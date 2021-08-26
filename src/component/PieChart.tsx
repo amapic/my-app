@@ -11,7 +11,7 @@ import { liste_vaccin } from '../data/liste_vaccin';
 import Title from './Title';
 import theme from '../style/theme';
 import adresse from '../fonction/conf'
-const chercheData = async (url) => {
+const chercheData = async (url:string):Promise<any> => {
 
     const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
@@ -22,13 +22,12 @@ const chercheData = async (url) => {
     } else {
         alert(JSON.stringify(responseData))
         console.log(JSON.stringify(responseData))
-        console.log("rrrrrr");
         return false
     }
 
 }
 
-function createData(name, value) {
+function createData(name:string, value:number) {
     return {
         name,
         value
@@ -51,9 +50,9 @@ export function Camembert(){
     },[]);
 return(
   <>
-<Title align="center">Vaccin administré</Title>
-<PieChart width={180} height={160} margin={0,0,0,0}>
-  <Pie data={items} nameKey="name" cx="50%" cy="50%" outerRadius={40} >
+<Title>Vaccin administré</Title>
+<PieChart width={180} height={160} >
+  <Pie data={items} nameKey="name" dataKey="name" cx="50%" cy="50%" outerRadius={40} >
     {
       items.map((entry, index) => (
         <Cell key={`cell-${index}`} fill={COLORS2[index % COLORS2.length]}/>

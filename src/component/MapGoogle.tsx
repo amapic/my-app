@@ -146,8 +146,8 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   return (<
     LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 
-    <
-      GoogleMap mapContainerStyle={
+    
+     <GoogleMap mapContainerStyle={
         (idreact !=="map_fr" ? containerStyle_petit : containerStyle)
       }
 

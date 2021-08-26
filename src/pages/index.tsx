@@ -174,13 +174,15 @@ export default function Dashboard() {
 
 
   return (
-    <div className={classes.root}>
+    // <div className={classes.root}>
+    <div >
+
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Chiffres sur la vaccination en Francehhhh
+            Chiffres sur la vaccination en France
           </Typography>
         </Toolbar>
       </AppBar>

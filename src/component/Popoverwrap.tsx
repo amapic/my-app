@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const clickk = function (i, mapProps, color) {
+const clickk = function (i:string, mapProps, color) {
 
   // let listeRegion = mapProps.selectedItems
   let listeRegion = subjectregion.getValue()

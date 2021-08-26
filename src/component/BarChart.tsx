@@ -25,7 +25,7 @@ import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
 
 
-const chercheData = async (url, liste_selected) => {
+const chercheData = async (url:string, liste_selected:[string]) => {
 
     const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
@@ -36,19 +36,6 @@ const chercheData = async (url, liste_selected) => {
         var data = [];
         var dictOfResponseData = {}
         var miniDict = {}
-        // for (const [key, value] of Object.entries(responseData)) {
-        //     dictOfResponseData[key] = value
-        // }
-
-        // for (let i = 0; i < Object.values(dictOfResponseData.reg).length; i++) {
-        //     miniDict['name'] = liste_nom_region2[Object.values(dictOfResponseData.reg)[i]]
-        //     miniDict['1ere dose'] = Object.values(dictOfResponseData.n_cum_dose1)[i]
-        //     miniDict['2eme dose'] = Object.values(dictOfResponseData.n_cum_dose2)[i]
-        //     if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
-        //         data.push(miniDict);
-        //     }
-        //     miniDict = {}
-        // }
 
         for (let i = 0; i < liste_selected_str.length; i++) {
             miniDict['name'] = liste_nom_region2[liste_selected[i]]
@@ -111,7 +98,7 @@ export default function BarChartWrap(props) {
             fontSize='16'
             fontFamily='sans-serif'
             fill="#fff"
-            angle="90"
+            // angle="90"
             textAnchor="middle">{
 
                 gg !== undefined ? gg[0].name : value + '%'
@@ -157,7 +144,7 @@ export default function BarChartWrap(props) {
                 <BarChart width={1000} barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
                     <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
-                    <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
+                    <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15}  />
                     
                     <Tooltip labelStyle={{color:'#000',display:'none'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelLegendFormatter} formatter={valueLegendFormatter} />
                     {/* <Legend /> */}

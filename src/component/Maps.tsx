@@ -4,8 +4,9 @@ import list_poly from "../fonction/region_load"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker2.gif'
 import {subjectregioncolor} from './observable/observable'
+import CSS from 'csstype'
 const Maps = () => {
-    const [style, setStyle] = useState({ display: "none" });
+    const [style, setStyle] = useState<CSS.Properties>({ display: "none" });
     useEffect(() => {
         let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 3000);
         return () => {
@@ -16,14 +17,13 @@ const Maps = () => {
     var list_poly2 = list_poly
     // subjectregioncolor.next(['rgb(5,98,138)'])
     //mettre imeratif
-    var style_image = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
+    var style_image: CSS.Properties = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
         <div id="RRR3" style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
             <div id="wrap_map1" style={style}>
 
                 <Map_google
                     idreact="map_fr"
-                    id="map_fr"
                     key="a"
                     region_excluded={["1", "2", "3", "4"]}
                     center={{ lat: 46.7833, lng: 3.0833 }}
@@ -41,7 +41,7 @@ const Maps = () => {
 
             </div>
             <div id="RR" style={style_image}>
-                <Image src={logo} alt="Logo" />
+                <Image src={logo} layout="fill" />
             </div>
             {/* <Popover
                 id="mouse-over-popover"
