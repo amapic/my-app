@@ -8,7 +8,7 @@ import { liste_nom_region } from '../fonction/fonction'
 
 const chercheData = async (url) => {
 
-  const response = await fetch(url);
+  const response = await fetch(url,{mode:'cors'});
   const responseData = await response.json();
 
   if (response.ok) {

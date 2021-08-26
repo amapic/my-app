@@ -21,6 +21,7 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import theme from '../style/theme';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
+import BarChartLegend from '../component/BarChartLegend'
 
 
 
@@ -212,7 +213,7 @@ export default function Dashboard() {
                   {/* <Data_carre_logique /> */}
                   {/* <div width="50%"> */}
                   <BarChartWrap />
-
+                  {/* <BarChartLegend /> */}
                   {/* <Deposits3 /> */}
                   {/* </div> */}
                   </div>

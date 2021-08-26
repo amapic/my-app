@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 
+import adresse from '../fonction/conf'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const chercheData = async (url) => {
 
-  const response = await fetch(url);
+  const response = await fetch(url,{mode:'cors'});
   const responseData = await response.json();
 
   if (response.ok) {
@@ -43,7 +45,7 @@ export default function Deposits2() {
   const classes = useStyles();
   
   useEffect(() => {
-    chercheData("http://68.183.74.150:8052/doses_administrees").then((tt) => {
+    chercheData(adresse+":8052/doses_administrees").then((tt) => {
       setItems(tt[0]);
     })
     // chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {

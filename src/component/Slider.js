@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Slider from '@material-ui/core/Slider';
 
@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 
 import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
-
+import adresse from '../fonction/conf'
 
 const chercheData = async (url) => {
 
-  const response = await fetch(url)
+  const response = await fetch(url,{mode:'cors'})
   const responseData = await response.json()
 
   if (response.ok) {
@@ -43,7 +43,7 @@ function useFetch(url) {
 
   useEffect(function () {
     (async function () {
-      const response = await fetch(url)
+      const response = await fetch(url,{mode:'cors'})
       const responseData = await response.json()
 
       if (response.ok) {
@@ -75,8 +75,7 @@ function useFetch(url) {
 export default function SliderZone() {
 
   // subjectrange est mis à jour dans useFetch
-  // const { range, error } = useSWR("http://localhost:8052/liste_mois_detail", chercheDataWrap)
-  const [error, range] = useFetch("http://localhost:8052/liste_mois_detail")
+  const [error, range] = useFetch(adresse + ":8052/liste_mois_detail")
   const handleChange = (event, newValue) => {
 
     subjectrange.next(newValue);

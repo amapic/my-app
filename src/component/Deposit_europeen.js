@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { mean } from 'mathjs'
 
+import adresse from '../fonction/conf';
 import theme from '../style/theme';
 
 import { ResponsiveContainer, Bar, BarChart, XAxis, Cell, YAxis } from 'recharts'
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const chercheData = async (url) => {
 
-  const response = await fetch(url);
+  const response = await fetch(url,{mode:'cors'});
   const responseData = await response.json();
   // var liste_nom_region2 = liste_nom_region
   // var liste_selected_str = []
@@ -76,7 +77,7 @@ export default function Deposits3() {
   };
 
   useEffect(() => {
-    chercheData("http://localhost:8052/data_europeenne").then((tt) => {
+    chercheData(adresse+":8052/data_europeenne").then((tt) => {
       setData(tt);
     })
 

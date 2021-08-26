@@ -18,17 +18,16 @@ import {
 }
     from 'recharts';
 // import Title from './Title';
-import Maps from './Maps'
-
+import adresse from '../fonction/conf'
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
-
+import Title from './Title';
 import { liste_nom_region } from '../fonction/fonction'
 import theme from '../style/theme';
 
 
 const chercheData = async (url, liste_selected) => {
 
-    const response = await fetch(url);
+    const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
     var liste_nom_region2 = liste_nom_region
     var liste_selected_str = []
@@ -53,8 +52,8 @@ const chercheData = async (url, liste_selected) => {
 
         for (let i = 0; i < liste_selected_str.length; i++) {
             miniDict['name'] = liste_nom_region2[liste_selected[i]]
-            miniDict['1ere dose'] = responseData.n_cum_dose1[i]
-            miniDict['2eme dose'] = responseData.n_cum_dose2[i]
+            miniDict['1ere_dose'] = responseData.n_cum_dose1[i]
+            miniDict['2eme_dose'] = responseData.n_cum_dose2[i]
             // if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
                 data.push(miniDict);
             // }
@@ -88,7 +87,7 @@ export default function BarChartWrap(props) {
         subjectregion.subscribe(
             v => {
 
-                let url = "http://localhost:8052/req_bar_chart"
+                let url = adresse+":8052/req_bar_chart"
 
                 chercheData(url, v).then((tt) =>
 
@@ -124,6 +123,25 @@ export default function BarChartWrap(props) {
 
     }
 
+    const labelLegendFormatter = function (x) {
+        return null
+    }
+
+    const valueLegendFormatter = function (x, y, z) {
+        return [x.toFixed(2) + " %", y,]
+    }
+
+    const CustomBarWithTarget = (props) => {
+        const { fill, x, y, width, height, amt, t } = props;
+    
+        let totalHeight = y + height;
+        let targetY = totalHeight - ((height/amt) * t)
+    
+        return <svg>
+            <rect x={x} y={y} width={width} height={height} stroke="none" fill={fill}/>
+            <line x1={x - 8} x2={x + (width + 8)} y1={targetY} y2={targetY} stroke={"#2967c1"} strokeWidth={2} strokeDasharray={"10 5"}/>
+        </svg>;
+    };
 
     if (!items || g === null) {
         return null
@@ -132,29 +150,30 @@ export default function BarChartWrap(props) {
         <>
             <div id='contient_responsive'>
             < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="80%" >
+                {/* <Title>Pourcentage de personne vaccinée par région (dose 1 et 2)</Title> */}
             {/* <Maps /> */}
+            {/* <Title>Doses administrées </Title> */}
+            {/* <p>Pourcentage de personne vaccinée par région (dose 1 et 2) </p> */}
                 <BarChart width={1000} barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30  }}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
                     <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
                     <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} padding={{ right: 20 }} />
-                    {/* <Tooltip /> */}
+                    
+                    <Tooltip labelStyle={{color:'#000',display:'none'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelLegendFormatter} formatter={valueLegendFormatter} />
                     {/* <Legend /> */}
-                    <Bar dataKey="1ere dose"
+                    <Bar dataKey="1ere_dose"
                     // label={<CustomizedLabel gg={items} />}
+                    // shape={<CustomBarWithTarget/>}
                     >
                         {
-                            // for (const [key, value] of Object.entries(g)) {
-                            //     <Cell key={`cell-${key}`} fill={value} />
-                            // }
                             g.map((entry, index) =>
                                 <Cell key={`cell-${index}`}  stroke={entry} fill={'rgb(33,37,39)'} strokeWidth={3}/>
                             )
                         }
                     </Bar >
 
-                    <Bar dataKey="2eme dose"
+                    <Bar dataKey="2eme_dose"
                     
-                    // label={<CustomizedLabel />}
                     >
                         {
                             g.map((entry, index) =>

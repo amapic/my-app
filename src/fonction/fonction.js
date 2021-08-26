@@ -61,7 +61,7 @@ export function setDataLim(){
 }
 
 export async function getdata(url) {
-    const response = await fetch(url)
+    const response = await fetch(url,{mode:'cors'})
     const responseData = await response.json()
     if (response.ok) {
         var data = [];

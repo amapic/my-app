@@ -8,6 +8,7 @@ import theme from '../style/theme';
 function preventDefault(event) {
   event.preventDefault();
 }
+import adresse from '../fonction/conf'
 
 const useStyles = makeStyles((theme) => ({
   depositContext: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const chercheData = async (url) => {
 
-  const response = await fetch(url);
+  const response = await fetch(url,{mode:'cors'});
   const responseData = await response.json();
 
   if (response.ok) {
@@ -48,10 +49,10 @@ export default function Deposits() {
   const classes = useStyles();
   
   useEffect(() => {
-    chercheData("http://localhost:8052/pourcentage_pop_vac_som_1").then((tt) => {
+    chercheData(adresse+":8052/pourcentage_pop_vac_som_1").then((tt) => {
       setItems(tt);
     })
-    chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {
+    chercheData(adresse + ":8052/pourcentage_pop_vac_som_2").then((tt) => {
       setItems2(tt);
     })
 

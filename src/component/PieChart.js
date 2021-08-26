@@ -10,10 +10,10 @@ import React,{useState,useEffect} from 'react'
 import { liste_vaccin } from '../data/liste_vaccin';
 import Title from './Title';
 import theme from '../style/theme';
-
+import adresse from '../fonction/conf'
 const chercheData = async (url) => {
 
-    const response = await fetch(url);
+    const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
 
     if (response.ok) {
@@ -21,6 +21,8 @@ const chercheData = async (url) => {
 
     } else {
         alert(JSON.stringify(responseData))
+        console.log(JSON.stringify(responseData))
+        console.log("rrrrrr");
         return false
     }
 
@@ -39,7 +41,7 @@ const COLORS2 = [theme.palette.secondary.first, theme.palette.secondary.second, 
 export function Camembert(){
     const [items, setItems] = useState([]);//l'état initial doit être un array ne contenant pas d'objet
     useEffect(() => {
-      chercheData("http://localhost:8052/bilan_par_vaccin").then((tt)=>{
+      chercheData(adresse +":8052/bilan_par_vaccin").then((tt)=>{
           var arr=[]
       Object.keys(tt).forEach((obj)=>{
           arr.push(createData(liste_vaccin[obj].name,tt[obj]))

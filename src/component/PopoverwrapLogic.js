@@ -5,9 +5,11 @@ import {
 import Popoverwrap from './Popoverwrap';
 import theme from '../style/theme';
 import { randomInt } from 'mathjs'
+
+import adresse from '../fonction/conf'
 const chercheData = async (url) => {
 
-  const response = await fetch(url);
+  const response = await fetch(url,{mode:'cors'});
   const responseData = await response.json();
 
   if (response.ok) {
@@ -89,10 +91,10 @@ const PopoverwrapLogic = ({ object, paths }) => {
     
     if (!open) {
       timer1 = setTimeout(() => {
-        chercheData("http://localhost:8052/bilan_par_region_dose1/" + object).then((dose1) => {
+        chercheData(adresse + ":8052/bilan_par_region_dose1/" + object).then((dose1) => {
           var dose1forward=dose1
           if (hovered){
-            chercheData("http://localhost:8052/bilan_par_region_dose2/" + object).then((dose2) => {
+            chercheData(adresse  + ":8052/bilan_par_region_dose2/" + object).then((dose2) => {
             dose1forward = (dose1forward * 100).toFixed(2) + "%"
             var dose2 = (dose2 * 100).toFixed(2) + "%"
             setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: dose1forward,e:dose2 });

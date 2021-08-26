@@ -17,16 +17,15 @@ import {
 }
     from 'recharts';
 import Title from './Title';
-
+import adresse from '../fonction/conf'
 import { subjectvac, subjectrange, subjectregion } from './observable/observable'
 
 import { liste_nom_region } from '../fonction/fonction'
-import theme from '../style/theme';
 
 
 const chercheData = async (url) => {
 
-    const response = await fetch(url);
+    const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
 
     if (response.ok) {
@@ -91,12 +90,11 @@ export default function Chart(props) {
                 let re = subjectregion.getValue()
                 re = re.join('_')
                 let rr = subjectrange.getValue()
-                
 
                 if (typeof rr === "object") {
                     var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    let url = "http://localhost:8052/detail3/" + re + "/" + v + "/" + date1 +"/"+ date2
+                    let url = adresse+":8052/detail3/" + re + "/" + v + "/" + date1 +"/"+ date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
@@ -112,12 +110,11 @@ export default function Chart(props) {
                 let re = subjectvac.getValue()
                 v = v.join('_')
                 let rr = subjectrange.getValue()
-                
 
                 if (typeof rr === "object") {
                     var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    let url = "http://localhost:8052/detail3/"  + v + "/" + re + "/" + date1 + "/" + date2
+                    let url = adresse+":8052/detail3/"  + v + "/" + re + "/" + date1 + "/" + date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
@@ -139,7 +136,7 @@ export default function Chart(props) {
                     // var date2=v[1]
                     var date1 =new Date(v[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var date2 =new Date(v[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    var url = "http://localhost:8052/detail3/" + rr + "/" + re + "/" + date1 + "/" + date2
+                    var url = adresse+":8052/detail3/" + rr + "/" + re + "/" + date1 + "/" + date2
 
                     // if (typeof re === "string" && typeof rr === "string" && rr !== '') {
                         chercheData(url).then((tt) => {
@@ -172,7 +169,7 @@ export default function Chart(props) {
 
                         <Legend formatter={legendFormatter} />
 
-                        <Tooltip contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <Tooltip wrapperStyle={{backgroundcolor:'#F00'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
                         <CartesianGrid strokeDasharray="3 3" />
                         {
 
