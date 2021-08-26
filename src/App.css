@@ -54,11 +54,11 @@ label[id^="radio-"] {
   overflow:visible;
 }
 
-#BB {
+#colonne_gauche {
   flex-wrap: wrap;
 }
 
-#CC {
+#colonne_droite {
   margin-top: 12px;
 }
 

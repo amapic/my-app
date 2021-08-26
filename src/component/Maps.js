@@ -3,27 +3,23 @@ import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'
 import logo from '../img/ezgif.com-gif-maker2.gif'
-import {subjectregioncolor} from './observable/observable'
 const Maps = () => {
     const [style, setStyle] = useState({ display: "none" });
     useEffect(() => {
-        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 3000);
+        let timer1 = setTimeout(() => { setStyle({ visibility: "visible" }); }, 1000);
         return () => {
             clearTimeout(timer1)
         }
     }, [])
 
     var list_poly2 = list_poly
-    // subjectregioncolor.next(['rgb(5,98,138)'])
-    //mettre imeratif
     var style_image = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
-        <div id="RRR3" style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
+        <div style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
             <div id="wrap_map1" style={style}>
 
                 <Map_google
                     idreact="map_fr"
-                    id="map_fr"
                     key="a"
                     region_excluded={["1", "2", "3", "4"]}
                     center={{ lat: 46.7833, lng: 3.0833 }}
@@ -40,32 +36,10 @@ const Maps = () => {
                 </div>
 
             </div>
-            <div id="RR" style={style_image}>
+            <div style={style_image}>
                 <Image src={logo} alt="Logo" />
             </div>
-            {/* <Popover
-                id="mouse-over-popover"
-                className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
-                classes={{
-                    paper: classes.paper,
-                }}
-                open={open}
-                anchorReference="anchorEl"
-                anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                }}
-                anchorEl={refMapFr}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
-            >
-                Première dose : {anchorEl.d} <br />
-                Seconde dose : {anchorEl.e}
-            </Popover> */}
+            
 
 
         </div >

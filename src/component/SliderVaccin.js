@@ -37,9 +37,6 @@ export default function SliderVaccin() {
 
     return(
         <>
-{/* <Typography id="range-slider" gutterBottom>
-  Temperature range
-</Typography>  */}
 
 <Slider
   defaultValue={0}

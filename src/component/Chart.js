@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import from 'react-dom';
+
 import {
     useTheme
 }
@@ -68,7 +68,7 @@ export default function Chart(props) {
     //chart est sensé être rerender qd la valeur range de date est remodifié depuis le composant Slider
     var liste_region = liste_nom_region
     const theme = useTheme();
-    const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
+    const [items, setItems] = useState([0]);
 
     const labelFormatter = function (x) {
         return x

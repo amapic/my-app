@@ -131,7 +131,6 @@ export default function Deposits3() {
             <Bar dataKey="1ere dose"
 
             >
-              {/* <Cell stroke={theme.palette.secondary.fifth} fill={'rgb(33,37,39)'} strokeWidth={3} /> */}
               {items.map((entry, index) => {
                 if (entry !== 'FR') {
                   return (
@@ -147,7 +146,6 @@ export default function Deposits3() {
           </BarChart>
         </ResponsiveContainer>
       </React.Fragment>
-      {/* )} */}
     </>
   );
 }

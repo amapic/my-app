@@ -11,8 +11,6 @@ const useStyles = makeStyles((theme) => ({
   depositContext: {
     flex: 1,
     padding:theme.spacing(1)
-    // paddingLeft:theme.spacing(1),
-    // paddingRight:theme.spacing(1)
   },
   LinearProgress: {
     flex: 1,
@@ -45,12 +43,9 @@ export default function Deposits2() {
   const classes = useStyles();
   
   useEffect(() => {
-    chercheData(adresse+":8052/doses_administrees").then((tt) => {
-      setItems(tt[0]);
+    chercheData(adresse+":8052/doses_administrees").then((data) => {
+      setItems(data[0]);
     })
-    // chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {
-    //   setItems2(tt);
-    // })
 
   }, []);
 

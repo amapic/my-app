@@ -27,7 +27,6 @@ const chercheData = async (url) => {
 const PopoverwrapLogic = ({ object, paths }) => {
   var hovered = false;
   var timer1;
-  // console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState({ a: false, b: 0, c: 0, d: "" });
   const [color, setColor] = React.useState(null);
   const [mapProps, setmapProps] = useState({

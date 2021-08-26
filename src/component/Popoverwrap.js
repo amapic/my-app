@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 const clickk = function (i, mapProps, color) {
 
-  // let listeRegion = mapProps.selectedItems
   let listeRegion = subjectregion.getValue()
   if (listeRegion.includes(i)) {
     var pos = listeRegion.indexOf(i)
@@ -46,7 +45,6 @@ const clickk = function (i, mapProps, color) {
     var old_value = subjectregioncolor.getValue()
 
     old_value.push(color)
-    // subjectregioncolor.next(old_value);
 
 
 
@@ -59,7 +57,6 @@ export default function Popoverwrap(props) {
 
   const myContainer = useRef(null);
   const [visiblePopup, setvisiblePopup] = useState(true)
-  // const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
   const { color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
 
   const classes = useStyles();
@@ -87,8 +84,6 @@ export default function Popoverwrap(props) {
     polygonKey: 1
   }
   //on fixe la couleur qd ça sera cliqué
-  // mapOptionsClicked.fillColor = COLORS[randomInt(COLORS.length)];
-  // if (object !== "11") {
   mapOptionsClicked.fillColor = color
 
   if (refMapFr===null){
@@ -99,8 +94,6 @@ export default function Popoverwrap(props) {
     <Polygon key={
       object
     }
-      // aria-owns={open ? "mouse-over-popover-" + object : undefined}
-      // aria-haspopup="true"
       onMouseOut={(e) => handlePopoverClose(e, object)}
       onMouseOver={(e) => handlePopoverOpen(e, object)}
       id={"region-poly-" + object}
@@ -116,28 +109,6 @@ export default function Popoverwrap(props) {
       }
 
     />
-    {/* <Popover
-      id={"mouse-over-popover"}
-      className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
-      classes={{
-        paper: classes.paper,
-      }}
-      open={open}
-      anchorReference="anchorEl"
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right"
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right"
-      }}
-      anchorEl={refMapFr}
-      onClose={handlePopoverClose}
-      disableRestoreFocus
-    >
-      Première dose : {anchorEl.d} <br />
-      Seconde dose : {anchorEl.e}
-    </Popover> */}
+
     </>)
 }

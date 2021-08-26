@@ -127,7 +127,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   });
 
 
-  // const list_poly2 = list_poly
   var keys = Object.keys(list_poly2);
   if (region_excluded.length > 0) {
     keys = keys.filter(item => {
@@ -140,9 +139,6 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   }
 
 
-  // if (mapProps.etat === "init") {
-  //   return null
-  // } else {
   return (<
     LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 

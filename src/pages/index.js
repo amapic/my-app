@@ -187,8 +187,8 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container className={classes.containerprinc} maxWidth={false}>
-          <Grid id="AAA" container className={classes.container} spacing={3}>
-            <Grid id="BB" item xs={10} md={10} lg={10} >
+          <Grid id="container_global" container className={classes.container} spacing={3}>
+            <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
               <Grid item xs={12} md={8} lg={12} >
                 <Paper id="AAAA" className={fixedHeightPaper}>
                   <div id="entete_chart">
@@ -205,25 +205,17 @@ export default function Dashboard() {
               
               <Grid  item xs={12} md={8} lg={12} >
                 <Paper className={classes.paper} >
-                  {/* <div id="RR"  >
-                    <Image src={logo} alt="Logo" />
-                  </div> */}
+                 
                   <div className={classes.flexRow}>
                   <Maps />
-                  {/* <Data_carre_logique /> */}
-                  {/* <div width="50%"> */}
                   <BarChartWrap />
-                  {/* <BarChartLegend /> */}
-                  {/* <Deposits3 /> */}
-                  {/* </div> */}
                   </div>
-                  {/* <SwitchMap /> */}
 
                 </Paper>
               </Grid>
 
             </Grid>
-            <Grid id="CC" container direction="column" xs={2} md={2} lg={2}  >
+            <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
               <Paper className={classes.paper_droite} spacing={3} >
 
                 <Camembert />
@@ -236,9 +228,6 @@ export default function Dashboard() {
                 <Deposits2 />
               </Paper>
 
-              {/* <Paper className={classes.paper_droite} spacing={3} >
-                <Deposits3 />
-              </Paper> */}
 
             </Grid>
           </Grid>

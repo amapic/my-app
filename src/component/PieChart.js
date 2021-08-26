@@ -22,7 +22,6 @@ const chercheData = async (url) => {
     } else {
         alert(JSON.stringify(responseData))
         console.log(JSON.stringify(responseData))
-        console.log("rrrrrr");
         return false
     }
 
@@ -39,7 +38,7 @@ const COLORS2 = [theme.palette.secondary.first, theme.palette.secondary.second, 
 
 
 export function Camembert(){
-    const [items, setItems] = useState([]);//l'état initial doit être un array ne contenant pas d'objet
+    const [items, setItems] = useState([]);
     useEffect(() => {
       chercheData(adresse +":8052/bilan_par_vaccin").then((tt)=>{
           var arr=[]
