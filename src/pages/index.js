@@ -180,7 +180,7 @@ export default function Dashboard() {
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Chiffres sur la vaccination en France
+            Chiffres sur la vaccination en Francehhhh
           </Typography>
         </Toolbar>
       </AppBar>
