@@ -4,11 +4,7 @@ module.exports = {
   entry: './pages/index.tsx',
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
+      
       {
         test: /\.ts?$/,
         use: 'ts-loader',

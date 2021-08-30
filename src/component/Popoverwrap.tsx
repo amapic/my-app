@@ -55,7 +55,7 @@ const clickk = function (i:string, mapProps, color) {
   subjectregion.next(listeRegion)
 }
 
-export default function Popoverwrap(props) {
+export default function Popoverwrap(props:any) {
 
   const myContainer = useRef(null);
   const [visiblePopup, setvisiblePopup] = useState(true)

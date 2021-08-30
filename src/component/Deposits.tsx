@@ -3,16 +3,12 @@ import { makeStyles, Theme,withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 import LinearProgress from "@material-ui/core/LinearProgress";
+import theme from '../style/theme'
 
-import theme from '../style/theme';
-
-
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import adresse from '../fonction/conf'
 
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 // const useStyles = makeStyles((theme) => ({
 // const useStyles = makeStyles((theme)=>{
@@ -62,18 +58,20 @@ export default function Deposits() {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       {/* className={classes.title} */}
       <Title  >Population vacciné</Title>
       {/* className={classes.title} */}
-      <LinearProgress variant="determinate" value={items * 100} />
+      <LinearProgress variant="determinate" value={items * 100} colorPrimary="theme.palette.secondary.bar_droite1" />
       <Typography align="center" color="secondary" >
         Première dose : {(items * 100).toFixed(1)} %
       </Typography>
       <br />
       {/* className={classes.depositContext} */}
       {/* className={classes.depositContext} */}
-      <LinearProgress variant="determinate" value={items2 * 100} />
+      <ThemeProvider theme={theme}>
+      <LinearProgress variant="determinate" value={items2 * 100} style={theme.palette.secondary.bar_droite1} />
+      </ThemeProvider>
       <Typography align="center" color="primary.bar_droite1" >
         Seconde dose : {(items2 * 100).toFixed(1)} %
       </Typography>
@@ -81,6 +79,6 @@ export default function Deposits() {
       <div>
 
       </div>
-    </React.Fragment>
+    </>
   );
 }

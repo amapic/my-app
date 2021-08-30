@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-    useTheme
-}
-    from '@material-ui/core/styles';
+// import {
+//     useTheme
+// }
+    // from '@material-ui/core/styles';
 import {
     XAxis,
     YAxis,
@@ -29,15 +29,22 @@ const chercheData = async (url:string, liste_selected:[string]) => {
 
     const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
-    var liste_nom_region2 = liste_nom_region
-    var liste_selected_str = []
+    var liste_nom_region2:string[] = liste_nom_region
+    var liste_selected_str:number[] = []
+    // 1ere_dose:number,
+    //     2eme_dose:number
+    interface miniDictT {
+        name?:string,
+        [propName:string]:any
+    }
+    
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
-        var data = [];
+        var data:miniDictT[]=[];
         var dictOfResponseData = {}
-        var miniDict = {}
+        var miniDict:miniDictT=[]
 
-        for (let i = 0; i < liste_selected_str.length; i++) {
+        for (let i:number = 0; i < liste_selected_str.length; i++) {
             miniDict['name'] = liste_nom_region2[liste_selected[i]]
             miniDict['1ere_dose'] = responseData.n_cum_dose1[i]
             miniDict['2eme_dose'] = responseData.n_cum_dose2[i]
@@ -59,13 +66,13 @@ const chercheData = async (url:string, liste_selected:[string]) => {
 
 
 
-const format = num =>
+const format = (num:number):string =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
     ;
 
-export default function BarChartWrap(props) {
-    const theme = useTheme();
+export default function BarChartWrap(props:any) {
+    // const theme = useTheme();
     const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
     var g = []
     const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
@@ -86,39 +93,22 @@ export default function BarChartWrap(props) {
 
     }, [])
 
-    function CustomizedLabel(props) {
-        const { x, y, fill, value, gg } = props;
-        if (gg !== undefined) {
-            // console.log(gg[0].name);
-        }
-        return (<Text
-            x={x}
-            y={y}
-            dy={0}
-            fontSize='16'
-            fontFamily='sans-serif'
-            fill="#fff"
-            // angle="90"
-            textAnchor="middle">{
+    
 
-                gg !== undefined ? gg[0].name : value + '%'
-            }</Text>)
-    }
-
-    function tickFormatter(value){
+    function tickFormatter(value:number):string{
         return value.toString() + "%"
 
     }
 
-    const labelLegendFormatter = function (x) {
+    const labelLegendFormatter = function (x:any):any {
         return null
     }
 
-    const valueLegendFormatter = function (x, y, z) {
+    const valueLegendFormatter = function (x:number, y:number, z:any) {
         return [x.toFixed(2) + " %", y,]
     }
 
-    const CustomBarWithTarget = (props) => {
+    const CustomBarWithTarget = (props:any) => {
         const { fill, x, y, width, height, amt, t } = props;
     
         let totalHeight = y + height;

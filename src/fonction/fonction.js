@@ -49,16 +49,6 @@ export function conversionkey(obj){
     return new_obj
 }
 
-function createData(time, amount) {
-    return {
-        time,
-        amount
-    };
-}
-
-export function setDataLim(){
-
-}
 
 export async function getdata(url) {
     const response = await fetch(url,{mode:'cors'})

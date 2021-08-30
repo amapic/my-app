@@ -17,7 +17,7 @@ import Slider_zone from '../component/Slider';
 import { Camembert } from '../component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../style/theme';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     flexDirection: 'column',
     height:'auto',
-    backgroundColor:theme.palette.secondary.bgpaper
+    backgroundColor:theme.palette.secondary.bgPaper
   },
   paper_row: {
     padding: theme.spacing(2),
@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     boxSizing: 'border-box',
     justifyContent: 'center',
-    backgroundColor:theme.palette.secondary.bgpaper
+    backgroundColor:theme.palette.secondary.bgPaper
   },
   containerprinc: {
     paddingTop: theme.spacing(2),
@@ -161,13 +161,6 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     ReactDOM.render(
-  //       <Maps />, document.getElementById('RR'))
-  //   }
-  // }, [])
 
   const fixedHeightPaper = clsx(classes.paper);
   const paper_droite = clsx(classes.paper_droite);
@@ -226,15 +219,15 @@ export default function Dashboard() {
 
             </Grid>
             <Grid id="CC" container direction="column" xs={2} md={2} lg={2}  >
-              <Paper className={classes.paper_droite} spacing={3} >
+              <Paper className={classes.paper_droite} >
 
                 <Camembert />
               </Paper>
-              <Paper className={classes.paper_droite} spacing={3} >
+              <Paper className={classes.paper_droite}  >
                 <Deposits />
               </Paper>
 
-              <Paper className={classes.paper_droite} spacing={3} >
+              <Paper className={classes.paper_droite}  >
                 <Deposits2 />
               </Paper>
 

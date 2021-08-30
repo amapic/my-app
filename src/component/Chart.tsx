@@ -23,14 +23,14 @@ import { subjectvac, subjectrange, subjectregion } from './observable/observable
 import { liste_nom_region } from '../fonction/fonction'
 
 
-const chercheData = async (url) => {
+const chercheData = async (url:string):Promise<any> => {
 
     const response = await fetch(url,{mode:'cors'});
     const responseData = await response.json();
 
     if (response.ok) {
         var data = [];
-        var dictOfResponseData = {}
+        var dictOfResponseData:{[key:string]:string} = {}
         var miniDict = {}
         for (const [key, value] of Object.entries(responseData)) {
             dictOfResponseData[key] = value
@@ -59,7 +59,7 @@ const chercheData = async (url) => {
 
 }
 
-const format = num =>
+const format = (num:number):string =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
     ;
@@ -78,7 +78,7 @@ export default function Chart(props) {
         return [format(x), liste_region[z.dataKey],]
     }
 
-    const legendFormatter = function (value, entry, index) {
+    const legendFormatter = function (value:any, entry:any, index:any) {
         return [liste_region[entry.dataKey]]
     }
 
@@ -130,7 +130,7 @@ export default function Chart(props) {
             (v) => {
                 let re = subjectvac.getValue()
                 let rr = subjectregion.getValue()
-                rr = rr.join('_')
+                rr:[string] = rr.join('_')
                 if (typeof v==='object') {
                     // var date1=v[0]
                     // var date2=v[1]
