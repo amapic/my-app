@@ -3,7 +3,7 @@ import DATA from '../data/france_geojson.js';
 var _ = require('underscore');
 
 
-var list_poly = []
+var list_poly:any = []
 
 DATA.features.forEach(function (item,i) {
 	
@@ -59,7 +59,7 @@ DATA.features.forEach(function (item,i) {
 // }
 });
 
-export var liste_nom_region=[]
+export var liste_nom_region:string[]=[]
 liste_nom_region["01"]="Guadeloupe"
 liste_nom_region["02"]="Martinique"
 liste_nom_region["03"]="Guyane"
@@ -78,7 +78,7 @@ liste_nom_region["84"]="Auvergne-Rhône-Alpes"
 liste_nom_region["93"]="Provence-Alpes-Côte d’Azur"
 liste_nom_region["94"]="Corse"
 
-export var liste_id_region=[]
+export var liste_id_region:string[]=[]
 liste_id_region["Guadeloupe"]="01"
 liste_id_region["Martinique"]="02"
 liste_id_region["Guyane"]="03"
@@ -97,11 +97,6 @@ liste_id_region["Auvergne-Rhône-Alpes"]="84"
 liste_id_region["Provence-Alpes-Côte d’Azur"]="93"
 liste_id_region["Corse"]="94"
 
-// var new_poly=[]
-// const keys = Object.keys(list_poly);
-// keys.map((object, i) =>{
-// 	new_poly[liste_nom_region[object.toString()]]=list_poly[object]
-// })
 
 
 export default list_poly

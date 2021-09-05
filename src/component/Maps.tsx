@@ -19,7 +19,7 @@ const Maps = () => {
     //mettre imeratif
     var style_image: CSS.Properties = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
-        <div id="RRR3" style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
+        <div style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
             <div id="wrap_map1" style={style}>
 
                 <Map_google
@@ -40,8 +40,8 @@ const Maps = () => {
                 </div>
 
             </div>
-            <div id="RR" style={style_image}>
-                <Image src={logo} layout="fill" />
+            <div  style={style_image}>
+                <Image src={logo}  width="250" height="250" />
             </div>
             {/* <Popover
                 id="mouse-over-popover"

@@ -107,11 +107,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface mapGoogleT{
+  region_excluded?:string[],
+  region_included?:string[],
+  zoom:number,
+  center:google.maps.LatLngLiteral,
+  list_poly2:any,
+  idreact:any
+}
 
 
-export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center = {}, list_poly2,idreact }) {
+export default function MapGoogle({ region_excluded = [], region_included = [], zoom = 5, center , list_poly2,idreact }:mapGoogleT) {
 
-  const mapFr = useRef(null);
+  const mapFr:any = useRef(null);
 
   useEffect(() => {
     if (zoom < 5.2) {

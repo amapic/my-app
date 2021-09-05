@@ -158,9 +158,15 @@ export default function Dashboard() {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+  
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  if (typeof window !== "undefined") {
+    console.log(window.screen.height);
+    console.log(window.screen.width);
+  }
 
   const fixedHeightPaper = clsx(classes.paper);
   const paper_droite = clsx(classes.paper_droite);
@@ -183,7 +189,7 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container className={classes.containerprinc} maxWidth={false}>
           <Grid id="AAA" container className={classes.container} spacing={3}>
-            <Grid id="BB" item xs={10} md={10} lg={10} >
+            <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
               <Grid item xs={12} md={8} lg={12} >
                 <Paper id="AAAA" className={fixedHeightPaper}>
                   <div id="entete_chart">
@@ -218,7 +224,7 @@ export default function Dashboard() {
               </Grid>
 
             </Grid>
-            <Grid id="CC" container direction="column" xs={2} md={2} lg={2}  >
+            <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
               <Paper className={classes.paper_droite} >
 
                 <Camembert />

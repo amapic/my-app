@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import from 'react-dom';
 import {
     useTheme
 }
@@ -30,7 +29,7 @@ const chercheData = async (url:string):Promise<any> => {
 
     if (response.ok) {
         var data = [];
-        var dictOfResponseData:{[key:string]:string} = {}
+        var dictOfResponseData:{[key:string]:any} = {}
         var miniDict = {}
         for (const [key, value] of Object.entries(responseData)) {
             dictOfResponseData[key] = value
@@ -64,17 +63,17 @@ const format = (num:number):string =>
 
     ;
 
-export default function Chart(props) {
+export default function Chart() {
     //chart est sensé être rerender qd la valeur range de date est remodifié depuis le composant Slider
     var liste_region = liste_nom_region
     const theme = useTheme();
     const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
 
-    const labelFormatter = function (x) {
+    const labelFormatter = function (x:string) {
         return x
     }
 
-    const valueFormatter = function (x, y, z) {
+    const valueFormatter = function (x:any, y:any, z:any) {
         return [format(x), liste_region[z.dataKey],]
     }
 
@@ -87,7 +86,7 @@ export default function Chart(props) {
         subjectvac.subscribe(
             (v) => {
 
-                let re = subjectregion.getValue()
+                let re:string|string[] = subjectregion.getValue()
                 re = re.join('_')
                 let rr = subjectrange.getValue()
 
@@ -106,15 +105,15 @@ export default function Chart(props) {
 
     useEffect(() => {
         subjectregion.subscribe(
-            v => {
+            (v:string[]) => {
                 let re = subjectvac.getValue()
-                v = v.join('_')
+                var vjoin:string = v.join('_')
                 let rr = subjectrange.getValue()
 
                 if (typeof rr === "object") {
                     var date1 =new Date(rr[0] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var date2 =new Date(rr[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
-                    let url = adresse+":8052/detail3/"  + v + "/" + re + "/" + date1 + "/" + date2
+                    let url = adresse+":8052/detail3/"  + vjoin + "/" + re + "/" + date1 + "/" + date2
                     chercheData(url).then((tt) =>
                         setItems(tt));
                 }
@@ -129,8 +128,8 @@ export default function Chart(props) {
         subjectrange.subscribe(
             (v) => {
                 let re = subjectvac.getValue()
-                let rr = subjectregion.getValue()
-                rr:[string] = rr.join('_')
+                let rr:string|string[] = subjectregion.getValue()
+                rr = rr.join('_')
                 if (typeof v==='object') {
                     // var date1=v[0]
                     // var date2=v[1]
@@ -151,7 +150,7 @@ export default function Chart(props) {
     }, [])
 
     return (
-        <  >
+        <>
             < Title >  <  / Title >
                 < ResponsiveContainer height={200} width={'100%'}>
                     < LineChart
@@ -204,6 +203,6 @@ export default function Chart(props) {
         
                         </LineChart >
                         <  / ResponsiveContainer >
-                        <  /> );
+                        </> );
     
 }
