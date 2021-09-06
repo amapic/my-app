@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect } from 'react'
 import { liste_vaccin,liste_vaccinT } from '../data/liste_vaccin';
 import Title from './Title';
-import theme from '../style/theme';
+import theme from '../../custom';
 import adresse from '../fonction/conf'
 const chercheData = async (url: string): Promise<any> => {
 

@@ -22,7 +22,7 @@ import adresse from '../fonction/conf'
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 import Title from './Title';
 import { liste_nom_region } from '../fonction/fonction'
-import theme from '../style/theme';
+import theme from '../../custom';
 
 
 const chercheData = async (url:string, liste_selected:[string]) => {

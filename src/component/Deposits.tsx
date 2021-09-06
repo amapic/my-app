@@ -3,7 +3,7 @@ import { makeStyles, Theme,withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import theme from '../style/theme'
+import theme from '../../custom'
 
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import adresse from '../fonction/conf'
@@ -62,17 +62,19 @@ export default function Deposits() {
       {/* className={classes.title} */}
       <Title  >Population vacciné</Title>
       {/* className={classes.title} */}
-      <LinearProgress variant="determinate" value={items * 100} colorPrimary="theme.palette.secondary.bar_droite1" />
+      <LinearProgress variant="determinate" value={items * 100}  />
       <Typography align="center" color="secondary" >
         Première dose : {(items * 100).toFixed(1)} %
       </Typography>
       <br />
       {/* className={classes.depositContext} */}
       {/* className={classes.depositContext} */}
+      {/* style={theme.palette.secondary.bar_droite1} */}
+      {/* style={theme.palette.secondary.bar_droite1} */}
       <ThemeProvider theme={theme}>
-      <LinearProgress variant="determinate" value={items2 * 100} style={theme.palette.secondary.bar_droite1} />
+      <LinearProgress variant="determinate" value={items2 * 100}  />
       </ThemeProvider>
-      <Typography align="center" color="primary.bar_droite1" >
+      <Typography align="center" color="secondary" >
         Seconde dose : {(items2 * 100).toFixed(1)} %
       </Typography>
 

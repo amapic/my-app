@@ -3,7 +3,7 @@ import {
   subjectregion, subjectregionswitch
 } from './observable/observable'
 import Popoverwrap from './Popoverwrap';
-import theme from '../style/theme';
+import theme from '../../custom';
 import { randomInt } from 'mathjs'
 
 import adresse from '../fonction/conf'

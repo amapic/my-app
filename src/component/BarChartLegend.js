@@ -21,7 +21,7 @@ import {
 import adresse from '../fonction/conf'
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 
-import theme from '../style/theme';
+import theme from '../../custom';
 
 const format = num =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
