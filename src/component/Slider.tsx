@@ -8,21 +8,46 @@ import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
 import adresse from '../fonction/conf'
 
-const chercheData = async (url) => {
+// import { SyntheticEvent } from './interface'
 
-  const response = await fetch(url,{mode:'cors'})
+export interface SyntheticEvent {
+  bubbles: boolean;
+  cancelable: boolean;
+  currentTarget: EventTarget;
+  defaultPrevented: boolean;
+  eventPhase: number;
+  isTrusted: boolean;
+  nativeEvent: Event;
+  preventDefault(): void;
+  stopPropagation(): void;
+  target: EventTarget;
+  timeStamp: Date;
+  type: string;
+}
+
+interface itemstype {
+  max_text: number,
+  min_text: number,
+  min: string,
+  max: string,
+  marks: { label: string, value: number }[]
+}
+
+const chercheData = async (url: string): Promise<[itemstype|null,boolean]> => {
+
+  const response = await fetch(url, { mode: 'cors' })
   const responseData = await response.json()
 
   if (response.ok) {
     let local_range = responseData;
 
-    let datetime = Object.values(local_range.timestamp)
-    let datetext = Object.values(local_range.datetime)
+    let datetime: { [key: number]: number } = Object.values(local_range.timestamp)
+    let datetext: { [key: number]: string } = Object.values(local_range.datetime)
     var marks2 = []
     for (const [index, element] of datetext.entries()) {
       marks2.push({ label: element, value: datetime[index] });
     }
-    let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
+    let local_range2:itemstype = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
     subjectrange.next(datetext.sort()[0] + "-01/" + datetext.sort()[datetext.length - 1] + "-01")
     return [local_range2, false]
   } else {
@@ -30,33 +55,30 @@ const chercheData = async (url) => {
   }
 }
 
-const chercheDataWrap=async(url)=>{
-  return chercheData(url).then(x=>
-    x)
-}
 
-function useFetch(url) {
-  const [state, setState] = useState({
-    items: [],
+
+function useFetch(url:string): [boolean,itemstype] {
+  const [state, setState] = useState<{loading: boolean,items:itemstype}>({
+    items: {},
     loading: true
   })
 
   useEffect(function () {
     (async function () {
-      const response = await fetch(url,{mode:'cors'})
+      const response = await fetch(url, { mode: 'cors' })
       const responseData = await response.json()
 
       if (response.ok) {
         let local_range = responseData;
 
-        let datetime = Object.values(local_range.timestamp)
-        let datetext = Object.values(local_range.datetime)
+        let datetime: { [key: number]: number } = Object.values(local_range.timestamp)
+        let datetext: { [key: number]: string } = Object.values(local_range.datetime)
         var marks2 = []
         for (const [index, element] of datetext.entries()) {
-          marks2.push({ label: element.substr(2).replace('-01','-1'), value: datetime[index] });
+          marks2.push({ label: element.substr(2).replace('-01', '-1'), value: datetime[index] });
         }
         let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
-        subjectrange.next([Math.min(...datetime),Math.max(...datetime)])
+        subjectrange.next([Math.min(...datetime), Math.max(...datetime)])
         setState({ items: local_range2, loading: false });
       } else {
         alert(JSON.stringify(responseData))
@@ -75,7 +97,7 @@ export default function SliderZone() {
 
   // subjectrange est mis à jour dans useFetch
   const [error, range] = useFetch(adresse + ":8052/liste_mois_detail")
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number|number[]):void => {
 
     subjectrange.next(newValue);
 

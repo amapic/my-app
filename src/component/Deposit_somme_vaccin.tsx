@@ -10,24 +10,24 @@ import adresse from '../fonction/conf'
 const useStyles = makeStyles((theme) => ({
   depositContext: {
     flex: 1,
-    padding:theme.spacing(1)
+    padding: theme.spacing(1)
     // paddingLeft:theme.spacing(1),
     // paddingRight:theme.spacing(1)
   },
   LinearProgress: {
     flex: 1,
-    paddingLeft:theme.spacing(1),
-    paddingRight:theme.spacing(1)
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1)
   },
   title: {
-    paddingBottom:theme.spacing(4),
-    margin:theme.spacing(5)
+    paddingBottom: theme.spacing(4),
+    margin: theme.spacing(5)
   },
 }));
 
-const chercheData = async (url) => {
+const chercheData = async (url: string) => {
 
-  const response = await fetch(url,{mode:'cors'});
+  const response = await fetch(url, { mode: 'cors' });
   const responseData = await response.json();
 
   if (response.ok) {
@@ -41,26 +41,23 @@ const chercheData = async (url) => {
 }
 
 export default function Deposits2() {
-  const [items, setItems] = useState(false);
+  const [items, setItems] = useState<number>(0);
   const classes = useStyles();
-  
+
   useEffect(() => {
-    chercheData(adresse+":8052/doses_administrees").then((tt) => {
+    chercheData(adresse + ":8052/doses_administrees").then((tt) => {
       setItems(tt[0]);
     })
-    // chercheData("http://localhost:8052/pourcentage_pop_vac_som_2").then((tt) => {
-    //   setItems2(tt);
-    // })
 
   }, []);
 
   return (
     <React.Fragment>
-      <Title className={classes.title}>Doses administrées </Title>
-      
+      <Title >Doses administrées </Title>
+
       <Typography align="center" color="secondary" className={classes.depositContext}>
         <div id="dose">
-        {parseFloat(items/1000000).toFixed(1)} M
+          {(items / 1000000).toFixed(1)} M
         </div>
       </Typography>
 

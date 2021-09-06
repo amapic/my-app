@@ -39,8 +39,8 @@ function createData(name: string, value: number) {
 }
 
 // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-const COLORS2 = [theme.palette.secondary.bar_droite1, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.fourth];
-// const COLORS2 =['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+// const COLORS2 = [theme.palette.secondary.bar_droite1, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.fourth];
+const COLORS2 =['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 
 export function Camembert() {

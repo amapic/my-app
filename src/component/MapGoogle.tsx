@@ -12,6 +12,7 @@ import {
 
 import PopoverwrapLogic from './PopoverwrapLogic';
 import { subjectmapfr } from './observable/observable'
+import {mapPropsT} from '../types/interface'
 
 const mapStyles2 = [
 
@@ -112,8 +113,8 @@ interface mapGoogleT{
   region_included?:string[],
   zoom:number,
   center:google.maps.LatLngLiteral,
-  list_poly2:any,
-  idreact:any
+  list_poly2:google.maps.LatLng[],
+  idreact:string
 }
 
 
@@ -128,14 +129,12 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   }, [mapFr]);
 
 
-  const [mapProps, setmapProps] = useState({
+  const [mapProps, setmapProps] = useState<mapPropsT>({
     etat: "init",
-    selectedItems: ["11"],
-    selectedItem: 0
+    selectedItems: ["11"]
   });
 
 
-  // const list_poly2 = list_poly
   var keys = Object.keys(list_poly2);
   if (region_excluded.length > 0) {
     keys = keys.filter(item => {
@@ -148,9 +147,7 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
   }
 
 
-  // if (mapProps.etat === "init") {
-  //   return null
-  // } else {
+
   return (<
     LoadScript googleMapsApiKey="AIzaSyBHNfjuxMNcHVdkLgHctexkayh5tAMOWjA" >
 
@@ -182,5 +179,4 @@ export default function MapGoogle({ region_excluded = [], region_included = [], 
     </GoogleMap >
 
   </LoadScript>)
-  // }
 }

@@ -31,15 +31,12 @@ export default function SliderVaccin() {
         },
       ];
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (event:React.ChangeEvent<{}>, newValue:number|number[]) => {
         subjectvac.next(newValue.toString());
     };
 
     return(
         <>
-{/* <Typography id="range-slider" gutterBottom>
-  Temperature range
-</Typography>  */}
 
 <Slider
   defaultValue={0}

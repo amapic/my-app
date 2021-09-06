@@ -9,7 +9,7 @@ import {
 import {
   subjectregion, subjectmapfr, subjectregioncolor
 } from './observable/observable'
-
+import {mapPropsT} from '../types/interface'
 import Popover from '@material-ui/core/Popover';
 
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const clickk = function (i:string, mapProps, color) {
+const clickk = function (i:string, mapProps:mapPropsT, color:string) {
 
   // let listeRegion = mapProps.selectedItems
   let listeRegion = subjectregion.getValue()
@@ -58,12 +58,12 @@ const clickk = function (i:string, mapProps, color) {
 export default function Popoverwrap(props:any) {
 
   const myContainer = useRef(null);
-  const [visiblePopup, setvisiblePopup] = useState(true)
+  // const [visiblePopup, setvisiblePopup] = useState(true)
   // const [color, setColor] = useState(COLORS[randomInt(COLORS.length)])
   const { color, object, paths, mapProps, anchorEl, open, handlePopoverClose, handlePopoverOpen } = props
 
   const classes = useStyles();
-  const mapFr = subjectmapfr.getValue()
+  const mapFr:any = subjectmapfr.getValue()
   var refMapFr = null
   if (mapFr.current !== null) {
     refMapFr = ReactDOM.findDOMNode(mapFr.current)
@@ -103,7 +103,7 @@ export default function Popoverwrap(props:any) {
       // aria-haspopup="true"
       onMouseOut={(e) => handlePopoverClose(e, object)}
       onMouseOver={(e) => handlePopoverOpen(e, object)}
-      id={"region-poly-" + object}
+      // id={"region-poly-" + object}
       ref={myContainer}
       paths={
         paths
