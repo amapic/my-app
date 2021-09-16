@@ -137,11 +137,9 @@ export default function Chart() {
                     var date2 =new Date(v[1] * 1000).toISOString().slice(0, 10).replace('T', ' ');
                     var url = adresse+":8052/detail3/" + rr + "/" + re + "/" + date1 + "/" + date2
 
-                    // if (typeof re === "string" && typeof rr === "string" && rr !== '') {
                         chercheData(url).then((tt) => {
                             setItems(tt)
                         });
-                    // }
                 }
 
 

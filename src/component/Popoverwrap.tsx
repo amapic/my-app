@@ -65,7 +65,7 @@ export default function Popoverwrap(props:any) {
   const classes = useStyles();
   const mapFr:any = subjectmapfr.getValue()
   var refMapFr = null
-  if (mapFr.current !== null) {
+  if (mapFr.hasOwnProperty("current")) {
     refMapFr = ReactDOM.findDOMNode(mapFr.current)
   }
 
@@ -116,9 +116,9 @@ export default function Popoverwrap(props:any) {
       }
 
     />
-    {/* <Popover
+    <Popover
       id={"mouse-over-popover"}
-      className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
+      // className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
         paper: classes.paper,
       }}
@@ -132,12 +132,12 @@ export default function Popoverwrap(props:any) {
         vertical: "top",
         horizontal: "right"
       }}
-      anchorEl={refMapFr}
+      anchorEl={mapFr}
       onClose={handlePopoverClose}
       disableRestoreFocus
     >
       Première dose : {anchorEl.d} <br />
       Seconde dose : {anchorEl.e}
-    </Popover> */}
+    </Popover>
     </>)
 }

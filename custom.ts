@@ -34,6 +34,15 @@ const theme = createTheme( {
       default: 'rgb(49,55,62)',
     }
   },
+  breakpoints:{
+    values:{
+      xs:0,
+      sm: 450,
+      md: 700,
+      lg: 900,
+      xl: 1400
+    }
+  },
   overrides: {
     MuiAppBar: {
       colorPrimary: {
@@ -99,20 +108,20 @@ export default theme;
 //     prouty?:string
 // }
 
-// declare module '@material-ui/core/styles/createTheme' {
-//   interface Theme {
-//     appDrawer: {
-//       width: React.CSSProperties['width']
-//       breakpoint: Breakpoint
-//     }
-//   }
-//   // allow configuration using `createTheme`
-//   interface ThemeOptions {
-//     couleurPerso?: {
-//       red:string
-//     }
-//   }
-// }
+declare module '@material-ui/core/styles/createTheme' {
+  interface Theme {
+    appDrawer: {
+      width: React.CSSProperties['width']
+      breakpoint: Breakpoint
+    }
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    couleurPerso?: {
+      red:string
+    }
+  }
+}
 
 // export theme
 

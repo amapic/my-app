@@ -67,8 +67,10 @@ label[id^="radio-"] {
   padding: 0px 0px 0px 0px;
   width: 45%;
   max-height: 50px;
-  min-width:290px;
+  min-width:360px;
   justify-content: center;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #wrap_map1 {
@@ -143,13 +145,13 @@ text {
 }
 
 #responsive_cont_barcharts {
-  margin: 1rem 2rem 0rem 3rem;
+  margin: 1rem 2rem 0rem 1rem;
 }
 
 #dose {
   font-size: 2rem;
 }
 
-#contient_responsive{
-  width:calc(800px);
-}
+/* #contient_responsive{
+  width:calc(700px);
+} */

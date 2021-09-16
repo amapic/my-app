@@ -29,12 +29,6 @@ interface anchorElT{
   d:string
 }
 
-// interface mapPropsT{
-//   etat:string,
-//   selectedItems:string[],
-//   hovered:string
-// }
-
 const PopoverwrapLogic = ({ object, paths }:PopoverwrapLogicT) => {
   var hovered = false;
   var timer1:NodeJS.Timeout;
@@ -109,7 +103,7 @@ const PopoverwrapLogic = ({ object, paths }:PopoverwrapLogicT) => {
             chercheData(adresse  + ":8052/bilan_par_region_dose2/" + object).then((dose2:any) => {
             dose1forward = (dose1forward * 100).toFixed(2) + "%"
             dose2 = (dose2 * 100).toFixed(2) + "%"
-            setAnchorEl({ a: event.domEvent.currentTarget, b: event.domEvent.pageX, c: event.domEvent.pageY, d: dose1forward,e:dose2 });
+            setAnchorEl({ a: event.domEvent.target, b: event.domEvent.pageX, c: event.domEvent.pageY, d: dose1forward,e:dose2 });
            })
         }
       })

@@ -21,8 +21,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../custom';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
-import BarChartLegend from '../component/BarChartLegend'
-
+// import BarChartLegend from '../component/BarChartLegend'
+import SwitchMap from '../component/SwitchMap'
 
 
 import Data_carre_logique from '../component/Data_carre_logique'
@@ -32,6 +32,14 @@ const drawerWidth = 0;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  barchart_container: {
+    [theme.breakpoints.up('sm')]: {
+    width: `calc(100% - 260px)`,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      },
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -94,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    minWidth:'700px'
   },
   container: {
     paddingTop: theme.spacing(0),
@@ -106,8 +115,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'column',
-    height:'auto',
-    backgroundColor:theme.palette.secondary.bgPaper
+    height: 'auto',
+    backgroundColor: theme.palette.secondary.bgPaper
   },
   paper_row: {
     padding: theme.spacing(2),
@@ -125,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     boxSizing: 'border-box',
     justifyContent: 'center',
-    backgroundColor:theme.palette.secondary.bgPaper
+    backgroundColor: theme.palette.secondary.bgPaper
   },
   containerprinc: {
     paddingTop: theme.spacing(2),
@@ -146,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'visible',
     flexDirection: 'row',
-    flexWrap:'wrap'
+    flexWrap: 'wrap'
   },
 }));
 
@@ -158,14 +167,14 @@ export default function Dashboard() {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
   if (typeof window !== "undefined") {
-    console.log(window.screen.height);
-    console.log(window.screen.width);
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
   }
 
   const fixedHeightPaper = clsx(classes.paper);
@@ -177,78 +186,80 @@ export default function Dashboard() {
     <div >
 
       <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Chiffres sur la vaccination en France
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container className={classes.containerprinc} maxWidth={false}>
-          <Grid id="AAA" container className={classes.container} spacing={3}>
-            <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
-              <Grid item xs={12} md={8} lg={12} >
-                <Paper id="AAAA" className={fixedHeightPaper}>
-                  <div id="entete_chart">
-                    <div id="div_slider">
-                      <Slider_zone />
+        <CssBaseline />
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              Chiffres sur la vaccination en France
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container className={classes.containerprinc} maxWidth="xl">
+            <Grid container className={classes.container} spacing={3}>
+              <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
+                <Grid item xs={12} md={12} lg={12} >
+                  <Paper className={fixedHeightPaper}>
+                    <div id="entete_chart">
+                      <div id="div_slider">
+                        <Slider_zone />
 
+                      </div>
+                      <ToggleButtonPerso />
                     </div>
-                    <ToggleButtonPerso />
-                  </div>
-                  <Chart id="container_graph"/>
+                    <Chart />
 
-                </Paper>
-              </Grid>
-              
-              <Grid  item xs={12} md={8} lg={12} >
-                <Paper className={classes.paper} >
-                  {/* <div id="RR"  >
+                  </Paper>
+                </Grid>
+
+                <Grid item xs={12} md={12} lg={12} >
+                  <Paper className={classes.paper} >
+                    {/* <div id="RR"  >
                     <Image src={logo} alt="Logo" />
                   </div> */}
-                  <div className={classes.flexRow}>
-                  <Maps />
-                  {/* <Data_carre_logique /> */}
-                  {/* <div width="50%"> */}
-                  <BarChartWrap />
-                  {/* <BarChartLegend /> */}
-                  {/* <Deposits3 /> */}
-                  {/* </div> */}
-                  </div>
-                  {/* <SwitchMap /> */}
+                    <div className={classes.flexRow}>
+                      <Maps />
+                      {/* <Data_carre_logique /> */}
+                      <div className={classes.barchart_container}>
+                        <BarChartWrap />
+                        {/* <BarChartLegend /> */}
+                        {/* <Deposits3 /> */}
+                      </div>
+                    </div>
+                    {/* <SwitchMap /> */}
 
-                </Paper>
+                  </Paper>
+                </Grid>
+
+
+
               </Grid>
+              <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
+                <Paper className={classes.paper_droite} >
 
-            </Grid>
-            <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
-              <Paper className={classes.paper_droite} >
+                  <Camembert />
+                </Paper>
+                <Paper className={classes.paper_droite}  >
+                  <Deposits />
+                </Paper>
 
-                <Camembert />
-              </Paper>
-              <Paper className={classes.paper_droite}  >
-                <Deposits />
-              </Paper>
+                <Paper className={classes.paper_droite}  >
+                  <Deposits2 />
+                </Paper>
 
-              <Paper className={classes.paper_droite}  >
-                <Deposits2 />
-              </Paper>
-
-              {/* <Paper className={classes.paper_droite} spacing={3} >
+                {/* <Paper className={classes.paper_droite} spacing={3} >
                 <Deposits3 />
               </Paper> */}
 
+              </Grid>
             </Grid>
-          </Grid>
 
-        </Container>
-      </main>
+          </Container>
+        </main>
       </ThemeProvider>
     </div >
-    
+
   );
 }
 
