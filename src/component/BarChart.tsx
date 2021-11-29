@@ -28,7 +28,9 @@ import theme from '../../custom';
 const useStyles = makeStyles((theme) => ({
     container_barchart: {
       display: 'flex',
-      width:'100%'
+      width:'100%',
+      marginRight:'auto',
+      marginLeft:'auto'
     }
 }
 ));
@@ -146,7 +148,7 @@ export default function BarChartWrap(props: any) {
                         {/* <CartesianGrid strokeDasharray="3 3" /> */}
                         <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
                         <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} />
-                        <Tooltip labelStyle={{ color: '#000', display: 'none' }} contentStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} labelFormatter={labelLegendFormatter} formatter={valueLegendFormatter} />
+                        {/* <Tooltip labelStyle={{ color: '#000', display: 'none' }} contentStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} labelFormatter={labelLegendFormatter} formatter={valueLegendFormatter} /> */}
                         {/* <Legend /> */}
                         <Bar dataKey="1ere_dose"
                         // label={<CustomizedLabel gg={items} />}

@@ -101,8 +101,8 @@ export default function Popoverwrap(props:any) {
     }
       // aria-owns={open ? "mouse-over-popover-" + object : undefined}
       // aria-haspopup="true"
-      onMouseOut={(e) => handlePopoverClose(e, object)}
-      onMouseOver={(e) => handlePopoverOpen(e, object)}
+      // onMouseOut={(e) => handlePopoverClose(e, object)}
+      // onMouseOver={(e) => handlePopoverOpen(e, object)}
       // id={"region-poly-" + object}
       ref={myContainer}
       paths={

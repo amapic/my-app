@@ -71,9 +71,9 @@ export default function Deposits() {
       {/* className={classes.depositContext} */}
       {/* style={theme.palette.secondary.bar_droite1} */}
       {/* style={theme.palette.secondary.bar_droite1} */}
-      <ThemeProvider theme={theme}>
+      {/* <ThemeProvider theme={theme}> */}
       <LinearProgress variant="determinate" value={items2 * 100}  />
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
       <Typography align="center" color="secondary" >
         Seconde dose : {(items2 * 100).toFixed(1)} %
       </Typography>

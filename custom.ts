@@ -2,18 +2,16 @@ import { createTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import { Theme } from '@material-ui/core/styles/createTheme';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui/core/styles/createPalette';
 // Create a theme instance.
 const theme = createTheme( {
   palette: {
     primary: {
-      main: '#ffffff',
-      bar_droite1:'rgb(206,136,87)',
-      bar_droite2:'rgb(5,98,138)',
+      main: '#ffffff'
       
     },
     secondary: {
       main: '#ffffff',
-      second:'rgb(206,136,87)',
       third:'rgb(154,80,82)',
       fourth:'rgb(72,145,118)',
       fifth:'rgb(160,175,82)',
@@ -79,7 +77,7 @@ const theme = createTheme( {
     },
     MuiLinearProgress:{
       barColorPrimary: {
-        backgroundColor:'rgb(154,80,82)'
+        backgroundColor:'#FF8042'
       }
     }
   }
@@ -121,6 +119,31 @@ declare module '@material-ui/core/styles/createTheme' {
       red:string
     }
   }
+}
+
+declare module '@material-ui/core/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
+
+declare module '@material-ui/core/styles/CreatePalette' {
+  interface SimplePaletteColorOptions {
+    bar_droite1?: string;
+  }
+  
+  interface PaletteColor {
+    bar_droite1: string;
+  }
+  
 }
 
 // export theme

@@ -59,8 +59,8 @@ export function Camembert() {
   return (
     <>
       <Title>Vaccin administré</Title>
-      <PieChart width={180} height={160} >
-        <Pie data={items} nameKey="name" dataKey="name" cx="50%" cy="50%" outerRadius={40} >
+      <PieChart width={200} height={160} >
+        <Pie data={items} dataKey="value" nameKey="name"  cx="50%" cy="50%" outerRadius={40} >
           {
             items.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS2[index % COLORS2.length]} />

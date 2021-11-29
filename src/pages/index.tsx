@@ -24,9 +24,15 @@ import BarChartWrap from '../component/BarChart'
 // import BarChartLegend from '../component/BarChartLegend'
 import SwitchMap from '../component/SwitchMap'
 
+// import Planet from '../component_planet/Planet'
 
 import Data_carre_logique from '../component/Data_carre_logique'
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 const drawerWidth = 0;
 
 const useStyles = makeStyles((theme) => ({
@@ -35,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
   barchart_container: {
     [theme.breakpoints.up('sm')]: {
-    width: `calc(100% - 260px)`,
+      width: `calc(100% - 260px)`,
     },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
-      },
+    },
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -102,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
-    minWidth:'700px'
+    minWidth: '700px'
   },
   container: {
     paddingTop: theme.spacing(0),
@@ -194,6 +200,7 @@ export default function Dashboard() {
             </Typography>
           </Toolbar>
         </AppBar>
+
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container className={classes.containerprinc} maxWidth="xl">
@@ -212,7 +219,25 @@ export default function Dashboard() {
 
                   </Paper>
                 </Grid>
+                <Router>
+                  <div>
+                    <nav>
+                      <ul>
+                        <li>
+                          <Link to="/planet">Abouttttttttttttttttttttt</Link>
+                        </li>
+                      </ul>
+                    </nav>
 
+                    {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                    {/* <Switch>
+                      <Route path="/planet">
+                        <Planet/>
+                      </Route>
+                    </Switch> */}
+                  </div>
+                </Router>
                 <Grid item xs={12} md={12} lg={12} >
                   <Paper className={classes.paper} >
                     {/* <div id="RR"  >

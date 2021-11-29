@@ -19,7 +19,7 @@ const Maps = () => {
     //mettre imeratif
     var style_image: CSS.Properties = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
-        <div style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block' }}>
+        <div style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block',marginLeft:'auto',marginRight:'auto' }}>
             <div id="wrap_map1" style={style}>
 
                 <Map_google
