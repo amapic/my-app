@@ -1,0 +1,36 @@
+body {
+  min-height: 75rem;
+}
+
+@media (min-width: 1200px) {
+  .titre_col_droite {
+    font-size: 1.75rem!important
+  }
+}
+
+@media (max-width: 1000px) {
+  .titre_col_droite {
+    font-size: 1.5rem!important
+  }
+}
+
+@media (max-width: 700px) {
+  .titre_col_droite {
+    font-size: 1rem!important
+  }
+}
+
+.titre_col_droite {
+  margin-left: -100%;
+  margin-right: -100%;
+  text-align: center;
+}
+
+
+/* .container-fluid-nav{
+    display: flex;
+  justify-content: space-around;} */
+
+h2 {
+  font-size: 1rem
+}

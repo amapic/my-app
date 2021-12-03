@@ -21,7 +21,7 @@ import {
 } from 'recharts'
 const fetch = require('node-fetch')
 
-import {dataT,radialT} from '../types/interface'
+import { dataT, radialT } from '../types/interface'
 
 export const AA: String = 'RR'
 
@@ -192,9 +192,9 @@ export function Graph_masse_distance() {
 
 
     return (
-        <>
-            {/* <span className="mx-auto w-50">Masse en Masse jupitérienne et période de révolution en jour</span> */}
-            <ScatterChart width={730} height={300} id="masse_distance"
+        /* <span className="mx-auto w-50">Masse en Masse jupitérienne et période de révolution en jour</span> */
+        <ResponsiveContainer aspect={2.5}>
+            <ScatterChart id="masse_distance"
                 margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
@@ -209,7 +209,7 @@ export function Graph_masse_distance() {
                 {/* <ReferenceLine label="Segment" stroke="green" strokeDasharray="3 3" segment={[{ x: 1, y: 0 }, { x: 1, y:4380 }]} /> */}
                 <Scatter name="A school" data={items} shape={<CustomizedShape />} />
             </ScatterChart>
-        </>
+        </ResponsiveContainer >
     )
 
 
@@ -218,7 +218,7 @@ export function Graph_masse_distance() {
 export function Graph_radial() {
 
     const [items, setItems] = useState<radialT[]>();//l'état initial doit être un array ne contenant pas d'objet
-
+    let hh = "RR"
 
     useEffect(() => {
         chercheData().then((tt) => {
@@ -261,47 +261,20 @@ export function Graph_radial() {
         });
     }, [])
 
-    const data = [
-        {
-            name: '18-24', uv: 31.47, pv: 2400, fill: '#8884d8',
-        },
-        {
-            name: '25-29', uv: 26.69, pv: 4567, fill: '#83a6ed',
-        },
-        {
-            name: '30-34', uv: 15.69, pv: 1398, fill: '#8dd1e1',
-        },
-        {
-            name: '35-39', uv: 8.22, pv: 9800, fill: '#82ca9d',
-        },
-        {
-            name: '40-49', uv: 8.63, pv: 3908, fill: '#a4de6c',
-        },
-        {
-            name: '50+', uv: 2.63, pv: 4800, fill: '#d0ed57',
-        },
-        {
-            name: 'unknow', uv: 6.67, pv: 4800, fill: '#ffc658',
-        },
-    ];
-
-    const style = {
-        top: 0,
-        left: 350,
-        lineHeight: '24px',
-    };
+    // const style = {
+    //     top: 100,
+    //     left: "50%",
+    //     lineHeight: '24px',
+    // };
 
 
     return (
-        <>
-            <ResponsiveContainer width="95%" height={200}>
-                {/* <span className="mx-auto w-50">Masse en Masse jupitérienne et période de révolution en jour</span> */}
-                <RadialBarChart startAngle={270} endAngle={150} width={150} height={150} cx={150} cy={75} clockWise={false} innerRadius={20} outerRadius={140} barSize={10} data={items}>
-                    <RadialBar label={{ position: 'insideStart', fill: '#fff' }} dataKey="uv" />
-                    <Legend iconSize={10} width={120} height={140} layout="vertical" verticalAlign="middle" wrapperStyle={style} />
-                </RadialBarChart>
-            </ResponsiveContainer>
-        </>
+        <ResponsiveContainer aspect={0.5}>
+            <RadialBarChart  startAngle={270} endAngle={150} cx={"70%"} cy={"50%"}  barSize={"90%"} innerRadius={"10%"} outerRadius={"100%"}  data={items}>
+                <RadialBar label={{ position: 'insideStart', fill: '#fff' }} dataKey="uv" />
+                {/* <Legend iconSize={10}  layout="vertical" verticalAlign="middle" wrapperStyle={style} /> */}
+            </RadialBarChart>
+        </ResponsiveContainer >
     )
 
 
@@ -310,7 +283,7 @@ export function Graph_radial() {
 export function Count_annee() {
 
     const [items, setItems] = useState<any[]>([0]);//l'état initial doit être un array ne contenant pas d'objet
-    const defaultModelID = 23
+    let defaultModelID = 23
 
     useEffect(() => {
         chercheData().then((tt) => {
@@ -338,15 +311,16 @@ export function Count_annee() {
 
     return (
 
-
-        <BarChart width={730} height={250} data={items}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis />
-            {/* <Tooltip /> */}
-            {/* <Legend /> */}
-            <Bar dataKey="value" fill="#8884d8" />
-        </BarChart>
+        <ResponsiveContainer aspect={2.5}>
+            <BarChart width={730} height={250} data={items}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="year" />
+                <YAxis />
+                {/* <Tooltip /> */}
+                {/* <Legend /> */}
+                <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+        </ResponsiveContainer>
 
     )
 
@@ -370,18 +344,19 @@ export function Taille_planete() {
 
     return (
 
+        <ResponsiveContainer aspect={1.5}>
+            <ScatterChart width={730} height={250}
+                margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                <XAxis allowDataOverflow={true} label="distance à l'étoile" dataKey="semi_major_axis" name="distance" type="number" ticks={[0, 0.5, 1]} domain={[0, 1.1]} unit=" UA" />
+                <YAxis allowDataOverflow={false} label="rayon" dataKey="radius" name="rayon" type="number" ticks={[0, 1, 2]} domain={[0, 2]} unit=" RJup" />
+                {/* <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" /> */}
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <Legend />
+                <Scatter name="A school" data={items} shape="cross" />
 
-        <ScatterChart width={730} height={250}
-            margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis allowDataOverflow={true} label="distance à l'étoile" dataKey="semi_major_axis" name="distance" type="number" ticks={[0, 0.5, 1]} domain={[0, 1.1]} unit=" UA" />
-            <YAxis allowDataOverflow={false} label="rayon" dataKey="radius" name="rayon" type="number" ticks={[0, 1, 2]} domain={[0, 2]} unit=" RJup" />
-            {/* <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" /> */}
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Legend />
-            <Scatter name="A school" data={items} shape="cross" />
-
-        </ScatterChart>
+            </ScatterChart>
+        </ResponsiveContainer>
 
     )
 
@@ -405,18 +380,19 @@ export function Graph_zone_habitable() {
 
     return (
 
+        <ResponsiveContainer aspect={1.5}>
+            <ScatterChart
+                margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                <YAxis allowDataOverflow={true} label="température de l'étoile" dataKey="temp" name="masse" type="number" ticks={[0, 3000, 4000, 5000, 6000, 7000]} domain={[0, 8000]} unit="K" />
+                <XAxis allowDataOverflow={true} label="distance à l'étoile" dataKey="semi_major_axis" name="periode orbitale" type="number" domain={[200, 700]} unit=" jour" />
+                {/* <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" /> */}
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                <Legend />
+                <Scatter name="A school" data={items} shape="cross" />
 
-        <ScatterChart width={730} height={250}
-            margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <YAxis allowDataOverflow={true} label="température de l'étoile" dataKey="temp" name="masse" type="number" ticks={[0, 3000, 4000, 5000, 6000, 7000]} domain={[0, 8000]} unit="K" />
-            <XAxis allowDataOverflow={true} label="distance à l'étoile" dataKey="semi_major_axis" name="periode orbitale" type="number" domain={[200, 700]} unit=" jour" />
-            {/* <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" /> */}
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-            <Legend />
-            <Scatter name="A school" data={items} shape="cross" />
-
-        </ScatterChart>
+            </ScatterChart>
+        </ResponsiveContainer>
 
     )
 
@@ -459,15 +435,16 @@ export function Graph_rayon_moyen() {
 
     return (
 
-
-        <BarChart width={730} height={250} data={items}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis ticks={[0, 1, 2, 2.5]} />
-            {/* <Tooltip /> */}
-            <Legend />
-            <Bar name="moyenne des rayons en Rjupiter des planètes découvertes" dataKey="value" fill="#8884d8" />
-        </BarChart>
+        <ResponsiveContainer aspect={1.5}>
+            <BarChart data={items}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="year" />
+                <YAxis ticks={[0, 1, 2, 2.5]} />
+                {/* <Tooltip /> */}
+                <Legend />
+                <Bar name="moyenne des rayons en Rjupiter des planètes découvertes" dataKey="value" fill="#8884d8" />
+            </BarChart>
+        </ResponsiveContainer>
 
     )
 
@@ -513,15 +490,16 @@ export function Moyenne_semi_major_moyen() {
 
     return (
 
-
-        <BarChart width={730} height={250} data={items}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis ticks={[0, 1, 2, 3, 4]} />
-            <Tooltip />
-            {/* <Legend /> */}
-            <Bar name="(imaging excleu)moyenne des distances à l'étoile en UA des planètes découvertes" dataKey="value" fill="#8884d8" />
-        </BarChart>
+        <ResponsiveContainer aspect={2.5}>
+            <BarChart data={items}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="year" />
+                <YAxis ticks={[0, 1, 2, 3, 4]} />
+                <Tooltip />
+                {/* <Legend /> */}
+                <Bar name="(imaging excleu)moyenne des distances à l'étoile en UA des planètes découvertes" dataKey="value" fill="#8884d8" />
+            </BarChart>
+        </ResponsiveContainer>
 
     )
 
@@ -562,7 +540,7 @@ export function Graph_annee_distance_etoile_depuis_terre() {
     return (
 
 
-        <BarChart width={730} height={250} data={items}>
+        <BarChart data={items}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" />
             <YAxis name="star distance" />

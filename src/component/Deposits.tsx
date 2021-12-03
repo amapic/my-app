@@ -10,22 +10,6 @@ import adresse from '../fonction/conf'
 
 
 
-// const useStyles = makeStyles((theme) => ({
-// const useStyles = makeStyles((theme)=>{
-//   depositContext: {
-//     flex: 1;
-//     padding: theme.spacing(1);
-//   },
-//   LinearProgress: {
-//     flex: 1;
-//     paddingLeft: theme.spacing(1);
-//     paddingRight: theme.spacing(1);
-//   },
-//   title: {
-//     paddingBottom: theme.spacing(4);
-//     margin: theme.spacing(5)
-//   }
-// });
 
 const chercheData = async (url: string): Promise<any> => {
 

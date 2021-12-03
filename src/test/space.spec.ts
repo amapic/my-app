@@ -1,26 +1,21 @@
-import { chercheData, AA } from '../component_planet/graph_planet'
-
-// const {chercheData}=require('../pages/planet')
+import { chercheData } from '../component_planet/graph_planet'
+import {dataT,InputType} from '../types/interface'
 export { }
 describe('Space test suite', () => {
     it('My Space Test', () => {
         expect(true).toEqual(true);
     });
-    // it('tests /destinations endpoints', async() => {
 
-    //     expect(["tt"]).toBeInstanceOf(Array)
-    //     await expect(chercheData()).resolves.toBeInstanceOf(Array)
-
-    // });
 
     it('tests /destinations endpoints', async () => {
 
         // expect(["tt"]).toBeInstanceOf(Array)
         // expect(chercheData()).toMatch(/.*/)
-        // let hh=chercheData()
-        // if(!expect(chercheData()).resolves.toBeInstanceOf(Array)) {console.log('res',res)}
-        // await expect(chercheData()).resolves.toBeInstanceOf(Object)
-        await expect(chercheData()).resolves.toEqual(2);
+        let hh=await chercheData()
+        
+        expect(hh).toBeInstanceOf(Object)
+        expect(hh[0]).toBeInstanceOf(Object)
+        expect(Object.keys(hh).length).toBeGreaterThan(500)
 
     });
 

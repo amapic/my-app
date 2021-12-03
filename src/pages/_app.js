@@ -1,6 +1,7 @@
 // import App from 'next/app'
 import '../index.css';
 import '../App.css';
+import '../style/planet.css';
 
 import React from 'react';
 import PropTypes from 'prop-types';
