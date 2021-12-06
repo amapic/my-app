@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+
 import { Count_annee, Graph_masse_distance, Graph_zone_habitable, Taille_planete, Graph_radial, Moyenne_semi_major_moyen, Graph_rayon_moyen } from '../component_planet/graph_planet';
 import { Total_planete } from '../component_planet/chiffre'
+import {Navbar,NavItem} from '../component/navbar/navbar'
+import CaretIcon_down  from '../img/icons/caret_up.svg';
+import CaretIcon_up from '../img/icons/caret_down.svg';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 
+import React, { useEffect, useState} from 'react';
 
 export default function Dashboard() {
 
@@ -25,6 +29,13 @@ export default function Dashboard() {
             </div>
           </div>
         </nav>
+
+        {/* <Navbar>
+          <NavItem icon_up={<CaretIcon_up />} icon_down={<CaretIcon_down />}>
+          </NavItem>
+        </Navbar> */}
+
+
         <header className="page-header header container-fluid">
           {/* AHAH */}
         </header>
