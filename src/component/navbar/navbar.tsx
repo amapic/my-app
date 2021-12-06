@@ -6,12 +6,20 @@
 // import { ReactComponent as CogIcon } from './icons/cog.svg';
 // import { ReactComponent as ChevronIcon } from './icons/chevron.svg';
 // import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
-// import { ReactComponent as BoltIcon } from './icons/bolt.svg';
+
+
 
 import React, { useState, useEffect, useRef } from 'react';
 
+// declare module '*.svg' {
+//   // import React = require('react');
+//   export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+//   const src: string;
+//   // export default src;
+// }
 
-export function Navbar(props) {
+
+export function Navbar(props:any) {
   return (
     <nav className="navbar-perso">
       <ul className="navbar-nav-perso">{props.children}</ul>
@@ -21,7 +29,7 @@ export function Navbar(props) {
 
 Navbar.name === "ArrowFn"
 
-export function NavItem(props) {
+export function NavItem(props:any) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,12 +37,14 @@ export function NavItem(props) {
       <a href="#" className="icon-button" onClick={() => {
         setOpen(!open)
       }}>
-        {!open && <svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" class="" ></path></svg>
+        {!open && <svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" ></path></svg>
         }
         {open && <svg viewBox="0 0 320 512">
-          <path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" class="" transform="rotate(180,160,256)" ></path>
+          <path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" transform="rotate(180,160,256)" ></path>
           </svg>
         }
+        {/* {!open && props.icon_down}
+        {open && props.icon_down} */}
       </a>
 
       <DropdownMenu visible={open}></DropdownMenu>
@@ -42,7 +52,7 @@ export function NavItem(props) {
   );
 }
 
-export function DropdownMenu(props) {
+export function DropdownMenu(props:any) {
   const dropdownRef = useRef(null);
   let menuHeight = props.visible ? 200 : 0
   let visible = props.visible ? "visible" : "hidden"
@@ -51,7 +61,7 @@ export function DropdownMenu(props) {
   console.log("height", menuHeight)
 
 
-  const style = {
+  const style:{} = {
     color: 'black'
   };
   console.log(menuHeight);

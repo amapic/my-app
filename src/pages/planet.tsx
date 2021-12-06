@@ -5,10 +5,14 @@ import { Count_annee, Graph_masse_distance, Graph_zone_habitable, Taille_planete
 import { Total_planete } from '../component_planet/chiffre'
 import {Navbar,NavItem} from '../component/navbar/navbar'
 import 'bootstrap/dist/css/bootstrap.css';
+// import {ReactComponent as CaretIcon_up}  from '../img/icons/caret_up.svg';
+// import {ReactComponent as CaretIcon_down} from '../img/icons/caret_down.svg';
 
+const style:{} = {
+  color: 'black'
+};
 
-
-
+// icon_up={<CaretIcon_up />} icon_down={<CaretIcon_down />}
 
 export default function Dashboard() {
 
@@ -16,10 +20,10 @@ export default function Dashboard() {
   return (
 
     <div className="wrapper">
-
+    <React.StrictMode>
       <div id="content">
        
-        <Navbar>
+        <Navbar  >
           <NavItem >
           </NavItem>
         </Navbar>
@@ -78,6 +82,7 @@ export default function Dashboard() {
         </div>
 
       </div>
+      </React.StrictMode>
     </div>
   )
 }

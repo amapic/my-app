@@ -23,6 +23,7 @@ const fetch = require('node-fetch')
 
 import { dataT, radialT } from '../types/interface'
 
+const k='tt'
 
 export const chercheData = async (): Promise<dataT[] | boolean> => {
 
