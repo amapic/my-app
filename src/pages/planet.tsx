@@ -1,14 +1,14 @@
 
+import React from 'react';
+
 import { Count_annee, Graph_masse_distance, Graph_zone_habitable, Taille_planete, Graph_radial, Moyenne_semi_major_moyen, Graph_rayon_moyen } from '../component_planet/graph_planet';
 import { Total_planete } from '../component_planet/chiffre'
 import {Navbar,NavItem} from '../component/navbar/navbar'
-import CaretIcon_down  from '../img/icons/caret_up.svg';
-import CaretIcon_up from '../img/icons/caret_down.svg';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 
-import React, { useEffect, useState} from 'react';
+
 
 export default function Dashboard() {
 
@@ -18,23 +18,13 @@ export default function Dashboard() {
     <div className="wrapper">
 
       <div id="content">
-        <nav className="navbar navbar-transparent navbar-expand-md navbar-dark bg-dark justify-content-center mb-4">
-          <div className="container-fluid-nav">
-            <a className="navbar-brand" href="#">Exoplanètes</a>
-            {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button> */}
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-
-            </div>
-          </div>
-        </nav>
-
-        {/* <Navbar>
-          <NavItem icon_up={<CaretIcon_up />} icon_down={<CaretIcon_down />}>
+       
+        <Navbar>
+          <NavItem >
           </NavItem>
-        </Navbar> */}
+        </Navbar>
 
+        {/* icon_up={<CaretIcon_up />} icon_down={<CaretIcon_down />} */}
 
         <header className="page-header header container-fluid">
           {/* AHAH */}

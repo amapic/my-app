@@ -1,7 +1,7 @@
 import { Treemap } from 'recharts'
 import React, { useState } from 'react'
 import shortid from 'shortid';
-import theme from '../../custom';
+import theme from '../../custom.d';
 export default function Data_carre(data2) {
 
   const data = [

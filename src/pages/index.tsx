@@ -18,7 +18,7 @@ import { Camembert } from '../component/PieChart';
 // import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../custom';
+import theme from '../../custom.d';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 // import BarChartLegend from '../component/BarChartLegend'

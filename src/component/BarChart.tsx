@@ -23,7 +23,7 @@ import adresse from '../fonction/conf'
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 import Title from './Title';
 import { liste_nom_region } from '../fonction/fonction';
-import theme from '../../custom';
+import theme from '../../custom.d';
 
 const useStyles = makeStyles((theme) => ({
     container_barchart: {

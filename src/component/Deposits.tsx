@@ -3,7 +3,7 @@ import { makeStyles, Theme,withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import theme from '../../custom'
+import theme from '../../custom.d'
 
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import adresse from '../fonction/conf'

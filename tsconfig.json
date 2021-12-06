@@ -85,10 +85,11 @@
     "suppressImplicitAnyIndexErrors": false
   },
   "include": [
+    "custom.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "custom.ts"
+    
     // "**/*"
   ],
   "exclude": [
