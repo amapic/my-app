@@ -1,12 +1,11 @@
 
 import React from 'react';
-
+import Image from 'next/image'
 import { Count_annee, Graph_masse_distance, Graph_zone_habitable, Taille_planete, Graph_radial, Moyenne_semi_major_moyen, Graph_rayon_moyen } from '../component_planet/graph_planet';
 import { Total_planete } from '../component_planet/chiffre'
 import {Navbar,NavItem} from '../component/navbar/navbar'
 import 'bootstrap/dist/css/bootstrap.css';
-// import {ReactComponent as CaretIcon_up}  from '../img/icons/caret_up.svg';
-// import {ReactComponent as CaretIcon_down} from '../img/icons/caret_down.svg';
+
 
 const style:{} = {
   color: 'black'
@@ -24,7 +23,7 @@ export default function Dashboard() {
       <div id="content">
        
         <Navbar  >
-          <NavItem >
+          <NavItem  >
           </NavItem>
         </Navbar>
 

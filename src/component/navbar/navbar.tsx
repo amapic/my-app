@@ -1,4 +1,9 @@
 
+import { VisibilityProperty } from 'csstype';
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image'
+import CaretIcon_up  from '../../img/icons/caret_up.svg';
+import CaretIcon_down from '../../img/icons/caret_down.svg';
 // import { ReactComponent as BellIcon } from './icons/bell.svg';
 // import { ReactComponent as MessengerIcon } from './icons/messenger.svg';
 
@@ -9,7 +14,6 @@
 
 
 
-import React, { useState, useEffect, useRef } from 'react';
 
 // declare module '*.svg' {
 //   // import React = require('react');
@@ -37,14 +41,14 @@ export function NavItem(props:any) {
       <a href="#" className="icon-button" onClick={() => {
         setOpen(!open)
       }}>
-        {!open && <svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" ></path></svg>
-        }
-        {open && <svg viewBox="0 0 320 512">
-          <path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" transform="rotate(180,160,256)" ></path>
-          </svg>
-        }
-        {/* {!open && props.icon_down}
-        {open && props.icon_down} */}
+        {open&&<Image
+        width="100%"
+        height="100%"
+        src={CaretIcon_up}/>}
+        {!open&&<Image
+        width="100%"
+        height="100%"
+        src={CaretIcon_down}/>}
       </a>
 
       <DropdownMenu visible={open}></DropdownMenu>
@@ -55,7 +59,7 @@ export function NavItem(props:any) {
 export function DropdownMenu(props:any) {
   const dropdownRef = useRef(null);
   let menuHeight = props.visible ? 200 : 0
-  let visible = props.visible ? "visible" : "hidden"
+  let visible:VisibilityProperty = props.visible ? "visible" : "hidden"
   let displaytext = props.visible ? "inline" : "none"
   console.log("visible", props.visible)
   console.log("height", menuHeight)

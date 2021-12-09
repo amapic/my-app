@@ -74,4 +74,28 @@ export async function getdata(url) {
         return {responseData, loading: false}
     }
 }
+import {dataT} from '../types/interface'
+
+export const chercheData = async (): Promise<dataT[] | boolean> => {
+
+    // const response = await fetch("http://127.0.0.1:8080/api/planets");
+    const response = await fetch("http://68.183.74.150:8080/api/planets");
+    const responseData = await response.json();
+    // console.log(responseData);
+    if (response.ok) {
+        var data = [];
+        var dictOfResponseData: any = {}
+        var miniDict = {}
+        for (const [key, value] of Object.entries(responseData)) {
+            dictOfResponseData[key] = value
+        }
+
+        return dictOfResponseData
+
+    } else {
+        alert(JSON.stringify(responseData))
+        return false
+    }
+
+}
 

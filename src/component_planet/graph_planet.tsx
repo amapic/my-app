@@ -20,34 +20,11 @@ import {
 
 } from 'recharts'
 const fetch = require('node-fetch')
-
+import {chercheData} from '../fonction/fonction'
 import { dataT, radialT } from '../types/interface'
 
-const k='tt'
 
-export const chercheData = async (): Promise<dataT[] | boolean> => {
 
-    const response = await fetch("http://127.0.0.1:8080/api/planets");
-    // const response = await fetch("http://68.183.74.150:8080/api/planets");
-    
-    const responseData = await response.json();
-    // console.log(responseData);
-    if (response.ok) {
-        var data = [];
-        var dictOfResponseData: any = {}
-        var miniDict = {}
-        for (const [key, value] of Object.entries(responseData)) {
-            dictOfResponseData[key] = value
-        }
-
-        return dictOfResponseData
-
-    } else {
-        alert(JSON.stringify(responseData))
-        return false
-    }
-
-}
 
 const CustomizedShape = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
@@ -274,7 +251,7 @@ export function Graph_radial() {
         <ResponsiveContainer aspect={0.5}>
             <RadialBarChart  startAngle={270} endAngle={150} cx={"70%"} cy={"50%"}  barSize={"90%"} innerRadius={"10%"} outerRadius={"100%"}  data={items}>
                 <RadialBar label={{ position: 'insideStart', fill: '#fff' }} dataKey="uv" />
-                {/* <Legend iconSize={10}  layout="vertical" verticalAlign="middle" wrapperStyle={style} /> */}
+
             </RadialBarChart>
         </ResponsiveContainer >
     )
@@ -517,7 +494,6 @@ export function Graph_annee_distance_etoile_depuis_terre() {
         chercheData().then((tt) => {
 
             const gg = Object.values(tt)
-            var counter = 0
             const sumOfAges = gg.reduce((decount, currentValue) => {
                 if (currentValue.star_distance !== null && currentValue.discovered !== null) {
                     counter += 1

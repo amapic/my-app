@@ -85,6 +85,10 @@ const theme = createTheme( {
 
 export default theme;
 
+// declare module "*.svg" {
+//   const content: any;
+//   export default content;
+// }
 // type CustomTheme={
 //   [key in keyof typeof theme]:typeof theme[key]
 // }
