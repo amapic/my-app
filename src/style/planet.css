@@ -2,6 +2,7 @@ body {
   min-height: 75rem;
 }
 
+
 @media (min-width: 1200px) {
   .titre_col_droite {
     font-size: 1.75rem!important

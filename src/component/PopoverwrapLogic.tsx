@@ -23,10 +23,11 @@ const chercheData = async (url:string):Promise<any> => {
 }
 
 interface anchorElT{
-  a:boolean|google.maps.MapMouseEvent,
-  b:number,
-  c:number,
-  d:string
+  a:boolean|google.maps.MapMouseEvent|EventTarget | null,
+  b:number|null,
+  c:number|null,
+  d:string,
+  e?:any
 }
 
 const PopoverwrapLogic = ({ object, paths }:PopoverwrapLogicT) => {
@@ -34,7 +35,7 @@ const PopoverwrapLogic = ({ object, paths }:PopoverwrapLogicT) => {
   var timer1:NodeJS.Timeout;
   // console.log("rr");
   const [anchorEl, setAnchorEl] = React.useState<anchorElT>({ a: false, b: 0, c: 0, d: "" });
-  const [color, setColor] = React.useState(null);
+  const [color, setColor] = React.useState<any>(null);
   const [mapProps, setmapProps] = useState({
     etat: "init",
     selectedItems: ["11"],
@@ -103,7 +104,7 @@ const PopoverwrapLogic = ({ object, paths }:PopoverwrapLogicT) => {
             chercheData(adresse  + ":8052/bilan_par_region_dose2/" + object).then((dose2:any) => {
             dose1forward = (dose1forward * 100).toFixed(2) + "%"
             dose2 = (dose2 * 100).toFixed(2) + "%"
-            setAnchorEl({ a: event.domEvent.target, b: event.domEvent.pageX, c: event.domEvent.pageY, d: dose1forward,e:dose2 });
+            setAnchorEl({ a: event.domEvent.target, b: null, c: null, d: dose1forward,e:dose2 });
            })
         }
       })

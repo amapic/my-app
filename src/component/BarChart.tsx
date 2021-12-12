@@ -35,18 +35,20 @@ const useStyles = makeStyles((theme) => ({
 }
 ));
 
-const chercheData = async (url: string, liste_selected: [string]) => {
+interface miniDictT {
+    name?: string,
+    [propName: string]: any
+}
+
+const chercheData = async (url: string, liste_selected: string[]) => {
 
     const response = await fetch(url, { mode: 'cors' });
     const responseData = await response.json();
-    var liste_nom_region2: string[] = liste_nom_region
+    var liste_nom_region2: { [key:string]: string } = liste_nom_region
     var liste_selected_str: number[] = []
     // 1ere_dose:number,
     //     2eme_dose:number
-    interface miniDictT {
-        name?: string,
-        [propName: string]: any
-    }
+    
 
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
@@ -69,7 +71,8 @@ const chercheData = async (url: string, liste_selected: [string]) => {
 
     } else {
         alert(JSON.stringify(responseData))
-        return false
+        let miniDictempty = {} as miniDictT[]
+        return miniDictempty
     }
 
 }
@@ -82,8 +85,8 @@ const format = (num: number): string =>
     ;
 
 export default function BarChartWrap(props: any) {
-    // const theme = useTheme();
-    const [items, setItems] = useState(null);//l'état initial doit être un array ne contenant pas d'objet
+    let miniDictempty = {} as miniDictT[]
+    const [items, setItems] = useState<miniDictT[]>(miniDictempty);//l'état initial doit être un array ne contenant pas d'objet
     var g = []
     const classes = useStyles();
     const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
@@ -111,27 +114,15 @@ export default function BarChartWrap(props: any) {
 
     }
 
-    const labelLegendFormatter = function (x: any): any {
-        return null
-    }
+    // const labelLegendFormatter = function (x: any): any {
+    //     return null
+    // }
 
-    const valueLegendFormatter = function (x: number, y: number, z: any) {
-        return [x.toFixed(2) + " %", y,]
-    }
+    // const valueLegendFormatter = function (x: number, y: number, z: any) {
+    //     return [x.toFixed(2) + " %", y,]
+    // }
 
 
-
-    const CustomBarWithTarget = (props: any) => {
-        const { fill, x, y, width, height, amt, t } = props;
-
-        let totalHeight = y + height;
-        let targetY = totalHeight - ((height / amt) * t)
-
-        return <svg>
-            <rect x={x} y={y} width={width} height={height} stroke="none" fill={fill} />
-            <line x1={x - 8} x2={x + (width + 8)} y1={targetY} y2={targetY} stroke={"#2967c1"} strokeWidth={2} strokeDasharray={"10 5"} />
-        </svg>;
-    };
 
     if (!items || g === null) {
         return null
@@ -140,10 +131,7 @@ export default function BarChartWrap(props: any) {
         <>
             <div id='contient_responsive' className={classes.container_barchart}>
                 < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="100%" >
-                    {/* <Title>Pourcentage de personne vaccinée par région (dose 1 et 2)</Title> */}
-                    {/* <Maps /> */}
-                    {/* <Title>Doses administrées </Title> */}
-                    {/* <p>Pourcentage de personne vaccinée par région (dose 1 et 2) </p> */}
+                    
                     <BarChart barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30 }}>
                         {/* <CartesianGrid strokeDasharray="3 3" /> */}
                         <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />

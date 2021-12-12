@@ -13,9 +13,6 @@ import {mapPropsT} from '../types/interface'
 import Popover from '@material-ui/core/Popover';
 
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   popovervisible: {
     pointerEvents: 'none',
@@ -99,7 +96,7 @@ export default function Popoverwrap(props:any) {
     <Polygon key={
       object
     }
-      // aria-owns={open ? "mouse-over-popover-" + object : undefined}
+      // aria-owns={open ? "mouse-over-popover" : undefined}
       // aria-haspopup="true"
       // onMouseOut={(e) => handlePopoverClose(e, object)}
       // onMouseOver={(e) => handlePopoverOpen(e, object)}

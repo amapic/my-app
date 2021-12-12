@@ -150,7 +150,7 @@ export default function Chart() {
 
     return (
         <>
-            < Title >  <  / Title >
+            {/* <Title >  </ Title > */}
                 < ResponsiveContainer height={200} width={'100%'}>
                     < LineChart
                         data={
@@ -167,7 +167,7 @@ export default function Chart() {
 
                         <Legend formatter={legendFormatter} />
 
-                        <Tooltip wrapperStyle={{backgroundcolor:'#F00'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <Tooltip wrapperStyle={{backgroundColor:'#F00'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
                         <CartesianGrid strokeDasharray="3 3" />
                         {
 
@@ -184,9 +184,9 @@ export default function Chart() {
                             theme.palette.text.secondary
                         }
 
-                    stroke={theme.palette.text.secondary.main}
+                    // stroke={theme.palette.text.secondary.main}
                         />
-                        <YAxis stroke={theme.palette.text.secondary.main} >
+                        <YAxis stroke={theme.prout} >
                             
                             <Label
                                 angle={270}
@@ -194,14 +194,14 @@ export default function Chart() {
                                 style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
                             >
                             </Label >
-                            <  / YAxis >
+                            </YAxis >
 
                             dot = {
                                 false
                             }
         
                         </LineChart >
-                        <  / ResponsiveContainer >
+                        </ResponsiveContainer >
                         </> );
     
 }

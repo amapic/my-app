@@ -1,2 +1,2 @@
- const adresse="http://68.183.74.150"
+ const adresse="http://localhost"
  export default adresse;

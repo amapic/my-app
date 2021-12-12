@@ -35,7 +35,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production next start",
     "rrr": "webpack",
     "test": "jest",
     "test:watch": "npm run test -- --watch",

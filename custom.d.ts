@@ -83,6 +83,14 @@ const theme = createTheme( {
   }
 })
 
+interface itemstype {
+  max_text: number,
+  min_text: number,
+  min: string,
+  max: string,
+  marks: { label: string, value: number }[]
+}
+
 export default theme;
 
 // declare module "*.svg" {
@@ -110,34 +118,20 @@ export default theme;
 //     prouty?:string
 // }
 
-declare module '@material-ui/core/styles/createTheme' {
-  interface Theme {
-    appDrawer: {
-      width: React.CSSProperties['width']
-      breakpoint: Breakpoint
-    }
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    couleurPerso?: {
-      red:string
-    }
-  }
-}
-
-declare module '@material-ui/core/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
-}
+// declare module '@material-ui/core/styles/createTheme' {
+//   interface Theme {
+//     appDrawer: {
+//       width: React.CSSProperties['width']
+//       breakpoint: Breakpoint
+//     }
+//   }
+//   // allow configuration using `createTheme`
+//   interface ThemeOptions {
+//     couleurPerso?: {
+//       red:string
+//     }
+//   }
+// }
 
 declare module '@material-ui/core/styles/CreatePalette' {
   interface SimplePaletteColorOptions {
@@ -146,9 +140,37 @@ declare module '@material-ui/core/styles/CreatePalette' {
   
   interface PaletteColor {
     bar_droite1: string;
+    first:string;
+    second:string;
+    third:string;
   }
   
 }
+
+declare module '@material-ui/core/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    },
+    prout:string
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+
+  // interface PaletteColor {
+  //   light: string;
+  //   main: string;
+  //   dark: string;
+  //   contrastText: string;
+  //   first:string;
+  // }
+}
+
+
 
 
 

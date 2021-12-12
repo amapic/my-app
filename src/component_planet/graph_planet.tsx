@@ -209,26 +209,26 @@ export function Graph_radial() {
                     gg.splice(i, 1);
                 } else {
                     if (gg[i].radius < (1.25 / 11)) {
-                        gg[i].sizetype = "terrestre"
+                        gg[i].sizeType = "terrestre"
                     }
                     else if ((gg[i].radius > (1.25 / 11)) && (gg[i].radius < (2 / 11))) {
-                        gg[i].sizetype = "super-terre"
+                        gg[i].sizeType = "super-terre"
                     }
                     else if ((gg[i].radius > (2 / 11)) && (gg[i].radius < (6 / 11))) {
-                        gg[i].sizetype = "neptune"
+                        gg[i].sizeType = "neptune"
                     }
                     else if ((gg[i].radius > (6 / 11)) && (gg[i].radius < (15 / 11))) {
-                        gg[i].sizetype = "jupiter"
+                        gg[i].sizeType = "jupiter"
                     }
                     else if ((gg[i].radius > (15 / 11)) && (gg[i].radius < (22 / 11))) {
-                        gg[i].sizetype = "super-jupiter"
+                        gg[i].sizeType = "super-jupiter"
                     }
                     else {
-                        gg[i].sizetype = "autre"
+                        gg[i].sizeType = "autre"
                     }
                 }
             }
-            var counts = countBy(gg, 'sizetype');
+            var counts = countBy(gg, 'sizeType');
 
             var arraytypeplanet: radialT[] = []
             for (const [key, value] of Object.entries(counts)) {
@@ -307,8 +307,8 @@ export function Count_annee() {
 }
 
 export function Taille_planete() {
-
-    const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
+    const dataTempty= {} as dataT[]
+    const [items, setItems] = useState(dataTempty);//l'état initial doit être un array ne contenant pas d'objet
 
 
     useEffect(() => {
@@ -341,10 +341,9 @@ export function Taille_planete() {
 
 
 }
-
 export function Graph_zone_habitable() {
-
-    const [items, setItems] = useState([0]);//l'état initial doit être un array ne contenant pas d'objet
+    const dataTempty= {} as dataT[]
+    const [items, setItems] = useState(dataTempty);//l'état initial doit être un array ne contenant pas d'objet
 
 
     useEffect(() => {
@@ -496,7 +495,7 @@ export function Graph_annee_distance_etoile_depuis_terre() {
             const gg = Object.values(tt)
             const sumOfAges = gg.reduce((decount, currentValue) => {
                 if (currentValue.star_distance !== null && currentValue.discovered !== null) {
-                    counter += 1
+                    
                     if (!Object.keys(decount).includes(currentValue.discovered)) {
                         decount[currentValue.discovered] = currentValue.star_distance;
                     } else {

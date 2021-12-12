@@ -10,20 +10,21 @@ import adresse from '../fonction/conf'
 
 // import { SyntheticEvent } from './interface'
 
-export interface SyntheticEvent {
-  bubbles: boolean;
-  cancelable: boolean;
-  currentTarget: EventTarget;
-  defaultPrevented: boolean;
-  eventPhase: number;
-  isTrusted: boolean;
-  nativeEvent: Event;
-  preventDefault(): void;
-  stopPropagation(): void;
-  target: EventTarget;
-  timeStamp: Date;
-  type: string;
-}
+// export interface SyntheticEvent {
+//   bubbles: boolean;
+//   cancelable: boolean;
+//   currentTarget: EventTarget;
+//   defaultPrevented: boolean;
+//   eventPhase: number;
+//   isTrusted: boolean;
+//   nativeEvent: Event;
+//   preventDefault(): void;
+//   stopPropagation(): void;
+//   target: EventTarget;
+//   timeStamp: Date;
+//   type: string;
+// }
+
 
 interface itemstype {
   max_text: number,
@@ -33,22 +34,26 @@ interface itemstype {
   marks: { label: string, value: number }[]
 }
 
-const chercheData = async (url: string): Promise<[itemstype|null,boolean]> => {
+type datetimeT = { [key: number]: string } & Iterable<string>
+
+
+
+const chercheData = async (url: string): Promise<[itemstype | null, boolean]> => {
 
   const response = await fetch(url, { mode: 'cors' })
   const responseData = await response.json()
 
   if (response.ok) {
     let local_range = responseData;
-
-    let datetime: { [key: number]: number } = Object.values(local_range.timestamp)
-    let datetext: { [key: number]: string } = Object.values(local_range.datetime)
+    // let yy:{ [key: number]: string }=Object.values(local_range.timestamp)
+    let datetime: number[]= Object.values(local_range.timestamp)
+    let datetext: string[] = Object.values(local_range.datetime)
     var marks2 = []
-    for (const [index, element] of datetext.entries()) {
+    for (const [index, element] of Object.entries(datetext)) {
       marks2.push({ label: element, value: datetime[index] });
     }
-    let local_range2:itemstype = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
-    subjectrange.next(datetext.sort()[0] + "-01/" + datetext.sort()[datetext.length - 1] + "-01")
+    let local_range2: itemstype = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
+    // subjectrange.next(datetext.sort()[0] + "-01/" + datetext.sort()[datetext.length - 1] + "-01")
     return [local_range2, false]
   } else {
     return [null, true]
@@ -57,9 +62,10 @@ const chercheData = async (url: string): Promise<[itemstype|null,boolean]> => {
 
 
 
-function useFetch(url:string): [boolean,itemstype] {
-  const [state, setState] = useState<{loading: boolean,items:itemstype}>({
-    items: {},
+function useFetch(url: string): [boolean, itemstype ] {
+  let initalObject = {} as itemstype
+  const [state, setState] = useState<{ loading: boolean, items: itemstype }>({
+    items: initalObject,
     loading: true
   })
 
@@ -71,10 +77,10 @@ function useFetch(url:string): [boolean,itemstype] {
       if (response.ok) {
         let local_range = responseData;
 
-        let datetime: { [key: number]: number } = Object.values(local_range.timestamp)
-        let datetext: { [key: number]: string } = Object.values(local_range.datetime)
+        let datetime: number[] = Object.values(local_range.timestamp)
+        let datetext: string[] = Object.values(local_range.datetime)
         var marks2 = []
-        for (const [index, element] of datetext.entries()) {
+        for (const [index, element] of Object.entries(datetext)) {
           marks2.push({ label: element.substr(2).replace('-01', '-1'), value: datetime[index] });
         }
         let local_range2 = { max_text: Math.max(...datetime), min_text: Math.min(...datetime), min: datetext.sort()[0], max: datetext.sort()[datetext.length - 1], marks: marks2 }
@@ -97,7 +103,7 @@ export default function SliderZone() {
 
   // subjectrange est mis à jour dans useFetch
   const [error, range] = useFetch(adresse + ":8052/liste_mois_detail")
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number|number[]):void => {
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number | number[]): void => {
 
     subjectrange.next(newValue);
 
@@ -105,6 +111,14 @@ export default function SliderZone() {
   if (error || error === undefined) {
     return <div>loading...</div>
   } else {
+    for (var i = range.marks.length - 1; i > 1; i--) {
+
+      if (i % 2 === 0) {
+
+        range.marks.splice(i, 1);
+      }
+
+    }
     return (
       <>
         <Typography id="range-slider" gutterBottom>

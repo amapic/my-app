@@ -11,7 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
 import Deposits2 from '../component/Deposit_somme_vaccin';
-import Deposits3 from '../component/Deposit_europeen';
 import Slider_zone from '../component/Slider';
 // import Slider_vaccin from './component/SliderVaccin';
 import { Camembert } from '../component/PieChart';
@@ -22,11 +21,9 @@ import theme from '../../custom.d';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 // import BarChartLegend from '../component/BarChartLegend'
-import SwitchMap from '../component/SwitchMap'
 
 // import Planet from '../component_planet/Planet'
 
-import Data_carre_logique from '../component/Data_carre_logique'
 import {
   BrowserRouter as Router,
   Switch,
@@ -122,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     flexDirection: 'column',
     height: 'auto',
-    backgroundColor: theme.palette.secondary.bgPaper
+    // backgroundColor: theme.palette.secondary.bgPaper
   },
   paper_row: {
     padding: theme.spacing(2),
@@ -140,7 +137,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     boxSizing: 'border-box',
     justifyContent: 'center',
-    backgroundColor: theme.palette.secondary.bgPaper
+    // backgroundColor: theme.palette.secondary.bgPaper
   },
   containerprinc: {
     paddingTop: theme.spacing(2),
