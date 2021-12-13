@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import Map_google from './MapGoogle';
 import list_poly from "../fonction/region_load"
 import Image from 'next/image'

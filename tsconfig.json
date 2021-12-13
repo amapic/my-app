@@ -88,7 +88,7 @@
     "custom.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx", "src/component_planet/creation_svg.tsx",
   ],
   "exclude": [
     "node_modules"
