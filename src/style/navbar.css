@@ -50,15 +50,27 @@ a {
   max-width: 95%;
   height: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 /* <li> */
 .nav-item {
-  width: calc(var(--nav-size) * 0.8);
+  /* width: calc(var(--nav-size) * 0.8); */
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+
+.navtext {
+  color: #dadce1;
+  font-size: 1.25rem;
+  overflow:hidden;
+}
+
+.navtext:hover {
+  cursor: pointer
 }
 
 /* Icon Button */
@@ -90,7 +102,7 @@ a {
 #dropd {
   position: absolute;
   top: -35px;
-  left:2.5%;
+  left: 2.5%;
   width: 95%;
   background-color: var(--bg);
   border: 0 0 var(--border) var(--border);
@@ -98,7 +110,6 @@ a {
   padding: 1rem;
   overflow: hidden;
   z-index: -1
-
 }
 
 #resume {

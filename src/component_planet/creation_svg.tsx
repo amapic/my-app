@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CaretIcon_up from '../img/icons/caret_up.svg';
 import CaretIcon_down from '../img/icons/caret_down.svg';
-import ee from '../img/icons_as_text/caret_down.js';
-import ff from '../img/icons_as_text/caret_up.js';
+import ee from '../img/icons_as_text/img1.js';
+import ff from '../img/icons_as_text/img2.js';
 // import SVG from '@svgdotjs/svg.js'
 import { useSpring, animated, config } from 'react-spring';
 export function Svg(props: any) {
@@ -30,7 +30,7 @@ export function Svg(props: any) {
         if (myContainer.current) {
             var parser = new DOMParser();
             var newdoc = parser.parseFromString(ee, "image/svg+xml");
-            var newdoc2 = parser.parseFromString(ff, "image/svg+xml");
+            var olddoc = parser.parseFromString(ff, "image/svg+xml");
             newdoc.querySelectorAll('path').forEach(element => {
                 // console.log(element.getAttribute('d'))
             });
@@ -41,11 +41,12 @@ export function Svg(props: any) {
             // var countPathNEwimage = newdoc.querySelectorAll('path').length
             // var countPathAncienneimage = oldimg.querySelectorAll('path').length
 
-            var a = oldimg.querySelectorAll('path')
-            var b = newdoc.querySelectorAll('path')
-            var c = newdoc2.querySelectorAll('path')
-            if (a && b && c) {
-                return <AnimePath patholdimg={a} pathnewimg={b} pathnewimg2={c} />
+            // var a = oldimg.querySelectorAll('path')
+            var a = newdoc.querySelectorAll('path')
+            var b = olddoc.querySelectorAll('path')
+            if (a && b ) {
+                return (<MoveSvg><AnimePath patholdimg={a} pathnewimg={b} /> </MoveSvg>)
+                
             }
         }
         else {
@@ -69,54 +70,73 @@ export function Svg(props: any) {
 }
 
 
-function AnimePath(props: { patholdimg: NodeListOf<SVGPathElement>, pathnewimg: NodeListOf<SVGPathElement>, pathnewimg2: NodeListOf<SVGPathElement> }) {
+function MoveSvg(props:any) {
     const [active, setActive] = useState(false);
-    const { x } = useSpring({ config: { duration: 400 }, x: active ? 1 : 0 });
+    // const { x } = useSpring({ config: { duration: 2000 }, x: active ? 1 : 0 });
 
-    
-    const patholdimg=Array.from(props.patholdimg)
-    Array.from(props.patholdimg).forEach((x)=>patholdimg.push())
+    const springProps = useSpring({ config: config.gentle,
+        opacity: 1, 
+        delay: 500,
+        transform: 'translateX(0px)',
+        from: { 
+          opacity: 0,
+          transform: 'translateX(-250px)'
+        } });
+
+
+    return (<animated.div style={{ ...springProps}}>{props.children}</animated.div>)
+        
+}
+
+function AnimePath(props: { patholdimg: NodeListOf<SVGPathElement>, pathnewimg: NodeListOf<SVGPathElement>}) {
+    const [active, setActive] = useState(false);
+    const { x } = useSpring({ config: { duration: 2000 }, x: active ? 1 : 0 });
+
+
+    const patholdimg: any[] = []
+    Array.from(props.patholdimg).forEach((y) => patholdimg.push(y.getAttribute('d')))
+
+    const pathnewimg: any[] = []
+    Array.from(props.pathnewimg).forEach((y) => pathnewimg.push(y.getAttribute('d')))
     useEffect(() => {
         const id = setTimeout(() => {
             setActive(!active);
-        }, 1000);
+        }, 2000);
 
         return () => clearTimeout(id);
     }, [active]);
 
     return (
         <>
-        {props.patholdimg.map((entry, index) => {
-            let ppath=entry.getAttribute('d')
-            return {
-        <div className="App2">
-            
-            <svg
-                viewBox="0 0 320 512"
-                height="620px"
-                width="1024px"
-                onClick={() => setActive(!active)}
-            >
-                <animated.path
-                    d={x.to({
-                        range: [0, 1],
-                        output: [
-                            props.pathnewimg2,
-                            props.pathnewimg,
-                        ],
-                    })}
-                // fill={x.to({
-                //     range: [0, 1],
-                //     output: [
-                //         "#f00",
-                //         "#0f0"
-                //     ],
-                // })}
-                />
-            </svg>
-        </div>
-                }})
-                </>
-    );
-}
 
+            <div className="App2">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    height="48px"
+                    width="48px"
+                    onClick={() => setActive(!active)}
+                >
+                    {patholdimg.map((entry, index) => {
+                        if (pathnewimg.length-1 >= index && index==0) {
+                            let ppath = entry
+                            // let ppath2 = pathnewimg[index]
+                            let ppath2 = pathnewimg[pathnewimg.length-index-1]
+                            return (
+                                <animated.path
+                                    d={x.to({
+                                        range: [0, 1],
+                                        output: [
+                                            "M10 10 h 12 v 12 Z" ,
+                                            "M10 10 h 12 v 12 h -12 Z" 
+                                        ],
+                                    })}
+
+                                />)
+                        }
+                    })}
+                </svg>
+            </div>
+
+        </>)
+}

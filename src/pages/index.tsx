@@ -21,7 +21,7 @@ import theme from '../../custom.d';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 // import BarChartLegend from '../component/BarChartLegend'
-
+import { Navbar, NavItem } from '../component/navbar/navbar'
 // import Planet from '../component_planet/Planet'
 
 import {
@@ -34,7 +34,8 @@ const drawerWidth = 0;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'block',
+    // position:'absolute'
   },
   barchart_container: {
     [theme.breakpoints.up('sm')]: {
@@ -105,12 +106,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
-    minWidth: '700px'
+    minWidth: '700px',
+    zIndex:-1
   },
   container: {
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(2),
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
+    zIndex:-3
   },
   paper: {
     padding: theme.spacing(2),
@@ -143,7 +146,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     flexWrap: 'nowrap',
-    width: '100%'
+    width: '100%',
+    zIndex:-3
   },
   fixedHeight: {
     height: 350,
@@ -186,20 +190,25 @@ export default function Dashboard() {
 
   return (
     // <div className={classes.root}>
-    <div >
+    <div className={classes.root} >
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        {/* <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Chiffres sur la vaccination en France
             </Typography>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
+
+        <Navbar  >
+            <NavItem  >
+            </NavItem>
+          </Navbar>
 
         <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
+          {/* <div className={classes.appBarSpacer} /> */}
           <Container className={classes.containerprinc} maxWidth="xl">
             <Grid container className={classes.container} spacing={3}>
               <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
