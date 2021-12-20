@@ -55,21 +55,40 @@ a {
 
 /* <li> */
 .nav-item {
-  /* width: calc(var(--nav-size) * 0.8); */
+  
   display: flex;
+  
   align-items: center;
-  justify-content: center;
+  
+}
+
+.nav-item:first-child{
+  
+  justify-content: flex-start;
+  
+}
+
+.nav-item:last-child{
+  justify-content: flex-end;
+ 
+}
+
+
+
+.nav-item:first-child, .nav-item:last-child {
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 
 
 .navtext {
-  color: #dadce1;
+  color: #fff;
   font-size: 1.25rem;
   overflow:hidden;
 }
 
-.navtext:hover {
+.nav-item-link:hover {
   cursor: pointer
 }
 

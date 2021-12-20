@@ -180,10 +180,7 @@ export default function Chart() {
                         }
 
 
-                        < XAxis tickLine={false} dataKey="time" stroke={
-                            theme.palette.text.secondary
-                        }
-
+                        < XAxis tickLine={false} dataKey="time" stroke={theme.prout}
                     // stroke={theme.palette.text.secondary.main}
                         />
                         <YAxis stroke={theme.prout} >

@@ -26,7 +26,16 @@ export interface dataT {
   star_distance: number,
   temp: number,
   method: string,
-  sizeType?: string
+  star_name:string,
+  sizeType?: string,
+  count_planet?: number,
+}
+
+export interface sSolaireT {
+  discovered: number,
+  star_distance: number,
+  star_name:string,
+  count_planet?: number,
 }
 
 // type OmitA = Omit<dataT|boolean, boolean>

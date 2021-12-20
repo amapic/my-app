@@ -6,7 +6,11 @@ module.exports = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: false,
-  }
+  },
+  images: {
+    disableStaticImages: true
+  },
+  ...withImages()
   
 }
 

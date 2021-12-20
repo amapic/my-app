@@ -84,10 +84,11 @@ import { dataT } from '../types/interface'
 
 export const chercheData = async (): Promise<dataT[]> => {
     const dataTempty = {} as dataT[]
-    // const response = await fetch("http://127.0.0.1:8080/api/planets");
-    const response = await fetch("http://68.183.74.150:8080/api/planets");
+    const response = await fetch("http://127.0.0.1:8080/api/planets");
+    // const response = await fetch("http://68.183.74.150:8080/api/planets");
     const responseData = await response.json();
     // console.log(responseData);
+    
     if (response.ok) {
         var data = [];
         var dictOfResponseData: any = {}
