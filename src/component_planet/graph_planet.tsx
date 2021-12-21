@@ -1,10 +1,16 @@
 // import { boolean } from 'mathjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image'
-import logo from "./../img/frise/img1.png";
+import mars from "./../img/frise/mars.png";
+import mars2 from "./../img/frise/mars2.jpg";
+import gaz from "./../img/frise/gaz.jpg";
+import gaz2 from "./../img/frise/gaz2.png";
+import gaz3 from "./../img/frise/gaz3.jpg";
+import gaz4 from "./../img/frise/gaz4.png";
+import gaz5 from "./../img/frise/gaz5.jpg";
+import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
 import { countBy } from 'underscore'
-import Collapsible from 'react-collapsible';
 import {
     ScatterChart,
     XAxis,
@@ -24,13 +30,12 @@ import {
 
 } from 'recharts'
 import { chercheData } from '../fonction/fonction'
-import { sSolaireT, dataT, radialT } from '../types/interface'
-import theme from '../../custom';
+import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
 
 export const DessinSystemeSolaire = (props: any) => {
     const dataTEmpty = {} as dataT[]
     const [sSolaire, setsSolaire] = useState<string>("KOI-351");
-    const [items, setItems] = useState<dataT[]>(dataTEmpty);
+    const [items, setItems] = useState<dataT[] | null>(null);
     useEffect(() => {
         if (sSolaire !== "") {
             chercheData().then((tt) => {
@@ -50,7 +55,7 @@ export const DessinSystemeSolaire = (props: any) => {
                 }
                 sortByKey(arrayofPlanet, "semi_major_axis")
 
-                console.log(gg);
+                // console.log(gg);
                 setItems(arrayofPlanet)
 
             });
@@ -58,10 +63,39 @@ export const DessinSystemeSolaire = (props: any) => {
     }, [sSolaire])
 
     return (
+        items &&
         <>
             <Table setSsolaire={setsSolaire} />
-            <br></br>
-            Système solaire {sSolaire}
+
+            <h3 className="feature-title text-center">Planètes du système sélectionné</h3>
+
+            <div id="frise-container">
+                <div className="frise-item-first">
+                    <Image width="50px" height="50px" src={sun} />
+                </div>
+                {
+                    Array.from(items).map((item, index) => {
+
+                        var dist: number | string = index == 0 ? Array.from(items)[index].semi_major_axis : Array.from(items)[index].semi_major_axis - Array.from(items)[index - 1].semi_major_axis
+                        dist = 100 * dist / Array.from(items)[Object.keys(items).length - 1].semi_major_axis
+                        dist = dist.toString() + "%"
+
+                        return (
+                            <div key={index} style={{ width: dist }} className="frise-item">
+                                {index == 0 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={mars} />)}
+                                {index == 1 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={mars2} />)}
+                                {index == 2 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz} />)}
+                                {index == 3 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz2} />)}
+                                {index == 4 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz3} />)}
+                                {index == 5 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz4} />)}
+                                {index == 6 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz5} />)}
+                                {index == 7 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz6} />)}
+                            </div>
+
+                        )
+                    })
+                }
+            </div>
 
         </>
     )
@@ -69,20 +103,25 @@ export const DessinSystemeSolaire = (props: any) => {
 
 const Table = (props: any) => {
     const sSolaireTEmpty = {} as sSolaireT[]
-    const [items, setItems] = useState<sSolaireT[]>(sSolaireTEmpty);
-    const [starSelected, setStar] = useState<string>("");
+    const [items, setItems] = useState<sSolaireT[] | null>(null)
+    const [itemsPlanete, setItemsPlanete] = useState<dataT[] | null>(null)
+    const [starSelected, setStarSelected] = useState<string>("HD 219134");
 
-    var gg = {} as dataT[]
     const handleClick = (e: any, param: string) => {
-        e.preventDefault();
-        console.log(e.target.innerHTML);
         props.setSsolaire(param)
-        setStar(param)
+        setStarSelected(param)
     }
 
     useEffect(() => {
         chercheData().then((tt) => {
-            gg = Object.values(tt)
+            var gg = Object.values(tt)
+
+            //on filtre les systemes ayant des plannètes sans orbite défini
+            for (var i = gg.length - 1; i >= 0; i--) {
+                if (gg[i].semi_major_axis === null) {
+                    gg.splice(i, 1);
+                }
+            }
 
             var counts = {};
             gg.forEach(function (x: any) {
@@ -96,7 +135,7 @@ const Table = (props: any) => {
             });
 
 
-            let sSolaire = [{}] as sSolaireT[];
+            let sSolaire: sSolaireT[] = []
             let nomSsolaire = Object.keys(counts)
             gg.forEach(function (x: any) {
                 if (nomSsolaire.includes(x.star_name)) {
@@ -114,65 +153,50 @@ const Table = (props: any) => {
 
             });
 
-
+            setItemsPlanete(gg)
             setItems(sSolaire)
         });
     }, [])
-    return (
-        <table className={"table-concept"} >
+    if (items && itemsPlanete) {
+        return (
+            <table className={"table-concept"} >
 
-            <thead ><tr className={"table-row-head"}><th className={"col col1"} >Nom de l'étoile</th>
-                <th className={"col col2"}>Nb planète</th>
-                <th className={"col col3"}>Distance de l'étoile en parsec</th>
-                <th className={"col col4"}>Année de découverte</th></tr></thead>
-            <tbody>
+                <thead ><tr className={"table-row-head"}><th className={"col col1"} >Nom de l'étoile</th>
+                    <th className={"col col2"}>Nb planète</th>
+                    <th className={"col col3"}>Distance de l'étoile en parsec</th>
+                    <th className={"col col4"}>Année de découverte</th></tr></thead>
+                <tbody>
 
-                {Array.from(items).map((row, i) => {
-                    const data: dataT[] = gg
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        if (data[i].star_name != row.star_name) {
-                            data.splice(i, 1);
+                    {Array.from(items).map((row, i) => {
+                        let data = JSON.parse(JSON.stringify(itemsPlanete));
+                        for (var i = Object.keys(data).length - 1; i >= 0; i--) {
+                            if (data[i].star_name != row.star_name) {
+                                data.splice(i, 1);
+                            }
                         }
-                    }
-                    return (
-                        <Collapsible trigger={<TableRow row={row} starSelected={starSelected} handleClick={handleClick} />}>
-                            {Array.from(data).map((datarow, i) => {
-                                console.log("rr");
-                                return (
-                                    <>
-                                        <td className={"col col1"}>
-                                            {datarow.name}
-                                        </td>
-                                        <td className={"col col2"}>
-                                            {datarow.count_planet}
-                                        </td>
-                                        <td className={"col col3"}>
-                                            {datarow.star_distance}
-                                        </td>
-                                        <td className={"col col4"}>
-                                            {datarow.discovered}
-                                        </td>
-                                    </>
-                                )
-                            })}
-                        
-                        </Collapsible>
+                        return (
+                            <TableRow row={row} selected={row.star_name == starSelected} data={data} handleClick={handleClick} />
 
-                    )
-                })}
+                        )
+                    })}
 
-            </tbody >
-        </table >
-    )
+                </tbody >
+            </table >
+        )
+    }
+    else {
+        return null
+    }
 };
 
 export const TableRow = (props: any) => {
     const row = props.row
-    const starSelected = props.starSelected
+    const selected = props.selected
     const handleClick = props.handleClick
+    const data: dataT[] = props.data
     return (
         <>
-            <tr className={"table-row " + (row.star_name == starSelected ? "rowSelected" : "")} onClick={(e) => handleClick(e, row.star_name)}>
+            <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => { handleClick(e, row.star_name) }}>
 
                 <td className={"col col1"}>
                     {row.star_name}
@@ -187,6 +211,27 @@ export const TableRow = (props: any) => {
                     {row.discovered}
                 </td>
             </tr>
+            {false &&
+                Array.from(data).map((row_planet, i) => {
+                    return (
+                        <tr key={i} className={"table-row-collapse"} >
+
+                            <td className={"col col1"}>
+                                {row_planet.name}
+                            </td>
+                            <td className={"col col2"}>
+                                {row_planet.count_planet}
+                            </td>
+                            <td className={"col col3"}>
+                                {row_planet.star_distance}
+                            </td>
+                            <td className={"col col4"}>
+                                {row_planet.discovered}
+                            </td>
+                        </tr>)
+                })
+
+            }
         </>
     );
 };
@@ -362,8 +407,8 @@ export function Graph_masse_distance() {
 
 export function Graph_radial() {
 
-    const [items, setItems] = useState<radialT[]>();//l'état initial doit être un array ne contenant pas d'objet
-    let hh = "RR"
+    const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
+    const myRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
         chercheData().then((tt) => {
@@ -396,10 +441,10 @@ export function Graph_radial() {
             }
             var counts = countBy(gg, 'sizeType');
 
-            var arraytypeplanet: radialT[] = []
+            var arraytypeplanet: typePlaneteT[] = []
             for (const [key, value] of Object.entries(counts)) {
                 if (key !== 'autre') {
-                    arraytypeplanet.push({ 'name': key, 'uv': value, 'fill': '#8884d8' })
+                    arraytypeplanet.push({ 'type': key, 'value': value })
                 }
             }
             setItems(arraytypeplanet)
@@ -407,16 +452,36 @@ export function Graph_radial() {
     }, [])
 
 
-
+    useEffect(() => {
+        if (myRef.current) {
+            var parser = new DOMParser();
+            console.log(myRef.current);
+            var content = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
+            content.querySelectorAll("svg").forEach(element => {
+                let oldviewBox: string | null = element.getAttribute('viewBox')
+                var elem_real_dom = document.querySelector("#stat_type_planete");
+                var elem_real_dom2 = document.querySelector("#stat_type_planete g.recharts-cartesian-grid");
+                if (oldviewBox) {
+                    if (elem_real_dom) {
+                        elem_real_dom.setAttribute('viewBox', "18 " + oldviewBox.substring(2));
+                    }
+                }
+            });
+        }
+    }, [items])
 
     return (
-        <ResponsiveContainer aspect={0.5}>
-            <RadialBarChart startAngle={270} endAngle={150} cx={"70%"} cy={"50%"} barSize={"90%"} innerRadius={"10%"} outerRadius={"100%"} data={items}>
-                <RadialBar label={{ position: 'insideStart', fill: '#fff' }} dataKey="uv" />
+        <div ref={myRef}>
+            <ResponsiveContainer aspect={0.5} >
+                <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                    <YAxis />
+                    <Bar dataKey="value" fill="#8884d8" />
+                </BarChart>
 
-            </RadialBarChart>
-           
-        </ResponsiveContainer >
+            </ResponsiveContainer >
+        </div>
     )
 
 
@@ -425,7 +490,7 @@ export function Graph_radial() {
 export function Count_annee() {
 
     const [items, setItems] = useState<any[]>([0]);//l'état initial doit être un array ne contenant pas d'objet
-    let defaultModelID = 23
+
 
     useEffect(() => {
         chercheData().then((tt) => {
@@ -449,6 +514,7 @@ export function Count_annee() {
             setItems(hh)
         });
     }, [])
+
 
 
     return (

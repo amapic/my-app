@@ -225,25 +225,7 @@ export default function Dashboard() {
 
                   </Paper>
                 </Grid>
-                <Router>
-                  <div>
-                    <nav>
-                      <ul>
-                        <li>
-                          <Link to="/planet">Abouttttttttttttttttttttt</Link>
-                        </li>
-                      </ul>
-                    </nav>
-
-                    {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-                    {/* <Switch>
-                      <Route path="/planet">
-                        <Planet/>
-                      </Route>
-                    </Switch> */}
-                  </div>
-                </Router>
+                
                 <Grid item xs={12} md={12} lg={12} >
                   <Paper className={classes.paper} >
                     {/* <div id="RR"  >

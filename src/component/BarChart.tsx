@@ -114,15 +114,6 @@ export default function BarChartWrap(props: any) {
 
     }
 
-    // const labelLegendFormatter = function (x: any): any {
-    //     return null
-    // }
-
-    // const valueLegendFormatter = function (x: number, y: number, z: any) {
-    //     return [x.toFixed(2) + " %", y,]
-    // }
-
-
 
     if (!items || g === null) {
         return null
@@ -133,14 +124,9 @@ export default function BarChartWrap(props: any) {
                 < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="100%" >
                     
                     <BarChart barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30 }}>
-                        {/* <CartesianGrid strokeDasharray="3 3" /> */}
                         <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
                         <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} />
-                        {/* <Tooltip labelStyle={{ color: '#000', display: 'none' }} contentStyle={{ color: '#000' }} itemStyle={{ color: '#000' }} labelFormatter={labelLegendFormatter} formatter={valueLegendFormatter} /> */}
-                        {/* <Legend /> */}
                         <Bar dataKey="1ere_dose"
-                        // label={<CustomizedLabel gg={items} />}
-                        // shape={<CustomBarWithTarget/>}
                         >
                             {
                                 g.map((entry, index) =>

@@ -9,10 +9,9 @@ export interface PopoverwrapLogicT{
     object:string
 }
 
-export interface radialT {
-  name: string,
-  uv: any,
-  fill: string
+export interface typePlaneteT {
+  type: string,
+  value: any
 }
 
 export interface dataT {

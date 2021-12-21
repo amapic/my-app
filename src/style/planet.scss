@@ -1,24 +1,26 @@
+h3{
+  margin-top: 2em;
+}
+
 #frise-container {
+  margin-top: 2em;
   display: flex;
   flex-direction: row;
-  // row-gap: 10%;
   align-content: center;
   justify-items: space-around;
 }
 
-.frise-item {
-  // display:flex;
-  // justify-items: center;
-  margin: auto;
-  display: "flex";
-  justify-content: "center";
-  align-content: "flex-end"
+.frise-item, .frise-item-first {
+  display:flex;
+
+  justify-content: flex-end;
+  align-content: center
 }
 
-.frise-img-item {
-  // display:flex;
-  // justify-items: center;
-  margin: auto;
+.frise-item div {
+
+  margin:auto!important;
+  
 }
 
 
@@ -52,6 +54,12 @@
 
 .table-concept {
   flex-direction: row;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.table-concept tbody{
+  cursor:pointer;
 }
 
 
@@ -98,4 +106,8 @@ thead {
 .table-row:nth-child(2n+1) {
   border-color: #CCC;
   background: #CCC
+}
+
+.table-row-collapse {
+  background: #f00!important;
 }
