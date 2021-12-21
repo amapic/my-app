@@ -12,17 +12,13 @@ import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
 import Deposits2 from '../component/Deposit_somme_vaccin';
 import Slider_zone from '../component/Slider';
-// import Slider_vaccin from './component/SliderVaccin';
 import { Camembert } from '../component/PieChart';
-// import ToggleSwitch from './component/ToggleSwitchWrap'
 import { ToggleButtonPerso } from '../component/RadioButton';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../custom.d';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
-// import BarChartLegend from '../component/BarChartLegend'
 import { Navbar, NavItem } from '../component/navbar/navbar'
-// import Planet from '../component_planet/Planet'
 
 import {
   BrowserRouter as Router,
@@ -189,18 +185,10 @@ export default function Dashboard() {
 
 
   return (
-    // <div className={classes.root}>
     <div className={classes.root} >
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-          <Toolbar className={classes.toolbar}>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Chiffres sur la vaccination en France
-            </Typography>
-          </Toolbar>
-        </AppBar> */}
 
         <Navbar  >
             <NavItem  >
@@ -228,19 +216,13 @@ export default function Dashboard() {
                 
                 <Grid item xs={12} md={12} lg={12} >
                   <Paper className={classes.paper} >
-                    {/* <div id="RR"  >
-                    <Image src={logo} alt="Logo" />
-                  </div> */}
+
                     <div className={classes.flexRow}>
                       <Maps />
-                      {/* <Data_carre_logique /> */}
                       <div className={classes.barchart_container}>
                         <BarChartWrap />
-                        {/* <BarChartLegend /> */}
-                        {/* <Deposits3 /> */}
                       </div>
                     </div>
-                    {/* <SwitchMap /> */}
 
                   </Paper>
                 </Grid>
@@ -260,10 +242,6 @@ export default function Dashboard() {
                 <Paper className={classes.paper_droite}  >
                   <Deposits2 />
                 </Paper>
-
-                {/* <Paper className={classes.paper_droite} spacing={3} >
-                <Deposits3 />
-              </Paper> */}
 
               </Grid>
             </Grid>

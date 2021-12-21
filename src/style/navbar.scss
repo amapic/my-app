@@ -11,6 +11,13 @@
     monospace;
 } */
 
+.modal-content{
+  padding:1rem 2rem 1rem 2rem;
+}
+
+.modal-content span{
+  line-height: 2rem;
+}
 
 :root {
   --bg: #242526;
@@ -42,7 +49,8 @@ a {
   background-color: var(--bg);
   padding: 0 1rem;
   border-bottom: var(--border);
-  z-index: 7;
+  z-index:2 ;
+  position:relative;
 }
 
 /* <ul> */
@@ -51,26 +59,24 @@ a {
   height: 100%;
   display: flex;
   justify-content: space-between;
+  z-index:2 ;
+  position:relative;
 }
 
 /* <li> */
 .nav-item {
-  
   display: flex;
-  
   align-items: center;
-  
+  position:relative;
+  z-index: 2;
 }
 
 .nav-item:first-child{
-  
   justify-content: flex-start;
-  
 }
 
 .nav-item:last-child{
   justify-content: flex-end;
- 
 }
 
 
@@ -119,7 +125,7 @@ a {
 
 /* CSSTransition classes  */
 #dropd {
-  position: absolute;
+  position: relative;
   top: -35px;
   left: 2.5%;
   width: 95%;
@@ -128,7 +134,7 @@ a {
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   padding: 1rem;
   overflow: hidden;
-  z-index: -1
+  z-index: 1
 }
 
 #resume {
