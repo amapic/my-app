@@ -13,17 +13,17 @@ export default function Modal_window({ show, onHide }) {
             <br></br>
             {router.pathname === '/planet' ?
                 <span>
-                    -  Partie React de la page réalisée en 2 jours
-                    -  Réalisation des graphiques et des svg en 2 jours
-                    -  Récupération / analyse des données en 1 jour
-                    -  Mise en place API en 1/2 journée
+                    -  Partie React de la page réalisée en 2 jours<br></br>
+                    -  Réalisation des graphiques et des svg en 2 jours<br></br>
+                    -  Récupération / analyse des données en 1 jour<br></br>
+                    -  Mise en place API en 1/2 journée<br></br>
                 </span>
                 :
                 <span>
-                    -  Partie React de la page réalisée en 4 jours
-                    -  Réalisation des graphiques et des svg en 3 jours
-                    -  Récupération / analyse des données en 2 jours
-                    -  Mise en place API en 3 jours
+                    -  Partie React de la page réalisée en 4 jours<br></br>
+                    -  Réalisation des graphiques et des svg en 3 jours<br></br>
+                    -  Récupération / analyse des données en 2 jours<br></br>
+                    -  Mise en place API en 3 jours<br></br>
                 </span>
             }
         </Modal>

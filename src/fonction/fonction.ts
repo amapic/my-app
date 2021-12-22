@@ -1,4 +1,6 @@
 
+import adresse from './conf'
+
 export var liste_nom_region: { [key:string]: string } = {}
 liste_nom_region["1"] = "Guadeloupe"
 liste_nom_region["2"] = "Martinique"
@@ -84,7 +86,7 @@ import { dataT } from '../types/interface'
 
 export const chercheData = async (): Promise<dataT[]> => {
     const dataTempty = {} as dataT[]
-    const response = await fetch("http://127.0.0.1:8080/api/planets");
+    const response = await fetch(adresse +":8080/api/planets");
     // const response = await fetch("http://68.183.74.150:8080/api/planets");
     const responseData = await response.json();
     // console.log(responseData);
