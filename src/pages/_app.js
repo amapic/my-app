@@ -3,6 +3,7 @@ import '../index.scss';
 import '../App.scss';
 import '../style/planet.scss';
 import '../style/navbar.scss';
+import 'bootstrap/dist/css/bootstrap.css'
 
 import React from 'react';
 import PropTypes from 'prop-types';

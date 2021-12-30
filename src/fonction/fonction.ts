@@ -1,5 +1,5 @@
-
 import adresse from './conf'
+import fetch from "node-fetch";
 
 export var liste_nom_region: { [key:string]: string } = {}
 liste_nom_region["1"] = "Guadeloupe"
@@ -51,40 +51,19 @@ export function conversionkey(obj: { [key:string]: string }): { [key:string]: st
     return new_obj
 }
 
-function createData(time:string, amount:number) {
+function createData(time:string, amount:number,third:number) {
     return {
         time,
-        amount
+        amount,
+        third
     };
 }
 
-export async function getdata(url:string) {
-    const response = await fetch(url, { mode: 'cors' })
-    const responseData = await response.json()
-    if (response.ok) {
-        var data:any[] = [];
-        var arrayTime:any[] = [];
-        var arrayAmount = [];
 
-        for (let key in responseData.datetime) {
-            let value = responseData.datetime[key];
-            arrayTime.push(value);
-        }
-        for (let key in responseData.n_cum_dose1) {
-            let value = responseData.n_cum_dose1[key];
-            arrayAmount.push(value);
-        }
-        arrayAmount.forEach((x, i) => data.push(createData(arrayTime[i].toString(), i, i / 2)));
-        var ff = data.slice(1, 10);
-        return ff
-    } else {
-        alert(JSON.stringify(responseData))
-        return { responseData, loading: false }
-    }
-}
 import { dataT } from '../types/interface'
 
 export const chercheData = async (): Promise<dataT[]> => {
+    
     const dataTempty = {} as dataT[]
     const response = await fetch(adresse +":8080/api/planets");
     // const response = await fetch("http://68.183.74.150:8080/api/planets");

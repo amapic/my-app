@@ -5,7 +5,7 @@ module.exports = {
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   images: {
     disableStaticImages: true
@@ -13,5 +13,3 @@ module.exports = {
   ...withImages()
   
 }
-
-  // module.exports =  withImages()

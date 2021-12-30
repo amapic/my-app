@@ -1,5 +1,5 @@
 // import { boolean } from 'mathjs';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image'
 import mars from "./../img/frise/mars.png";
 import mars2 from "./../img/frise/mars2.jpg";
@@ -10,13 +10,13 @@ import gaz4 from "./../img/frise/gaz4.png";
 import gaz5 from "./../img/frise/gaz5.jpg";
 import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
+import { LegendeSvg } from "./creation_svg"
 import { countBy } from 'underscore'
+
 import {
     ScatterChart,
     XAxis,
     YAxis,
-    Tooltip,
-    Legend,
     Scatter,
     CartesianGrid,
     ResponsiveContainer,
@@ -25,16 +25,15 @@ import {
     Dot,
     ReferenceDot,
     ReferenceLine,
-    RadialBarChart,
-    RadialBar
 
 } from 'recharts'
 import { chercheData } from '../fonction/fonction'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
+import { useResizeDetector } from 'react-resize-detector';
 
 export const DessinSystemeSolaire = (props: any) => {
     const dataTEmpty = {} as dataT[]
-    const [sSolaire, setsSolaire] = useState<string>("KOI-351");
+    const [sSolaire, setsSolaire] = useState<string>("HD 219134");
     const [items, setItems] = useState<dataT[] | null>(null);
     useEffect(() => {
         if (sSolaire !== "") {
@@ -55,13 +54,12 @@ export const DessinSystemeSolaire = (props: any) => {
                 }
                 sortByKey(arrayofPlanet, "semi_major_axis")
 
-                // console.log(gg);
                 setItems(arrayofPlanet)
 
             });
         }
     }, [sSolaire])
-
+    console.log(items);
     return (
         items &&
         <>
@@ -74,6 +72,7 @@ export const DessinSystemeSolaire = (props: any) => {
                     <Image width="50px" height="50px" src={sun} />
                 </div>
                 {
+
                     Array.from(items).map((item, index) => {
 
                         var dist: number | string = index == 0 ? Array.from(items)[index].semi_major_axis : Array.from(items)[index].semi_major_axis - Array.from(items)[index - 1].semi_major_axis
@@ -96,7 +95,7 @@ export const DessinSystemeSolaire = (props: any) => {
                     })
                 }
             </div>
-
+            <LegendeSvg items={items} />
         </>
     )
 }
@@ -162,9 +161,9 @@ const Table = (props: any) => {
             <table className={"table-concept"} >
 
                 <thead ><tr className={"table-row-head"}><th className={"col col1"} >Nom de l'étoile</th>
-                    <th className={"col col2"}>Nb planète</th>
-                    <th className={"col col3"}>Distance de l'étoile en parsec</th>
-                    <th className={"col col4"}>Année de découverte</th></tr></thead>
+                    <th className={"col col2 noselect"}>Nb planète</th>
+                    <th className={"col col3 noselect"}>Distance de l'étoile en parsec</th>
+                    <th className={"col col4 noselect"}>Année de découverte</th></tr></thead>
                 <tbody>
 
                     {Array.from(items).map((row, i) => {
@@ -198,16 +197,16 @@ export const TableRow = (props: any) => {
         <>
             <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => { handleClick(e, row.star_name) }}>
 
-                <td className={"col col1"}>
+                <td className={"col col1 noselect"}>
                     {row.star_name}
                 </td>
-                <td className={"col col2"}>
+                <td className={"col col2 noselect"}>
                     {row.count_planet}
                 </td>
-                <td className={"col col3"}>
+                <td className={"col col3 noselect"}>
                     {row.star_distance}
                 </td>
-                <td className={"col col4"}>
+                <td className={"col col4 noselect"}>
                     {row.discovered}
                 </td>
             </tr>
@@ -216,16 +215,16 @@ export const TableRow = (props: any) => {
                     return (
                         <tr key={i} className={"table-row-collapse"} >
 
-                            <td className={"col col1"}>
+                            <td className={"col col1 noselect"}>
                                 {row_planet.name}
                             </td>
-                            <td className={"col col2"}>
+                            <td className={"col col2 noselect"}>
                                 {row_planet.count_planet}
                             </td>
-                            <td className={"col col3"}>
+                            <td className={"col col3 noselect"}>
                                 {row_planet.star_distance}
                             </td>
-                            <td className={"col col4"}>
+                            <td className={"col col4 noselect"}>
                                 {row_planet.discovered}
                             </td>
                         </tr>)
@@ -236,32 +235,6 @@ export const TableRow = (props: any) => {
     );
 };
 
-export const CollapsibleRow = (props: any) => {
-    const star_name = props.star_name
-
-
-    return (
-        <>
-            {Array.from(data).map((row, i) => {
-                <>
-                    <td className={"col col1"}>
-                        {row.star_name}
-                    </td>
-                    <td className={"col col2"}>
-                        {row.count_planet}
-                    </td>
-                    <td className={"col col3"}>
-                        {row.star_distance}
-                    </td>
-                    <td className={"col col4"}>
-                        {row.discovered}
-                    </td>
-                </>
-            })
-            }
-        </>
-    );
-};
 
 export const CustomizedShape = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
@@ -277,7 +250,6 @@ const CustomizedShapeJupiter = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
     return (
         <>
-            {/* <span>Terre</span> */}
             <g>
                 <svg x={cx - 18} y={cy - 18} width="36" height="36" viewBox="0 0 36 36">
                     <circle fill="#FFCC4D" cx="18" cy="18" r="10.694" />
@@ -336,15 +308,8 @@ const CustomLabel = (props: any) => {
     if (props.planet != 'Pegasus b 41') {
         return (
             <>
-                {/* <svg  width="36" height="36"  viewBox="0 0 36 36"> */}
-                {/* <rect fill="#fff" width="36" height="36"/> */}
-                {/* <g > */}
-                {/* <foreignObject fill='#fff' x={props.viewBox.x+ props.viewBox.width*2} y={props.viewBox.y} width={100} height={100}> */}
                 <text x={props.viewBox.x + props.viewBox.width * 2} y={props.viewBox.y} >{props.planet}</text>
-                {/* <text opacity={0} fill='#fff' x={props.viewBox.x + props.viewBox.width * 2} y={props.viewBox.y}>{props.planet}</text> */}
-                {/* </foreignObject> */}
-                {/* </g> */}
-                {/* </svg> */}
+
             </>
 
         );
@@ -385,18 +350,13 @@ export function Graph_masse_distance() {
         <ResponsiveContainer aspect={3.5}>
             <ScatterChart id="masse_distance"
                 margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
                 <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
-                {/* <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" /> */}
-                {/* <Tooltip cursor={{ strokeDasharray: '3 3' }} /> */}
-                {/* <Legend /> */}
                 <Scatter name="A school" data={items} shape={<CustomizedShape />} />
                 <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
                 <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
                 <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
                 <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
-                {/* <ReferenceLine label="Segment" stroke="green" strokeDasharray="3 3" segment={[{ x: 1, y: 0 }, { x: 1, y:4380 }]} /> */}
 
             </ScatterChart>
         </ResponsiveContainer >
@@ -409,6 +369,8 @@ export function Graph_radial() {
 
     const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
     const myRef = useRef<HTMLHeadingElement>(null);
+
+
 
     useEffect(() => {
         chercheData().then((tt) => {
@@ -451,36 +413,58 @@ export function Graph_radial() {
         });
     }, [])
 
+    const onResize = useCallback((props) => {
 
-    useEffect(() => {
-        if (myRef.current) {
-            var parser = new DOMParser();
-            console.log(myRef.current);
-            var content = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
-            content.querySelectorAll("svg").forEach(element => {
-                let oldviewBox: string | null = element.getAttribute('viewBox')
-                var elem_real_dom = document.querySelector("#stat_type_planete");
-                var elem_real_dom2 = document.querySelector("#stat_type_planete g.recharts-cartesian-grid");
-                if (oldviewBox) {
-                    if (elem_real_dom) {
-                        elem_real_dom.setAttribute('viewBox', "18 " + oldviewBox.substring(2));
+
+        //on regarde si l'axe y est là pour savoir lsi le graph est affiché
+        setTimeout(function () {
+            if (myRef.current) {
+                var parser = new DOMParser();
+                var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
+                var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
+                if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
+                    let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
+                    oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
+                    var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
+                    objet_svg_area=objet_svg_area[objet_svg_area.length-1]
+                    // let a=objet_svg_area.outerHTML.indexOf("x")
+                    // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
+                    var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
+                    var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
+                    if (oldViewBox && objet_svg_area && objet_svg_grid) {
+                        var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
+                        if (objet_svg_area) {
+                            objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
+                        }
                     }
+
                 }
-            });
-        }
-    }, [items])
+            }
+        }, 3000)
+
+    }, []);
+
+    const { width, height, ref } = useResizeDetector({
+        handleHeight: false,
+        refreshMode: 'debounce',
+        refreshRate: 500,
+        onResize
+    });
 
     return (
         <div ref={myRef}>
-            <ResponsiveContainer aspect={0.5} >
-                <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                    <YAxis />
-                    <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
+            <div ref={ref}>
+                <ResponsiveContainer aspect={0.5} >
 
-            </ResponsiveContainer >
+                    <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                        <YAxis />
+                        <Bar dataKey="value" fill="#8884d8" />
+                    </BarChart>
+
+                </ResponsiveContainer >
+            </div>
         </div>
     )
 
@@ -524,8 +508,6 @@ export function Count_annee() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="year" />
                 <YAxis />
-                {/* <Tooltip /> */}
-                {/* <Legend /> */}
                 <Bar dataKey="value" fill="#8884d8" />
             </BarChart>
         </ResponsiveContainer>

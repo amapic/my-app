@@ -4,6 +4,7 @@ import { Theme } from '@material-ui/core/styles/createTheme';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui/core/styles/createPalette';
 // Create a theme instance.
+
 const theme = createTheme( {
   palette: {
     primary: {
@@ -91,12 +92,10 @@ interface itemstype {
   marks: { label: string, value: number }[]
 }
 
+
 export default theme;
 
-// declare module "*.svg" {
-//   const content: any;
-//   export default content;
-// }
+
 // type CustomTheme={
 //   [key in keyof typeof theme]:typeof theme[key]
 // }

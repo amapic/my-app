@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+
 import { Modal } from "react-bootstrap";
 import Router, { useRouter } from 'next/router';
 
-export default function Modal_window({ show, onHide }) {
+export default function Modal_window({ show, onHide}:any) {
+    // const { show, onHide} = props
     const router = useRouter()
     return (
         <Modal show={show} onHide={onHide} >

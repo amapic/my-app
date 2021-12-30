@@ -227,8 +227,6 @@ export default function Dashboard() {
                   </Paper>
                 </Grid>
 
-
-
               </Grid>
               <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
                 <Paper className={classes.paper_droite} >

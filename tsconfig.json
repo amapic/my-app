@@ -86,11 +86,32 @@
   },
   "include": [
     "custom.d.ts",
+    "custom_image.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/component_planet/creation_svg.tsx",
+    "**/*.tsx", "src/fonction/region_load.js",
   ],
   "exclude": [
     "node_modules"
   ]
 }
+
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "lib": ["dom", "dom.iterable", "esnext"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "strict": false,
+//     "forceConsistentCasingInFileNames": true,
+//     "noEmit": true,
+//     "esModuleInterop": true,
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "jsx": "preserve"
+//   },
+//   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.tsi"],
+//   "exclude": ["node_modules"]
+// }

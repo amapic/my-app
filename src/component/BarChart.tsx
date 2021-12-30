@@ -18,7 +18,6 @@ import {
     Text
 }
     from 'recharts';
-// import Title from './Title';
 import adresse from '../fonction/conf'
 import { subjectregion, subjectrange, subjectregioncolor } from './observable/observable'
 import Title from './Title';
@@ -77,8 +76,6 @@ const chercheData = async (url: string, liste_selected: string[]) => {
 
 }
 
-
-
 const format = (num: number): string =>
     String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
 
@@ -107,13 +104,10 @@ export default function BarChartWrap(props: any) {
 
     }, [])
 
-
-
     function tickFormatter(value: number): string {
         return value.toString() + "%"
 
     }
-
 
     if (!items || g === null) {
         return null

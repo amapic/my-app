@@ -1,5 +1,21 @@
-h3{
+h3 {
   margin-top: 2em;
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #frise-container {
@@ -8,11 +24,12 @@ h3{
   flex-direction: row;
   align-content: center;
   // justify-items: space-around;
-  height: 50px!important;
+  height: 50px !important;
 }
 
-.frise-item, .frise-item-first {
-  display:flex;
+.frise-item,
+.frise-item-first {
+  display: flex;
 
   justify-content: flex-end;
   align-content: center
@@ -20,8 +37,8 @@ h3{
 
 .frise-item div {
 
-  margin:auto!important;
-  
+  margin: auto !important;
+
 }
 
 
@@ -32,8 +49,8 @@ h3{
   width: 100%;
 }
 
-.table-concept tbody{
-  cursor:pointer;
+.table-concept tbody {
+  cursor: pointer;
 }
 
 
@@ -81,5 +98,5 @@ thead {
 }
 
 .table-row-collapse {
-  background: #f00!important;
+  background: #f00 !important;
 }

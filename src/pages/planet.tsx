@@ -16,11 +16,10 @@ export default function Dashboard() {
             </NavItem>
           </Navbar>
 
-          {/* <Modal_window/> */}
           <div className="container features mt-2">
             <div className="row gx-2">
               <div className="col-10">
-                <div className="border border-dark rounded p-3 mb-5">
+                <div id="aaaa" className="border border-dark rounded p-3 mb-5">
                 <h3 className="feature-title text-center">Historique</h3>
                 <span style={{zIndex:-1}}>En 1995, la première exoplanète est découverte par Michel Mayor et ses collaborateurs à l'observatoire de Haute Provence.
                   Depuis, de nombreuses autres planètes plus petites et plus éloignées de leurs étoiles, donc plus difficile à repérer, ont été trouvées.

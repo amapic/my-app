@@ -1,3 +1,6 @@
+// import { createTheme } from '@material-ui/core/styles';
+
+//global ts => augmlentation de type marche pas avec import dnas fichier
 // // import * as createPalette from '@material-ui/core/styles/createPalette';
 // // declare module '@material-ui/core/styles/createPalette' {
 // //     interface PaletteOptions {    
@@ -22,3 +25,24 @@
 //         bgPaper?:string;
 //       }
 // // }
+
+declare module "*.svg" {
+    const content: any;
+    export default content;
+}
+
+declare module "*.png" {
+    const content: any;
+    export default content;
+}
+
+declare module "*.jpg" {
+    const content: any;
+    export default content;
+}
+
+declare module "*.gif" {
+    const content: any;
+    export default content;
+}
+
