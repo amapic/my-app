@@ -89,7 +89,7 @@
     "custom_image.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/fonction/region_load.js",
+    "**/*.tsx", "src/fonction/region_load.js", "src/test/space.speggc.jsx",
   ],
   "exclude": [
     "node_modules"

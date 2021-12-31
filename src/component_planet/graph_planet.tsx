@@ -29,7 +29,6 @@ import {
 } from 'recharts'
 import { chercheData } from '../fonction/fonction'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
-import { useResizeDetector } from 'react-resize-detector';
 
 export const DessinSystemeSolaire = (props: any) => {
     const dataTEmpty = {} as dataT[]
@@ -54,12 +53,11 @@ export const DessinSystemeSolaire = (props: any) => {
                 }
                 sortByKey(arrayofPlanet, "semi_major_axis")
 
-                setItems(arrayofPlanet)
+                // setItems(arrayofPlanet)
 
             });
         }
     }, [sSolaire])
-    console.log(items);
     return (
         items &&
         <>
@@ -365,7 +363,7 @@ export function Graph_masse_distance() {
 
 }
 
-export function Graph_radial() {
+export function Graph_count_type_planete() {
 
     const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
     const myRef = useRef<HTMLHeadingElement>(null);
@@ -413,47 +411,47 @@ export function Graph_radial() {
         });
     }, [])
 
-    const onResize = useCallback((props) => {
+    // const onResize = useCallback((props) => {
 
 
-        //on regarde si l'axe y est là pour savoir lsi le graph est affiché
-        setTimeout(function () {
-            if (myRef.current) {
-                var parser = new DOMParser();
-                var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
-                var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
-                if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
-                    let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
-                    oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
-                    var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
-                    objet_svg_area=objet_svg_area[objet_svg_area.length-1]
-                    // let a=objet_svg_area.outerHTML.indexOf("x")
-                    // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
-                    var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
-                    var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
-                    if (oldViewBox && objet_svg_area && objet_svg_grid) {
-                        var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
-                        if (objet_svg_area) {
-                            objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
-                        }
-                    }
+    //     //on regarde si l'axe y est là pour savoir lsi le graph est affiché
+    //     setTimeout(function () {
+    //         if (myRef.current) {
+    //             var parser = new DOMParser();
+    //             var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
+    //             var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
+    //             if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
+    //                 let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
+    //                 oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
+    //                 var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
+    //                 objet_svg_area=objet_svg_area[objet_svg_area.length-1]
+    //                 // let a=objet_svg_area.outerHTML.indexOf("x")
+    //                 // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
+    //                 var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
+    //                 var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
+    //                 if (oldViewBox && objet_svg_area && objet_svg_grid) {
+    //                     var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
+    //                     if (objet_svg_area) {
+    //                         objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
+    //                     }
+    //                 }
 
-                }
-            }
-        }, 3000)
+    //             }
+    //         }
+    //     }, 3000)
 
-    }, []);
+    // }, []);
 
-    const { width, height, ref } = useResizeDetector({
-        handleHeight: false,
-        refreshMode: 'debounce',
-        refreshRate: 500,
-        onResize
-    });
+    // const { width, height, ref } = useResizeDetector({
+    //     handleHeight: false,
+    //     refreshMode: 'debounce',
+    //     refreshRate: 500,
+    //     onResize
+    // });
 
     return (
         <div ref={myRef}>
-            <div ref={ref}>
+            {/* <div ref={ref}> */}
                 <ResponsiveContainer aspect={0.5} >
 
                     <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
@@ -464,7 +462,7 @@ export function Graph_radial() {
                     </BarChart>
 
                 </ResponsiveContainer >
-            </div>
+            {/* </div> */}
         </div>
     )
 

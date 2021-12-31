@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Count_annee, Graph_masse_distance,  Graph_radial,DessinSystemeSolaire } from '../component_planet/graph_planet';
+import { Count_annee, Graph_masse_distance,  Graph_count_type_planete,DessinSystemeSolaire } from '../component_planet/graph_planet';
 import { Navbar, NavItem } from '../component/navbar/navbar'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -60,7 +60,7 @@ export default function Dashboard() {
 
                       <h3 className='text-center titre_col_droite'>Type de <br></br>planète</h3>
 
-                      <Graph_radial />
+                      <Graph_count_type_planete />
 
                     </div>
                   </div>

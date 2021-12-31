@@ -23,17 +23,22 @@
 //   collectCoverage: true,
 // };
 
-module.export= {
+module.exports= {
+  testEnvironment:'jsdom',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    ".+\\.(png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+    // "^.+\\.(svg)$": "./svgMock.js"
+    // '../fonction/conf': "<rootDir>/aamock.js",
+    // ".+\\.(png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+    // "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileMockdd.js",
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-    '/^.+.(css|less|scss|sass)$/': 'identity-obj-proxy',
-    ".+\\.(png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
-    "^.+\\.(svg)$": "./svgMock.js"
+    // '^.+\\.svg$': '<rootDir>/svgMock.js',
+    // '/^.+.(css|less|scss|sass)$/': 'identity-obj-proxy',
+    ".+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+    
   },
 };
