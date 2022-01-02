@@ -1,4 +1,5 @@
-import React, { useState} from 'react';
+import  { useState} from 'react';
+import * as React from 'react';
 import Image from 'next/image'
 // import CaretIcon_up from '/../../img/icons/caret_up.svg';
 // import CaretIcon_down from '/../../img/icons/caret_down.svg';
@@ -14,7 +15,7 @@ export function Navbar(props: any) {
   );
 }
 
-export default function Lien() {
+export default function Lien(props:any) {
   // Calling useRouter() hook
   const router = useRouter()
   // console.log(router.pathname);
@@ -37,18 +38,21 @@ export function NavItem(props: any) {
     setOpen(false)
   }
 
+  const handleOpen=()=> {
+    console.log(open);
+    setOpen(!open);
+  }
+
   return (
     <>
       <li className="nav-item noselect nav-item-link">
-        <Lien />
+        <Lien gg="tt" />
       </li>
       <li className="nav-item noselect">
         {router.pathname === '/planet' ? <span className='navtext'>Dashboard Exoplanète</span> : <span className='navtext'>Suivi campagne de vaccination</span>}
       </li>
       <li className="nav-item noselect">
-        <a href="#" className="icon-button" onClick={() => {
-          setOpen(!open);
-        }}>aa
+        <a href="#" className="icon-button" onClick={handleOpen}>aa
           {/* {open && <Image
             width="100%"
             height="100%"
@@ -58,10 +62,10 @@ export function NavItem(props: any) {
             height="100%"
             src='/../../img/icons/caret_down.svg' />} */}
         </a>
-        <Modal_window
+        {/* <Modal_window
         show={open}
         onHide={handleClose}
-        />
+        /> */}
       </li>
 
     </>

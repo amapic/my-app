@@ -4,7 +4,6 @@ import { Modal } from "react-bootstrap";
 import Router, { useRouter } from 'next/router';
 
 export default function Modal_window({ show, onHide}:any) {
-    // const { show, onHide} = props
     const router = useRouter()
     return (
         <Modal show={show} onHide={onHide} >
