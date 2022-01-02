@@ -54,7 +54,7 @@ describe('<Home />', () => {
         it('calls setCount with count + 1', () => {
             // wrapper.find('#count-up').simulate('click');
             wrapper.find('.icon-button').first().simulate('click');
-            expect(setState).toHaveBeenCalledWith(true);
+            expect(setState).toHaveBeenLastCalledWith(true);
         });
     });
 
