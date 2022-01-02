@@ -31,7 +31,7 @@ export default function Lien(props:any) {
 }
 
 export function NavItem(props: any) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const router = useRouter()
 
   const handleClose=()=> {
