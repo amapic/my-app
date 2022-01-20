@@ -2,9 +2,10 @@
 import React from 'react';
 import { Count_annee, Graph_masse_distance,  Graph_count_type_planete,DessinSystemeSolaire } from '../component_planet/graph_planet';
 import { Navbar, NavItem } from '../component/navbar/navbar'
+import Total_planete from '../component_planet/chiffre'
 import 'bootstrap/dist/css/bootstrap.css';
 
-export default function Dashboard() {
+export default function Dashboard():JSX.Element {
   return (
 
     <div className="wrapper">
@@ -16,27 +17,27 @@ export default function Dashboard() {
             </NavItem>
           </Navbar>
 
-          <div className="container features mt-2">
+          <div className="container mt-2">
             <div className="row gx-2">
               <div className="col-10">
-                <div id="aaaa" className="border border-dark rounded p-3 mb-5">
-                <h3 className="feature-title text-center">Historique</h3>
+                <div  className="border border-dark rounded p-2 mb-5">
+                <h4 id="titre_interne_0" className="animate-pulse feature-title text-center">Historique</h4>
                 <span style={{zIndex:-1}}>En 1995, la première exoplanète est découverte par Michel Mayor et ses collaborateurs à l'observatoire de Haute Provence.
                   Depuis, de nombreuses autres planètes plus petites et plus éloignées de leurs étoiles, donc plus difficile à repérer, ont été trouvées.
                   </span>
                   <br></br>
-                  <br></br>
-                  <h3 className="feature-title text-center">Masse et période de révolution</h3>
+                  {/* <br></br> */}
+                  <h4 id="titre_interne_1" className="feature-title text-center">Masse et période de révolution</h4>
                   <Graph_masse_distance />
-                  <br></br>
+                  {/* <br></br> */}
                   <span style={{zIndex:-1}}>De plus en plus de planète sont trouvées au fil des ans grâce à de nouveau instrument.</span>
+                  {/* <br></br> */}
                   <br></br>
-                  <br></br>
-                  <h3 className="feature-title text-center">Planètes découvertes par an</h3>
+                  <h4 id="titre_interne_2" className="feature-title text-center">Planètes découvertes par an</h4>
                   <Count_annee />
 
 
-                  <h3 className="feature-title text-center">Masse et période de révolution</h3>
+                  {/* <h4 id="titre_interne_3" className="feature-title text-center">Prout</h4> */}
                   <br></br>
                   Aujourd'hui des systèmes solaires contenant jusqu'à 8 planètes sont connus.
                   <br></br>
@@ -48,17 +49,17 @@ export default function Dashboard() {
                 <div className="container features">
                   <div className="row gy-2">
                     <div className="border border-dark rounded p-3">
-                      <h3 className='text-center titre_col_droite'>Planète<br></br>découverte</h3>
-                      {/* <Total_planete /> */}
+                      <h4 id="titre_count_planete" className='text-center titre_col_droite'>Planète<br></br>découverte</h4>
+                      <Total_planete />
                     </div>
                     <div className="border border-dark rounded p-3">
 
-                      <h3 className='text-center titre_col_droite'>Planète<br></br>habitable</h3>
-                      <h4><div className='text-center mx-0'>20</div></h4>
+                      <h4 className='text-center titre_col_droite'>Planète<br></br>habitable</h4>
+                      <h4><div id="titre_count_planete_habitable" data-testid="testid2" className='text-center mx-0'>20</div></h4>
                     </div>
                     <div className="border border-dark rounded p-3">
 
-                      <h3 className='text-center titre_col_droite'>Type de <br></br>planète</h3>
+                      <h4 id="titre_count_type_planete" className='text-center titre_col_droite'>Type de <br></br>planète</h4>
 
                       <Graph_count_type_planete />
 

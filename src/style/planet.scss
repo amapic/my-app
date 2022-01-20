@@ -1,5 +1,9 @@
-h3 {
-  margin-top: 2em;
+h4 {
+  margin-top: 0.3rem!important;
+}
+
+.container{
+  max-width:80rem!important;
 }
 
 .svg-container {
@@ -62,7 +66,7 @@ h3 {
 .rowSelected {
   background-color: rgb(136, 132, 216) !important;
   border-color: rgb(136, 132, 216) !important;
-  border: 2px solid;
+  // border: 2px solid;
 }
 
 

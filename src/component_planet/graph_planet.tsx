@@ -5,14 +5,14 @@ import mars from "./../img/frise/mars.png";
 import mars2 from "./../img/frise/mars2.jpg";
 import gaz from "./../img/frise/gaz.jpg";
 import gaz2 from "./../img/frise/gaz2.png";
-import gaz3 from "./../img/frise/gaz3.jpg";
+import gaz3 from "./../img/frise/gaz3.png";
 import gaz4 from "./../img/frise/gaz4.png";
 import gaz5 from "./../img/frise/gaz5.jpg";
 import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
 import { LegendeSvg } from "./creation_svg"
 import { countBy } from 'underscore'
-
+import shortid from 'shortid'
 import {
     ScatterChart,
     XAxis,
@@ -35,6 +35,7 @@ export const DessinSystemeSolaire = (props: any) => {
     const [sSolaire, setsSolaire] = useState<string>("HD 219134");
     const [items, setItems] = useState<dataT[] | null>(null);
     useEffect(() => {
+        let isMounted = true; 
         if (sSolaire !== "") {
             chercheData().then((tt) => {
                 var gg = Object.values(tt)
@@ -53,17 +54,18 @@ export const DessinSystemeSolaire = (props: any) => {
                 }
                 sortByKey(arrayofPlanet, "semi_major_axis")
 
-                // setItems(arrayofPlanet)
+                if (isMounted) setItems(arrayofPlanet)
 
             });
         }
+        return () => { isMounted = false }; 
     }, [sSolaire])
     return (
         items &&
         <>
             <Table setSsolaire={setsSolaire} />
 
-            <h3 className="feature-title text-center">Planètes du système sélectionné</h3>
+            <h4 className="feature-title text-center">Planètes du système sélectionné</h4>
 
             <div id="frise-container">
                 <div className="frise-item-first">
@@ -98,7 +100,7 @@ export const DessinSystemeSolaire = (props: any) => {
     )
 }
 
-const Table = (props: any) => {
+export const Table = (props: any) => {
     const sSolaireTEmpty = {} as sSolaireT[]
     const [items, setItems] = useState<sSolaireT[] | null>(null)
     const [itemsPlanete, setItemsPlanete] = useState<dataT[] | null>(null)
@@ -110,6 +112,7 @@ const Table = (props: any) => {
     }
 
     useEffect(() => {
+        let isMounted = true; 
         chercheData().then((tt) => {
             var gg = Object.values(tt)
 
@@ -150,9 +153,10 @@ const Table = (props: any) => {
 
             });
 
-            setItemsPlanete(gg)
-            setItems(sSolaire)
+            if (isMounted) setItemsPlanete(gg)
+            if (isMounted) setItems(sSolaire)
         });
+        return () => { isMounted = false }; 
     }, [])
     if (items && itemsPlanete) {
         return (
@@ -172,7 +176,7 @@ const Table = (props: any) => {
                             }
                         }
                         return (
-                            <TableRow row={row} selected={row.star_name == starSelected} data={data} handleClick={handleClick} />
+                            <TableRow key={shortid.generate()} row={row} selected={row.star_name == starSelected} data={data} handleClick={handleClick} />
 
                         )
                     })}
@@ -211,7 +215,7 @@ export const TableRow = (props: any) => {
             {false &&
                 Array.from(data).map((row_planet, i) => {
                     return (
-                        <tr key={i} className={"table-row-collapse"} >
+                        <tr key={shortid.generate()} className={"table-row-collapse"} >
 
                             <td className={"col col1 noselect"}>
                                 {row_planet.name}
@@ -249,7 +253,7 @@ const CustomizedShapeJupiter = (props: any) => {
     return (
         <>
             <g>
-                <svg x={cx - 18} y={cy - 18} width="36" height="36" viewBox="0 0 36 36">
+                <svg x={cx - 18} y={cy - 18} width="26" height="26" viewBox="0 0 36 36">
                     <circle fill="#FFCC4D" cx="18" cy="18" r="10.694" />
                     <path fill="#F4900C" d="M10.229 22.751c-.985.067-1.689-.308-2.203-.917.214.557.487 1.081.788 1.588.771.289 1.591.41 2.54-.272-.463-.227-.88-.415-1.125-.399zM23.086 8.608c.045.328-.187.5-.75.363-.955-.232-1.793.776-2.274 1.619-.947 1.657-4.854 3.524-4.857 2.087-.001-.679-3.452.843-3.893.161-.417-.644-1.663-.396-1.921-1.168-1.135 1.544-1.869 3.402-2.04 5.422.377.718.864 1.282 1.352 1.526.66.33 3.726 1.528 4.174.763.747-1.276 5.229-.373 5.122-1.044-.205-1.285 2.427-.23 3.373-1.886.482-.843 1.533-1.49 2.489-1.258 1.116.271 2.493-1.643 2.389-3.996-.871-1.057-1.951-1.931-3.164-2.589zm3.181 16.175c-.338.166-.671.293-.975.326-2.248.243-2.734 2.005-4.242 1.703-.777-.156-1.837 1.214-3.05 1.297-.611.042-1.489.141-2.386.308.768.175 1.565.277 2.386.277 3.331 0 6.305-1.523 8.267-3.911z" />
                     <path fill="#E85E00" d="M23.225 8.674c.953.535 1.811 1.213 2.554 2.003 2.491-.157 4.01.429 3.883 1.777-.066.705-.585 1.542-1.431 2.435-2.108 2.221-6.309 4.796-11.07 6.602-3.309 1.255-6.258 1.9-8.366 1.934-2.145.035-3.418-.563-3.302-1.803.076-.815.752-1.806 1.852-2.857-.019-.255-.039-.507-.039-.765 0-.848.109-1.669.296-2.461C3.3 18.522.5 21.807.5 24.369c0 3.487 5.162 4.558 12.275 2.957 1.65-.371 3.405-.886 5.225-1.549 3.9-1.419 7.489-3.3 10.399-5.317 4.301-2.983 7.101-6.268 7.101-8.83 0-3.486-5.162-4.558-12.275-2.956z" />
@@ -264,7 +268,7 @@ export const CustomizedShapeTerre = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
     return (
         <g>
-            <svg x={cx - 18} y={cy - 18} width="36" height="36" viewBox="0 0 36 36">
+            <svg x={cx - 18} y={cy - 18} width="26" height="26" viewBox="0 0 36 36" >
                 <circle fill="#88C9F9" cx="18" cy="18" r="18" />
                 <path fill="#5C913B" d="M25.716 1.756c-1.022.568-1.872 1.528-3.028 1.181-1.875-.562-4.375-1.812-6-.25s-2 3 0 2.938 3.375-2.438 4.375-1.438.749 1.813-1.625 2.125S14.5 7 13.125 7s-1.688.812-.75 1.688-.563.937-2.125 1.812.375 1.25 1.688 2 2.312-.188 2.875-1.438 2.981-2.75 3.99-2.562c1.01.188 1.01.688.822 1.562s.75.625.812-.375 1.188-1.75 2.062-1.812 1.625 1.188.625 1.812-2 1.125-.75 1.438 2.125 1.938.688 2.625-3.937 1.125-5.062.562-3.688-1.375-4.375-.938-1.062.89-1.875 1.195c-.812.305-4.125 1.805-4.188 3.743S7.438 22.438 8.75 22.5s4.5-.812 5.5-1.625 2.375-.625 2.812.312.125 1.5-.312 3 .286 2.25.987 3.562c.701 1.312 1.263 2.062 1.263 3s1 1.875 2.5.312 2.875-4.625 3.5-5.75 1.125-3.625 1.875-4.125 1.938-1.688 1.062-1.5-2.625-.062-3.062-1.312-2.312-3.625-1.438-3.875 1.875 1.39 2.25 2.164c.375.774.875 1.711 1.625 1.961s2.375-1.673 2.875-1.961c.5-.289.125-1.476-.875-1.351s-2.312 0-2.312-.624 1.25-1.438 2.25-1.25 1.75.5 2.375 1.25 1.875 2.125 2.375 3 .875 1 1.125-.562c.166-1.038.387-1.609.59-2.222-1.013-5.829-4.82-10.683-9.999-13.148z" />
             </svg>
@@ -274,7 +278,7 @@ export const CustomizedShapeTerre = (props: any) => {
 const CustomizedShapePegasus = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
     return (
-        <svg x={cx - 18} y={cy - 18} width="36" height="36" viewBox="0 0 36 36">
+        <svg x={cx - 18} y={cy - 18} width="26" height="26" viewBox="0 0 36 36">
             <rect fill="#fff" x={0} y={0} width="36" height="36" />
             <g id="surface1">
                 <path fill="rgb(83.137255%,38.823529%,40%)" d="M 2.402344 24.113281 L 14.710938 24.113281 C 15.683594 24.113281 16.472656 24.902344 16.472656 25.875 C 16.472656 26.847656 15.683594 27.632812 14.710938 27.632812 L 4.265625 27.632812 " />
@@ -306,7 +310,7 @@ const CustomLabel = (props: any) => {
     if (props.planet != 'Pegasus b 41') {
         return (
             <>
-                <text x={props.viewBox.x + props.viewBox.width * 2} y={props.viewBox.y} >{props.planet}</text>
+                <text x={props.viewBox.x + props.viewBox.width * 2-10} y={props.viewBox.y} >{props.planet}</text>
 
             </>
 
@@ -314,7 +318,7 @@ const CustomLabel = (props: any) => {
     } else {
         return (
             <>
-                <text x={props.viewBox.x - props.viewBox.width} y={props.viewBox.y + props.viewBox.height * 2.5} >{props.planet}</text>
+                <text x={props.viewBox.x - props.viewBox.width} y={props.viewBox.y + props.viewBox.height * 2.5-10} >{props.planet}</text>
             </>)
     }
 };
@@ -329,6 +333,7 @@ export function Graph_masse_distance() {
 
 
     useEffect(() => {
+        let isMounted = true; 
         chercheData().then((tt) => {
 
             var gg = Object.values(tt)
@@ -338,41 +343,72 @@ export function Graph_masse_distance() {
                     gg.splice(i, 1);
                 }
             }
-            setItems(gg)
+            if (isMounted) setItems(gg)
         });
+        return () => { isMounted = false };
     }, [])
 
 
     return (
         /* <span className="mx-auto w-50">Masse en Masse jupitérienne et période de révolution en jour</span> */
-        <ResponsiveContainer aspect={3.5}>
-            <ScatterChart id="masse_distance"
-                margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-                <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
-                <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
-                <Scatter name="A school" data={items} shape={<CustomizedShape />} />
-                <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
-                <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
-                <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
-                <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
+        <>
+            {process.env.NODE_ENV === "test" ?
+                <ScatterChart height={500} width={400} id="masse_distance"
+                    margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                    <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
+                    <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
+                    <Scatter name="A school" data={items} shape={<CustomizedShape />} />
+                    <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
+                    <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
+                    <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
+                    <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
 
-            </ScatterChart>
-        </ResponsiveContainer >
-    )
+                </ScatterChart>
+                :
+                <ResponsiveContainer aspect={4.5}>
+                    <ScatterChart id="masse_distance"
+                        margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                        <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
+                        <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
+                        <Scatter name="A school" data={items} shape={<CustomizedShape />} />
+                        <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
+                        <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
+                        <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
+                        <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
+
+                    </ScatterChart>
+                </ResponsiveContainer >}
+        </>)
+
+
+
 
 
 }
 
-export function Graph_count_type_planete() {
 
-    const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
-    const myRef = useRef<HTMLHeadingElement>(null);
+type MyState = {
+    // count: number; // like this
+    items: typePlaneteT[]
+    myRef: React.RefObject<HTMLInputElement>
+};
 
+export class Graph_count_type_planete extends React.Component<{}, MyState> {
+    isMounted = false;
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            items: [],
+            myRef: React.createRef()
+        };
 
-
-    useEffect(() => {
+    };
+    componentWillUnmount() {
+        this.isMounted = false;
+      }
+    componentDidMount() {
+        this.isMounted = true; 
         chercheData().then((tt) => {
-
             var gg = Object.values(tt)
 
             for (var i = gg.length - 1; i >= 0; i--) {
@@ -407,64 +443,33 @@ export function Graph_count_type_planete() {
                     arraytypeplanet.push({ 'type': key, 'value': value })
                 }
             }
-            setItems(arraytypeplanet)
+            if (this.isMounted) this.setState({ items: arraytypeplanet })
         });
-    }, [])
 
-    // const onResize = useCallback((props) => {
+    }
 
-
-    //     //on regarde si l'axe y est là pour savoir lsi le graph est affiché
-    //     setTimeout(function () {
-    //         if (myRef.current) {
-    //             var parser = new DOMParser();
-    //             var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
-    //             var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
-    //             if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
-    //                 let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
-    //                 oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
-    //                 var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
-    //                 objet_svg_area=objet_svg_area[objet_svg_area.length-1]
-    //                 // let a=objet_svg_area.outerHTML.indexOf("x")
-    //                 // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
-    //                 var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
-    //                 var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
-    //                 if (oldViewBox && objet_svg_area && objet_svg_grid) {
-    //                     var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
-    //                     if (objet_svg_area) {
-    //                         objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
-    //                     }
-    //                 }
-
-    //             }
-    //         }
-    //     }, 3000)
-
-    // }, []);
-
-    // const { width, height, ref } = useResizeDetector({
-    //     handleHeight: false,
-    //     refreshMode: 'debounce',
-    //     refreshRate: 500,
-    //     onResize
-    // });
-
-    return (
-        <div ref={myRef}>
-            {/* <div ref={ref}> */}
-                <ResponsiveContainer aspect={0.5} >
-
-                    <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                        <YAxis />
-                        <Bar dataKey="value" fill="#8884d8" />
-                    </BarChart>
-
-                </ResponsiveContainer >
-            {/* </div> */}
-        </div>
-    )
+    render() {
+        return (
+            <div ref={this.state.myRef}>
+                {
+                    process.env.NODE_ENV === "test" ?
+                        <BarChart width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                            <YAxis />
+                            <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                        :
+                        <BarChart id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                            <YAxis />
+                            <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                }
+            </div>
+        )
+    }
 
 
 }
@@ -475,6 +480,7 @@ export function Count_annee() {
 
 
     useEffect(() => {
+        let isMounted = true; 
         chercheData().then((tt) => {
 
             const gg = Object.values(tt)
@@ -493,23 +499,36 @@ export function Count_annee() {
             for (const property in sumOfAges) {
                 hh.push({ 'year': property, 'value': sumOfAges[property] })
             }
-            setItems(hh)
+            if (isMounted) setItems(hh)
         });
+        return () => { isMounted = false };
     }, [])
 
 
 
     return (
-
-        <ResponsiveContainer aspect={3.5}>
-            <BarChart width={730} height={250} data={items}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
-                <YAxis />
-                <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-        </ResponsiveContainer>
-
+        <>
+            {
+                process.env.NODE_ENV === "test" ?
+                    // <ResponsiveContainer aspect={3.5}>
+                    <BarChart width={730} height={250} data={items}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="year" />
+                        <YAxis />
+                        <Bar dataKey="value" fill="#8884d8" />
+                    </BarChart>
+                    // </ResponsiveContainer>
+                    :
+                    <ResponsiveContainer aspect={4.5}>
+                        <BarChart width={730} height={250} data={items}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="year" />
+                            <YAxis />
+                            <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                    </ResponsiveContainer>
+            }
+        </>
     )
 
 

@@ -1,24 +1,3 @@
-/* body {
-  margin: 0;
-  background: #151616;
-  font-family: roboto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-.modal-content{
-  padding:1rem 2rem 1rem 2rem;
-}
-
-.modal-content span{
-  line-height: 2rem;
-}
-
 :root {
   --bg: #242526;
   --bg-accent: #484a4d;
@@ -31,14 +10,19 @@
 
 ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  // margin: 0;
+  // padding: 0 !important;
 }
 
-a {
-  color: var(--text-color);
+// a {
+//   color: var(--text-color);
+// }
+
+a:hover,
+a:visited,
+a:link,
+a:active {
   text-decoration: none;
-  ;
 }
 
 /* Top Navigation Bar */
@@ -48,54 +32,66 @@ a {
   height: var(--nav-size);
   background-color: var(--bg);
   padding: 0 1rem;
-  border-bottom: var(--border);
-  z-index:2 ;
-  position:relative;
+  border-bottom: 3px;
+  z-index: 2;
+  top: 0px;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 /* <ul> */
 .navbar-nav-perso {
-  max-width: 95%;
+  max-width: 80rem;
   height: 100%;
   display: flex;
   justify-content: space-between;
-  z-index:2 ;
-  position:relative;
+  z-index: 2;
+  margin: auto;
+  position: relative;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
 }
 
 /* <li> */
 .nav-item {
   display: flex;
   align-items: center;
-  position:relative;
+  position: relative;
   z-index: 2;
+  border-bottom: 4px solid rgb(36, 37, 38);
+  cursor: pointer;
 }
 
-.nav-item:first-child{
-  justify-content: flex-start;
+// .nav-item:first-child{
+//   justify-content: flex-start;
+// }
+
+// .nav-item:last-child{
+//   justify-content: flex-end;
+// }
+
+// .nav-item:first-child, .nav-item:last-child {
+//   flex-grow: 1;
+//   flex-basis: 0;
+// }
+
+.nav_item_selected {
+  border-bottom: 4px solid rgb(255, 187, 40);
 }
 
-.nav-item:last-child{
-  justify-content: flex-end;
+.nav-item {
+  text-decoration: none;
 }
-
-
-
-.nav-item:first-child, .nav-item:last-child {
-  flex-grow: 1;
-  flex-basis: 0;
-}
-
-
 
 .navtext {
   color: #fff;
-  font-size: 1.25rem;
-  overflow:hidden;
+  font-size: 1rem;
+  overflow: hidden;
+  text-decoration: none;
 }
 
 .nav-item-link:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 /* Icon Button */
@@ -134,9 +130,17 @@ a {
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   padding: 1rem;
   overflow: hidden;
-  z-index: 1
+  z-index: 1;
 }
 
 #resume {
   visibility: hidden;
+}
+
+.modal-content {
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+.modal-content span {
+  line-height: 2rem;
 }

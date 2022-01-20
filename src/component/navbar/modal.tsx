@@ -5,8 +5,9 @@ import Router, { useRouter } from 'next/router';
 
 export default function Modal_window({ show, onHide}:any) {
     const router = useRouter()
+    const ref = React.createRef();
     return (
-        <Modal show={show} onHide={onHide} >
+        <Modal show={show} onHide={onHide} ref={ref}>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-lg">Temps de développement</Modal.Title>
             </Modal.Header>

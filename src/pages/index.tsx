@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     flexWrap: 'nowrap',
     width: '100%',
+    maxWidth:'1105px',
     zIndex:-3
   },
   fixedHeight: {
@@ -197,7 +198,7 @@ export default function Dashboard() {
 
         <main className={classes.content}>
           {/* <div className={classes.appBarSpacer} /> */}
-          <Container className={classes.containerprinc} maxWidth="xl">
+          <Container className={classes.containerprinc} maxWidth={false}>
             <Grid container className={classes.container} spacing={3}>
               <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
                 <Grid item xs={12} md={12} lg={12} >

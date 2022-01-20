@@ -7,9 +7,10 @@ import adresse from '../fonction/conf'
 // import { render, screen } from '@testing-library/react'
 import { shallow, mount, render } from 'enzyme';
 import { Graph_count_type_planete } from '../component_planet/graph_planet';
-
+import 'chai/register-should';
 // const { act } = renderer;
 import Modal_window from '../component/navbar/modal';
+import {Modal} from 'react-bootstrap'
 import Home from './aamock'
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 // const useStateSpy=jest.spyOn(React, "useState")
@@ -38,25 +39,46 @@ describe('<Home />', () => {
 
     const setState = jest.fn();
 
-    beforeEach(() => {
-        useStateMock.mockImplementation(init => [init, setState]);
-        useRouter.mockImplementation(() => ({
-            pathname: '/planet'
-        }))
-        wrapper = mount(<NavItem />)
-    });
+    it('Should forward ref to BaseModal', () => {
+        const noOp = () => {};
+        const ref = React.createRef();
+        mount(
+          <Modal show={true} onHide={noOp} ref={ref}>
+            <strong>Message</strong>
+          </Modal>,
+        );
+        ref.current.dialog.should.exist;
+      });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
+    // beforeEach(() => {
+    //     useStateMock.mockImplementation(init => [init, setState]);
+    //     useRouter.mockImplementation(() => ({
+    //         pathname: '/planet'
+    //     }))
+    //     // const container = document.createElement("div");
+    //     // document.body.appendChild(container);
+    //     wrapper = mount(<Modal_window show={true} onHide={()=>{}} />)
+    // },{timeout:15000});
 
-    describe('Count Up', () => {
-        it('calls setCount with count + 1', () => {
-            // wrapper.find('#count-up').simulate('click');
-            wrapper.find('.icon-button').first().simulate('click');
-            expect(setState).toHaveBeenLastCalledWith(true);
-        });
-    });
+    // afterEach(() => {
+    //     jest.clearAllMocks();
+    // });
+
+    // describe('Count Up', () => {
+        
+    //     it('calls setCount with count + 1', () => {
+    //         expect(wrapper.find('.modal').length).toEqual(1); 
+    //         expect(wrapper).toBe(0)
+    //         // console.log(wrapper.find('#count-up').debug()); 
+    //         // wrapper.find('#count-up').simulate('click');
+    //         // wrapper.find('.icon-button').first().simulate('click');
+    //         // expect(setState).toHaveBeenLastCalledWith(true);
+    //         // console.log(wrapper.find('h3').debug()); 
+    //         // const Modal=wrapper.find(Modal_window).render()
+    //         // wrapper.find('#count-up').simulate('click');
+    //         // expect(setState).toHaveBeenLastCalledWith(2);
+    //     });
+    // });
 
 })
 
