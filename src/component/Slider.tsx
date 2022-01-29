@@ -8,23 +8,6 @@ import { subjectrange } from './observable/observable'
 import shortid from 'shortid';
 import adresse from '../fonction/conf'
 
-// import { SyntheticEvent } from './interface'
-
-// export interface SyntheticEvent {
-//   bubbles: boolean;
-//   cancelable: boolean;
-//   currentTarget: EventTarget;
-//   defaultPrevented: boolean;
-//   eventPhase: number;
-//   isTrusted: boolean;
-//   nativeEvent: Event;
-//   preventDefault(): void;
-//   stopPropagation(): void;
-//   target: EventTarget;
-//   timeStamp: Date;
-//   type: string;
-// }
-
 
 interface itemstype {
   max_text: number,
@@ -45,7 +28,6 @@ const chercheData = async (url: string): Promise<[itemstype | null, boolean]> =>
 
   if (response.ok) {
     let local_range = responseData;
-    // let yy:{ [key: number]: string }=Object.values(local_range.timestamp)
     let datetime: number[]= Object.values(local_range.timestamp)
     let datetext: string[] = Object.values(local_range.datetime)
     var marks2 = []

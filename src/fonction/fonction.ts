@@ -1,7 +1,7 @@
 import adresse from './conf'
 import fetch from "node-fetch";
 
-export var liste_nom_region: { [key:string]: string } = {}
+export var liste_nom_region: { [key: string]: string } = {}
 liste_nom_region["1"] = "Guadeloupe"
 liste_nom_region["2"] = "Martinique"
 liste_nom_region["3"] = "Guyane"
@@ -21,7 +21,7 @@ liste_nom_region["93"] = "Provence-Alpes-Côte d’Azur"
 liste_nom_region["94"] = "Corse"
 
 
-export var liste_id_region : { [key:string]: string } = {}
+export var liste_id_region: { [key: string]: string } = {}
 liste_id_region["Guadeloupe"] = "1"
 liste_id_region["Martinique"] = "2"
 liste_id_region["Guyane"] = "3"
@@ -41,8 +41,8 @@ liste_id_region["Provence-Alpes-Côte d’Azur"] = "93"
 liste_id_region["Corse"] = "94"
 
 
-export function conversionkey(obj: { [key:string]: string }): { [key:string]: string } {
-    var new_obj : { [key:string]: string }= {}
+export function conversionkey(obj: { [key: string]: string }): { [key: string]: string } {
+    var new_obj: { [key: string]: string } = {}
     const keys = Object.keys(obj);
     keys.map((object) => {
         new_obj[liste_nom_region[object.toString()]] = obj[object]
@@ -51,7 +51,7 @@ export function conversionkey(obj: { [key:string]: string }): { [key:string]: st
     return new_obj
 }
 
-function createData(time:string, amount:number,third:number) {
+function createData(time: string, amount: number, third: number) {
     return {
         time,
         amount,
@@ -63,27 +63,27 @@ function createData(time:string, amount:number,third:number) {
 import { dataT } from '../types/interface'
 
 export const chercheData = async (): Promise<dataT[]> => {
-    
+
     const dataTempty = {} as dataT[]
-    const response = await fetch(adresse +":8080/api/planets");
+    const response = await fetch(adresse + ":8080/api/planets");
     // const response = await fetch("http://68.183.74.150:8080/api/planets");
     const responseData = await response.json();
     // console.log(responseData);
-    
-    if (response.ok) {
-        var data = [];
-        var dictOfResponseData: any = {}
-        var miniDict = {}
-        for (const [key, value] of Object.entries(responseData)) {
-            dictOfResponseData[key] = value
+    return new Promise((successCallback, failureCallback) => {
+        if (response.ok) {
+            var data = [];
+            var dictOfResponseData: any = {}
+            var miniDict = {}
+            for (const [key, value] of Object.entries(responseData)) {
+                dictOfResponseData[key] = value
+            }
+
+            successCallback(dictOfResponseData)
+
+        } else {
+            alert(JSON.stringify(responseData))
+            failureCallback(dataTempty)
         }
-
-        return dictOfResponseData
-
-    } else {
-        alert(JSON.stringify(responseData))
-        return dataTempty
-    }
-
+    })
 }
 

@@ -167,7 +167,7 @@ export default function Chart() {
 
                         <Legend formatter={legendFormatter} />
 
-                        <Tooltip wrapperStyle={{backgroundColor:'#F00'}} contentStyle={{color:'#000'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
+                        <Tooltip wrapperStyle={{backgroundColor:'#F00'}} labelStyle={{textAlign: 'center',lineHeight: '1rem',marginBottom:'0.5rem',textDecoration:'underline'}} contentStyle={{color:'#000',lineHeight: '1rem'}} itemStyle={{color:'#000'}} labelFormatter={labelFormatter} formatter={valueFormatter} />
                         <CartesianGrid strokeDasharray="3 3" />
                         {
 

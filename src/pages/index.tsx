@@ -103,13 +103,13 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     overflow: 'auto',
     minWidth: '700px',
-    zIndex:-1
+    // zIndex:-1
   },
   container: {
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(2),
     flexWrap: 'nowrap',
-    zIndex:-3
+    // zIndex:-3
   },
   paper: {
     padding: theme.spacing(2),
@@ -141,10 +141,11 @@ const useStyles = makeStyles((theme) => ({
   containerprinc: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    paddingRight: '0.75rem',
     flexWrap: 'nowrap',
     width: '100%',
     maxWidth:'1105px',
-    zIndex:-3
+    // zIndex:-3
   },
   fixedHeight: {
     height: 350,
@@ -175,11 +176,6 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  if (typeof window !== "undefined") {
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
-  }
 
   const fixedHeightPaper = clsx(classes.paper);
   const paper_droite = clsx(classes.paper_droite);
@@ -238,9 +234,9 @@ export default function Dashboard() {
                   <Deposits />
                 </Paper>
 
-                <Paper className={classes.paper_droite}  >
+                {/* <Paper className={classes.paper_droite}  >
                   <Deposits2 />
-                </Paper>
+                </Paper> */}
 
               </Grid>
             </Grid>

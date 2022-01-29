@@ -2,17 +2,21 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image'
 import mars from "./../img/frise/mars.png";
-import mars2 from "./../img/frise/mars2.jpg";
+import mars2 from "./../img/frise/mars2.png";
 import gaz from "./../img/frise/gaz.jpg";
 import gaz2 from "./../img/frise/gaz2.png";
 import gaz3 from "./../img/frise/gaz3.png";
 import gaz4 from "./../img/frise/gaz4.png";
-import gaz5 from "./../img/frise/gaz5.jpg";
+import gaz5 from "./../img/frise/gaz5.png";
 import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
+import wait from "./../img/wait.gif";
 import { LegendeSvg } from "./creation_svg"
 import { countBy } from 'underscore'
 import shortid from 'shortid'
+import { useResizeDetector } from 'react-resize-detector';
+import logo from '../img/ezgif.com-gif-maker2.gif'
+import CSS from 'csstype'
 import {
     ScatterChart,
     XAxis,
@@ -29,13 +33,14 @@ import {
 } from 'recharts'
 import { chercheData } from '../fonction/fonction'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
+import { debounce } from "ts-debounce";
 
 export const DessinSystemeSolaire = (props: any) => {
     const dataTEmpty = {} as dataT[]
     const [sSolaire, setsSolaire] = useState<string>("HD 219134");
     const [items, setItems] = useState<dataT[] | null>(null);
     useEffect(() => {
-        let isMounted = true; 
+        let isMounted = true;
         if (sSolaire !== "") {
             chercheData().then((tt) => {
                 var gg = Object.values(tt)
@@ -58,7 +63,7 @@ export const DessinSystemeSolaire = (props: any) => {
 
             });
         }
-        return () => { isMounted = false }; 
+        return () => { isMounted = false };
     }, [sSolaire])
     return (
         items &&
@@ -112,7 +117,7 @@ export const Table = (props: any) => {
     }
 
     useEffect(() => {
-        let isMounted = true; 
+        let isMounted = true;
         chercheData().then((tt) => {
             var gg = Object.values(tt)
 
@@ -156,7 +161,7 @@ export const Table = (props: any) => {
             if (isMounted) setItemsPlanete(gg)
             if (isMounted) setItems(sSolaire)
         });
-        return () => { isMounted = false }; 
+        return () => { isMounted = false };
     }, [])
     if (items && itemsPlanete) {
         return (
@@ -212,7 +217,7 @@ export const TableRow = (props: any) => {
                     {row.discovered}
                 </td>
             </tr>
-            {false &&
+            {/* {false &&
                 Array.from(data).map((row_planet, i) => {
                     return (
                         <tr key={shortid.generate()} className={"table-row-collapse"} >
@@ -232,7 +237,7 @@ export const TableRow = (props: any) => {
                         </tr>)
                 })
 
-            }
+            } */}
         </>
     );
 };
@@ -310,7 +315,7 @@ const CustomLabel = (props: any) => {
     if (props.planet != 'Pegasus b 41') {
         return (
             <>
-                <text x={props.viewBox.x + props.viewBox.width * 2-10} y={props.viewBox.y} >{props.planet}</text>
+                <text x={props.viewBox.x + props.viewBox.width * 2 - 10} y={props.viewBox.y} >{props.planet}</text>
 
             </>
 
@@ -318,7 +323,7 @@ const CustomLabel = (props: any) => {
     } else {
         return (
             <>
-                <text x={props.viewBox.x - props.viewBox.width} y={props.viewBox.y + props.viewBox.height * 2.5-10} >{props.planet}</text>
+                <text x={props.viewBox.x - props.viewBox.width} y={props.viewBox.y + props.viewBox.height * 2.5 - 10} >{props.planet}</text>
             </>)
     }
 };
@@ -333,7 +338,7 @@ export function Graph_masse_distance() {
 
 
     useEffect(() => {
-        let isMounted = true; 
+        let isMounted = true;
         chercheData().then((tt) => {
 
             var gg = Object.values(tt)
@@ -388,26 +393,69 @@ export function Graph_masse_distance() {
 
 
 type MyState = {
-    // count: number; // like this
     items: typePlaneteT[]
     myRef: React.RefObject<HTMLInputElement>
+    onRerender: boolean
 };
 
 export class Graph_count_type_planete extends React.Component<{}, MyState> {
     isMounted = false;
+
     constructor(props: any) {
         super(props);
         this.state = {
             items: [],
-            myRef: React.createRef()
+            myRef: React.createRef(),
+            onRerender: false
         };
 
     };
+
+
+    // debouncedHandleResize = debounce(() => {
+    //     this.setState({ onRerender: true })
+    // }, 1000)
+
+    // debouncedFunction = debounce(() => this.setState({ onRerender: true }), 1000, { isImmediate: true });
+
     componentWillUnmount() {
         this.isMounted = false;
-      }
+        // window.removeEventListener('resize', this.debouncedFunction)
+    }
+
+    componentDidUpdate() {
+        if (this.state.onRerender) {
+            setTimeout(() => this.setState({ onRerender: false }), 1000)
+            // console.log("update");
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+            // console.log("update", time);
+        }
+    }
+
+    breakpointCHecker() {
+        var lg = window.getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-lg');
+        console.log(lg);
+        if (window.matchMedia("(min-width: " + lg + ")").matches) {
+            console.log("rr",lg);
+        } else {
+            console.log("ee",lg);
+        }
+    }
+
     componentDidMount() {
-        this.isMounted = true; 
+        window.addEventListener('resize', () => {
+            // this.setState({ onRerender: true });
+            // this.debouncedFunction
+            this.setState({ onRerender: true })
+            this.breakpointCHecker()
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+            // console.log("event_begin", time);
+        })
+        this.isMounted = true;
         chercheData().then((tt) => {
             var gg = Object.values(tt)
 
@@ -449,26 +497,64 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
     }
 
     render() {
-        return (
-            <div ref={this.state.myRef}>
-                {
-                    process.env.NODE_ENV === "test" ?
-                        <BarChart width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                            <YAxis />
-                            <Bar dataKey="value" fill="#8884d8" />
-                        </BarChart>
-                        :
-                        <BarChart id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                            <YAxis />
-                            <Bar dataKey="value" fill="#8884d8" />
-                        </BarChart>
-                }
-            </div>
-        )
+        // if (!this.state.onRerender) {
+        var style_image: CSS.Properties = (!this.state.onRerender) ? { visibility: "visible", display: 'block' } : { visibility: "hidden" }
+        var style_image2: CSS.Properties = (this.state.onRerender) ? { visibility: "visible", display: 'block' } : { display: "none" }
+
+        if (!this.state.onRerender) {
+            return (
+                <>
+
+                    <div ref={this.state.myRef}>
+                        {/* <div style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
+                            <div id='rtt' >
+                                <Image layout="fixed" width="50px" height="50px" object-position="50% 50%" sizes="(max-height: 500px) 1000px" src={wait} />
+                            </div >
+                        </div > */}
+                        <div style={style_image} >
+                            {
+                                process.env.NODE_ENV === "test" ?
+                                    <>
+                                        <BarChart width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                                            <YAxis />
+                                            <Bar dataKey="value" fill="#8884d8" />
+                                        </BarChart></>
+                                    :
+                                    <>
+                                        {/* <Image width="50px" height="50px" src={wait} /> */}
+                                        <ResponsiveContainer aspect={0.5}>
+                                            <BarChart id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                                                <YAxis />
+                                                <Bar dataKey="value" fill="#8884d8" />
+                                            </BarChart>
+                                        </ResponsiveContainer></>
+                            }
+                        </div>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <div ref={this.state.myRef} >
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
+                            <div id='rtt' >
+                                <Image layout="fixed" width="50px" height="50px" object-position="50% 50%" sizes="(max-height: 500px) 1000px" src={wait} />
+                            </div >
+                        </div >
+                    </div ></>
+            )
+        }
     }
 
 
@@ -480,7 +566,7 @@ export function Count_annee() {
 
 
     useEffect(() => {
-        let isMounted = true; 
+        let isMounted = true;
         chercheData().then((tt) => {
 
             const gg = Object.values(tt)

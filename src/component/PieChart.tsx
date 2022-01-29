@@ -2,7 +2,8 @@ import {
   PieChart,
   Pie,
   Cell,
-  Legend
+  Legend,
+  ResponsiveContainer
 }
   from 'recharts';
 
@@ -59,8 +60,9 @@ export function Camembert() {
   return (
     <>
       <Title>Vaccin administré</Title>
-      <PieChart width={200} height={160} >
-        <Pie data={items} dataKey="value" nameKey="name"  cx="50%" cy="50%" outerRadius={40} >
+      <ResponsiveContainer aspect={0.7}>
+      <PieChart >
+        <Pie data={items} dataKey="value" nameKey="name"  cx="50%" cy="50%" outerRadius="80%"  >
           {
             items.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS2[index % COLORS2.length]} />
@@ -68,5 +70,8 @@ export function Camembert() {
           }
         </Pie>
         <Legend align="left" />
-      </PieChart></>);
+      </PieChart>
+      </ResponsiveContainer>
+      </>
+      );
 }

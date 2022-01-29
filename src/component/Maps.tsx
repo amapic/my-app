@@ -15,7 +15,7 @@ const Maps = () => {
         }
     }, [])
 
-    var list_poly2 = list_poly
+    var list_poly2:any[] = list_poly
     // subjectregioncolor.next(['rgb(5,98,138)'])
     //mettre imeratif
     var style_image: CSS.Properties = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
@@ -41,7 +41,7 @@ const Maps = () => {
                 </div>
 
             </div>
-            <div  style={style_image}>
+            <div style={style_image}>
                 <Image src={logo}  width="250" height="250" />
             </div>
             {/* <Popover
