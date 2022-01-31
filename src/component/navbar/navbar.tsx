@@ -62,7 +62,7 @@ export function NavItem(props: any) {
 
       <li className="nav-item noselect">
         {/* <div> */}
-          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/test_typescript">
+          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
             <Image
               width={40}
               height={40}
