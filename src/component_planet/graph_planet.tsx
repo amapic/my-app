@@ -1,6 +1,7 @@
 // import { boolean } from 'mathjs';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image'
+import Ratio from 'react-bootstrap/Ratio'
 import mars from "./../img/frise/mars.png";
 import mars2 from "./../img/frise/mars2.png";
 import gaz from "./../img/frise/gaz.jpg";
@@ -375,7 +376,7 @@ export function Graph_masse_distance() {
                         margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
                         <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
                         <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
-                        <Scatter name="A school" data={items} shape={<CustomizedShape />} />
+                        <Scatter isAnimationActive={false} name="A school" data={items} shape={<CustomizedShape />} />
                         <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
                         <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
                         <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
@@ -416,7 +417,7 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
     //     this.setState({ onRerender: true })
     // }, 1000)
 
-    // debouncedFunction = debounce(() => this.setState({ onRerender: true }), 1000, { isImmediate: true });
+    debouncedFunction = debounce(() => this.setState({ onRerender: true }), 1000, { isImmediate: true });
 
     componentWillUnmount() {
         this.isMounted = false;
@@ -424,23 +425,43 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
     }
 
     componentDidUpdate() {
-        if (this.state.onRerender) {
-            setTimeout(() => this.setState({ onRerender: false }), 1000)
-            // console.log("update");
-            var today = new Date();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        // if (this.state.onRerender) {
+        // setTimeout(() => this.setState({ onRerender: false }), 1000)
+        // console.log("update");
+        // if (this.state.myRef.current) {
+        // var parser = new DOMParser();
+        // var content: Document = parser.parseFromString(this.state.myRef.current.innerHTML, "image/svg+xml");
+        // var content2: Document = parser.parseFromString(document.body.innerHTML, "text/xml");
+        // if (document) {
+        //     var graph: Element | null = document.querySelector("#stat_type_planete")
+        //     graph = graph ? graph.clientWidth : null
+        //     var titre: Element | null = document.querySelector("#titre_count_type_planete")
+        //     titre = titre ? titre.clientWidth : null
+        //     console.log(graph);
+        //     console.log(titre);
+        //     if (graph && titre) {
+        //         if (graph <= titre && this.state.onRerender) {
+        //             this.setState({ onRerender: false })
+        //         } else if (graph > titre + 10 && !this.state.onRerender) {
+        //             this.setState({ onRerender: true })
+        //         }
+        //         var today = new Date();
+        //         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-            // console.log("update", time);
-        }
+        //         console.log("update", time);
+        //     }
+        // }
+        // }
+        // }
     }
 
     breakpointCHecker() {
         var lg = window.getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-lg');
         console.log(lg);
         if (window.matchMedia("(min-width: " + lg + ")").matches) {
-            console.log("rr",lg);
+            console.log("rr", lg);
         } else {
-            console.log("ee",lg);
+            console.log("ee", lg);
         }
     }
 
@@ -448,8 +469,8 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
         window.addEventListener('resize', () => {
             // this.setState({ onRerender: true });
             // this.debouncedFunction
-            this.setState({ onRerender: true })
-            this.breakpointCHecker()
+            // this.setState({ onRerender: true })
+            // this.breakpointCHecker()
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
@@ -518,11 +539,11 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
                             {
                                 process.env.NODE_ENV === "test" ?
                                     <>
-                                        <BarChart width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                                        <BarChart  width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                                             <YAxis />
-                                            <Bar dataKey="value" fill="#8884d8" />
+                                            <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                                         </BarChart></>
                                     :
                                     <>
@@ -532,7 +553,7 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
                                                 <CartesianGrid strokeDasharray="3 3" />
                                                 <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                                                 <YAxis />
-                                                <Bar dataKey="value" fill="#8884d8" />
+                                                <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                                             </BarChart>
                                         </ResponsiveContainer></>
                             }
@@ -544,14 +565,18 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
             return (
                 <>
                     <div ref={this.state.myRef} >
-                        <div style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}>
-                            <div id='rtt' >
+                        <Ratio aspectRatio={0.5}>
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}>
+
+
+
                                 <Image layout="fixed" width="50px" height="50px" object-position="50% 50%" sizes="(max-height: 500px) 1000px" src={wait} />
                             </div >
-                        </div >
+                            {/* </div > */}
+                        </Ratio>
                     </div ></>
             )
         }
@@ -601,7 +626,7 @@ export function Count_annee() {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="year" />
                         <YAxis />
-                        <Bar dataKey="value" fill="#8884d8" />
+                        <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                     </BarChart>
                     // </ResponsiveContainer>
                     :
@@ -610,7 +635,7 @@ export function Count_annee() {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="year" />
                             <YAxis />
-                            <Bar dataKey="value" fill="#8884d8" />
+                            <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                         </BarChart>
                     </ResponsiveContainer>
             }

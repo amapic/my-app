@@ -142,6 +142,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     paddingRight: '0.75rem',
+    paddingLeft: '0.75rem',
     flexWrap: 'nowrap',
     width: '100%',
     maxWidth:'1105px',

@@ -28,13 +28,13 @@ export default function Dashboard():JSX.Element {
                   <br></br>
                   {/* <br></br> */}
                   <h4 id="titre_interne_1" className="feature-title text-center">Masse et période de révolution</h4>
-                  {/* <Graph_masse_distance /> */}
+                  <Graph_masse_distance />
                   {/* <br></br> */}
                   <span style={{zIndex:-1}}>De plus en plus de planète sont trouvées au fil des ans grâce à de nouveau instrument.</span>
                   {/* <br></br> */}
                   <br></br>
                   <h4 id="titre_interne_2" className="feature-title text-center">Planètes découvertes par an</h4>
-                  {/* <Count_annee /> */}
+                  <Count_annee />
 
 
                   {/* <h4 id="titre_interne_3" className="feature-title text-center">Prout</h4> */}

@@ -26,6 +26,7 @@
     "chai": "^4.3.4",
     "chai-enzyme": "github:amapic/chai-enzyme",
     "csstype": "^2.6.17",
+    "framer-motion": "^6.2.3",
     "identity-obj-proxy": "^3.0.0",
     "mathjs": "^9.4.4",
     "next": "^11.0.1",

@@ -4,7 +4,8 @@ import '../App.scss';
 import '../style/planet.scss';
 import '../style/navbar.scss';
 import 'bootstrap/dist/css/bootstrap.css'
-
+import { motion } from 'framer-motion';
+import shortid from 'shortid';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -23,17 +24,26 @@ export default function MyApp(props) {
   }, []);
 
   return (
-    <React.Fragment>
+    // <React.Fragment>
+      <motion.div key={shortid.generate()} initial="pageInitial" animate="pageAnimate" variants={{
+        pageInitial: {
+          opacity: 0
+        },
+        pageAnimate: {
+          opacity: 1
+        },
+      }}>
       <Head>
         <title>Dashboard vaccination</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       {/* <ThemeProvider theme={theme}> */}
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        {typeof window === 'undefined' ? null : <Component {...pageProps} />}
+      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+      <CssBaseline />
+      {typeof window === 'undefined' ? null : <Component {...pageProps} />}
       {/* </ThemeProvider> */}
-    </React.Fragment>
+      </motion.div>
+    // </React.Fragment>
   );
 }
 

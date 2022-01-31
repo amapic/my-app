@@ -25,7 +25,7 @@
         },
 
         {
-            "type": "chrome",
+            "type": "pwa-chrome",
             "request": "launch",
             "name": "attach chrome",
             "url": "http:localhost:3000/planet",
