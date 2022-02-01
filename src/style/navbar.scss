@@ -42,12 +42,16 @@ a:active {
 }
 
 /* <ul> */
+
+.navbar-icone-perso {
+  width:7.5%
+}
 .navbar-nav-perso {
   max-width: 80rem;
   height: 100%;
   display: flex;
   justify-content: space-between;
-  z-index: 2;
+  // z-index: 2;
   margin: auto;
   position: relative;
   padding-left: 0.75rem !important;

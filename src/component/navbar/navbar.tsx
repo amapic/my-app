@@ -1,19 +1,33 @@
 import { useState } from 'react';
 import * as React from 'react';
 import Image from 'next/image'
-// import CaretIcon_up from '/../../img/icons/caret_up.svg';
-// import CaretIcon_down from '/../../img/icons/caret_down.svg';
 import Router, { useRouter } from 'next/router';
 import Modal_window from './modal';
 import 'bootstrap/dist/css/bootstrap.css';
 import github from "../../img/github.png";
+import linkedin from "../../img/linkedin.png";
 export function Navbar(props: any) {
   const router = useRouter()
   return (
     <nav className="navbar-perso">
-      {/* <div className="pl-3 w-100 h-100"> */}
+      {/* <ul className="navbar-icone-perso">
+        <li >
+          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+            <Image
+              width={40}
+              height={40}
+              src={github} />
+          </a>
+
+          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+            <Image
+              width={30}
+              height={30}
+              src={linkedin} />
+          </a>
+        </li>
+      </ul> */}
       <ul className="navbar-nav-perso">{props.children}</ul>
-      {/* </div> */}
     </nav>
   );
 }
@@ -53,6 +67,8 @@ export function NavItem(props: any) {
   hover = router.pathname === '/planet' ? "nav-item noselect" : "nav-item noselectt nav_item_selected"
   return (
     <>
+
+
       <li className={hover_planet}>
         <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
       </li>
@@ -60,28 +76,16 @@ export function NavItem(props: any) {
         <span className="navtext" onClick={() => Router.push('/')}>Suivi campagne de vaccination</span>
       </li>
 
-      <li className="nav-item noselect">
-        {/* <div> */}
-          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
-            <Image
-              width={40}
-              height={40}
-              src={github} />
-          </a>
-        {/* </div> */}
+
+
+      <li className={hover}>
+        <span className="navtext" onClick={() => Router.push('/detail_dev')}>Temps de développement</span>
       </li>
 
-      <li className="nav-item noselect">
-        {/* className="icon-button" */}
+      {/* <li className="nav-item noselect">
+
         <a href="#" onClick={handleOpen}>
-          {/* {open && <Image
-            width="100%"
-            height="100%"
-            src='/../../img/icons/caret_down.svg' />}
-          {!open && <Image
-            width="100%"
-            height="100%"
-            src='/../../img/icons/caret_down.svg' />} */}
+
           <span className='navtext'>Temps de développement</span>
         </a>
 
@@ -89,7 +93,7 @@ export function NavItem(props: any) {
           show={open}
           onHide={handleClose}
         />
-      </li>
+      </li> */}
 
     </>
   );
