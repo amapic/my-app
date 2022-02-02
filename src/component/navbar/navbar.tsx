@@ -69,22 +69,35 @@ export function NavItem(props: any) {
               height={30}
               src={linkedin} />
           </a>
-          </div>
-        </li>
-
-      <li className={hover_planet}>
-        <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
+        </div>
       </li>
-      <li className={hover}>
-        <span className="navtext" onClick={() => Router.push('/')}>Suivi campagne de vaccination</span>
-      </li>
+      {router.pathname === '/planet' ?
+        <>
+          <li className={hover_planet}>
+            <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
+          </li>
+          <li className={hover}>
+            <span className="navtext" onClick={() => Router.push('/')}>Suivi campagne de vaccination</span>
+          </li>
+        </>
+        :
+        <>
+          <li className={hover}>
+            <span className="navtext" onClick={() => Router.push('/')}>Suivi campagne de vaccination</span>
+          </li>
+          <li className={hover_planet}>
+            <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
+          </li>
+          
+        </>
+      }
 
 
 
       {/* <li className={hover}>
         <span className="navtext" onClick={() => Router.push('/detail_dev')}>Temps de développement</span>
       </li> */}
-      
+
 
       {/* <li className="nav-item noselect">
 
