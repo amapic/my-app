@@ -3,7 +3,7 @@ import React, { useState as useStateMock, setState } from 'react';
 
 import { shallow, mount, render } from 'enzyme';
 
-import Home from './aamock'
+import Dashboard from './aamock'
 
 
 jest.mock('react', () => ({
@@ -20,7 +20,7 @@ describe('<Home />', () => {
     beforeEach(async () => {
         useStateMock.mockImplementation(init => [init, setState]);
 
-        wrapper = mount(<Home />)
+        wrapper = mount(<Dashboard />)
     });
 
 

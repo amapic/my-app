@@ -1,43 +1,47 @@
 // import { shallow } from 'enzyme';
-import { mount as mountEnzyme, render as renderEnzyme } from 'enzyme';
-import { Graph_count_type_planete, Count_annee, Graph_masse_distance, Table, DessinSystemeSolaire } from '../component_planet/graph_planet';
+import React, { useState as useStateMock } from 'react';
 import { waitFor, render, screen, getByText, cleanup } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
-import Dashboard, { Fc_containing_FC } from './aamock'
+import { render as renderEnzyme } from 'enzyme';
+import Dashboard, { Fc_containing_FC,Fc } from './aamock'
 import { expect } from 'chai';
-// import { async } from 'rxjs';
+import {describe, expect as expectjs, it } from '@jest/globals'
 jest.setTimeout(100000)
-// import sinon from 'sinon';
-// import Foo from './Foo';
-import { render as render_react_dom, unmountComponentAtNode } from "react-dom";
-// import { act } from "react-dom/test-utils";
+// import { chercheData as chercheDataMock } from '../fonction/fonction'
+
 describe('<MyComponent />', () => {
-  // var wrapper:any
-  // beforeEach(() => {
-  //   wrapper = mountEnzyme(<Table />);
-  // });
   let wrapper: any = null;
-  // beforeEach(() => {
-  //   // setup a DOM element as a render target
-  //   wrapper = document.createElement("div");
-  //   document.body.appendChild(wrapper);
-  // });
 
+  // jest.mock('../fonction/fonction', () => ({
+  //   ...jest.requireActual('../fonction/fonction'),
+  //   chercheData: jest.fn(),
+  // }));
+  const chercheData = jest.spyOn(require('../fonction/fonction'), 'chercheData')
+  beforeAll(() => {
+    chercheData.mockImplementation(() => {
+      console.log('rr');
+      Promise.resolve(
+        {
+          id: 1,
+          name: "a",
+          mass: 1,
+          orbital_period: 2,
+          discovered: 1,
+          radius: 1,
+          semi_major_axis: 1,
+          star_distance: 1,
+          temp: 1,
+          method: "e",
+          star_name: "r"
+        });
+    });
+  });
   it('renders three <Foo /> components', async () => {
-    // var wrapper:any
-
-    // await act(async () => {
-    //   render_react_dom(<Fc_containing_FC />, wrapper);
-    // });
-    // // await new Promise((r) => setTimeout(r, 10000));
-    // console.log(wrapper.innerHTML);
-    // await waitFor(() => {
-
-    //   expect(wrapper.querySelectorAll(".rr").length).to.be.equal(0)
-    // }, { timeout: 10000 })
-    render(<Fc_containing_FC />)
-
-    await waitFor(() => expect(screen.getByText("AAA")).to.have.lengthOf(1));
+    
+    
+    const wrapper = renderEnzyme(<Fc />)
+    // expectjs(chercheData).toBeCalled();
+    console.log(wrapper.html());
+    expect(wrapper.html()).to.contain('AAAAA');
   });
 
 

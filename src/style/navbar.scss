@@ -2,7 +2,7 @@
   --bg: #242526;
   --bg-accent: #484a4d;
   --text-color: #dadce1;
-  --nav-size: 60px;
+  --nav-size: 40px;
   --border: 1px solid #474a4d;
   --border-radius: 8px;
   --speed: 10000ms;
@@ -10,13 +10,10 @@
 
 ul {
   list-style: none;
-  // margin: 0;
-  // padding: 0 !important;
+  padding-left: 0!important;
 }
 
-// a {
-//   color: var(--text-color);
-// }
+
 
 a:hover,
 a:visited,
@@ -34,25 +31,35 @@ a:active {
   padding: 0 1rem;
   border-bottom: 3px;
   z-index: 2;
-  width:100%;
+  width: 100%;
   top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   // position:fixed;
   position: -webkit-sticky;
   position: sticky;
 }
 
-/* <ul> */
-
-.navbar-icone-perso {
-  width:7.5%
-}
+// .navbar-perso > ul:last-child > li{
+//   background-color: red;
+//   // margin: auto;
+//   width: 100%;
+//   box-sizing:border-box;
+// }
+// .navbar-icone-perso {
+//   width: 7.5%;
+//   // margin: auto;
+//   display: flex;
+//   align-items: center;
+//   box-sizing:border-box;
+// }
 .navbar-nav-perso {
-  max-width: 80rem;
   height: 100%;
   display: flex;
   justify-content: space-between;
-  // z-index: 2;
-  margin: auto;
+  width:84%;
+  margin:auto;
   position: relative;
   padding-left: 0.75rem !important;
   padding-right: 0.75rem !important;
@@ -66,8 +73,8 @@ a:active {
   z-index: 2;
   border-bottom: 4px solid rgb(36, 37, 38);
   cursor: pointer;
-  text-align:center;
-  min-width:60px;//pour que les images du titre gardent une distance à pettite echelle
+  text-align: center;
+  min-width: 60px; //pour que les images du titre gardent une distance à pettite echelle
 }
 
 // .nav-item:first-child{
@@ -84,7 +91,7 @@ a:active {
 // }
 
 .nav_item_selected {
-  border-bottom: 4px solid rgb(255, 187, 40);
+  border-bottom: 3px solid rgb(255, 187, 40);
 }
 
 .nav-item {
@@ -103,52 +110,85 @@ a:active {
 }
 
 /* Icon Button */
-.icon-button {
-  --button-size: calc(var(--nav-size) * 0.5);
-  width: var(--button-size);
-  height: var(--button-size);
-  background-color: #484a4d;
-  border-radius: 50%;
-  padding: 5px;
-  margin: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: filter 300ms;
-}
+// .icon-button {
+//   --button-size: calc(var(--nav-size) * 0.5);
+//   width: var(--button-size);
+//   height: var(--button-size);
+//   background-color: #484a4d;
+//   border-radius: 50%;
+//   padding: 5px;
+//   margin: 2px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   transition: filter 300ms;
+// }
 
-.icon-button:hover {
-  filter: brightness(1.2);
-}
+// .icon-button:hover {
+//   filter: brightness(1.2);
+// }
 
-.icon-button svg {
-  fill: var(--text-color);
-  width: 20px;
-  height: 20px;
-}
+// .icon-button svg {
+//   fill: var(--text-color);
+//   width: 20px;
+//   height: 20px;
+// }
 
 /* CSSTransition classes  */
-#dropd {
-  position: relative;
-  top: -35px;
-  left: 2.5%;
-  width: 95%;
-  background-color: var(--bg);
-  border: 0 0 var(--border) var(--border);
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  padding: 1rem;
-  overflow: hidden;
-  z-index: 1;
+// #dropd {
+//   position: relative;
+//   top: -35px;
+//   left: 2.5%;
+//   width: 95%;
+//   background-color: var(--bg);
+//   border: 0 0 var(--border) var(--border);
+//   border-radius: 0 0 var(--border-radius) var(--border-radius);
+//   padding: 1rem;
+//   overflow: hidden;
+//   z-index: 1;
+// }
+
+// #resume {
+//   visibility: hidden;
+// }
+
+// .modal-content {
+//   padding: 1rem 2rem 1rem 2rem;
+// }
+
+// .modal-content span {
+//   line-height: 2rem;
+// }
+
+
+.nav-item:not(.nav_item_selected)::after {
+	content: '';
+	position: absolute;
+	bottom: -3px;
+	left: 35%;
+	width: 30%;
+	height: 3px;
+  align-items: center;
+	background-color: #ffbb28;
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
 }
 
-#resume {
-  visibility: hidden;
+.nav-item:hover::after,
+.nav-item:focus::after {
+	opacity: 1;
+	transform: translate3d(0, 0.2em, 0);
 }
 
-.modal-content {
-  padding: 1rem 2rem 1rem 2rem;
+
+/* Scale from center */
+.nav-item::after {
+	opacity : 1;
+	transform: scale(0);
+	transform-origin: center;
 }
 
-.modal-content span {
-  line-height: 2rem;
+.nav-item:hover::after,
+.nav-item:focus::after{
+	transform: scale(1);
 }

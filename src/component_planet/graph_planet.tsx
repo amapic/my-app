@@ -374,7 +374,7 @@ export function Graph_masse_distance() {
                 <ResponsiveContainer aspect={4.5}>
                     <ScatterChart id="masse_distance"
                         margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-                        <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
+                        <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 100]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
                         <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
                         <Scatter isAnimationActive={false} name="A school" data={items} shape={<CustomizedShape />} />
                         <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />

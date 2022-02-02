@@ -22,24 +22,20 @@ export default function Dashboard():JSX.Element {
               <div className="col-10">
                 <div  className="border border-dark rounded p-2 mb-5">
                 <h4 id="titre_interne_0" className="animate-pulse feature-title text-center">Historique</h4>
-                <span style={{zIndex:-1}}>En 1995, la première exoplanète est découverte par Michel Mayor et ses collaborateurs à l'observatoire de Haute Provence.
+                <p style={{textIndent:"5%"}}>En 1995, la première exoplanète est découverte par Michel Mayor et ses collaborateurs à l'observatoire de Haute Provence.
                   Depuis, de nombreuses autres planètes plus petites et plus éloignées de leurs étoiles, donc plus difficile à repérer, ont été trouvées.
-                  </span>
+                  </p>
                   <br></br>
-                  {/* <br></br> */}
                   <h4 id="titre_interne_1" className="feature-title text-center">Masse et période de révolution</h4>
                   <Graph_masse_distance />
-                  {/* <br></br> */}
-                  <span style={{zIndex:-1}}>De plus en plus de planète sont trouvées au fil des ans grâce à de nouveau instrument.</span>
-                  {/* <br></br> */}
+                  <p style={{textIndent:"5%"}} >De plus en plus de planète sont trouvées au fil des ans grâce à de nouveau instrument.</p>
                   <br></br>
                   <h4 id="titre_interne_2" className="feature-title text-center">Planètes découvertes par an</h4>
                   <Count_annee />
 
 
-                  {/* <h4 id="titre_interne_3" className="feature-title text-center">Prout</h4> */}
                   <br></br>
-                  Aujourd'hui des systèmes solaires contenant jusqu'à 8 planètes sont connus.
+                  <p style={{textIndent:"5%"}}>Aujourd'hui des systèmes solaires contenant jusqu'à 8 planètes sont connus.</p>
                   <br></br>
                   <DessinSystemeSolaire />
                 </div>

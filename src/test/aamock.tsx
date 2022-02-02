@@ -42,7 +42,8 @@ type Props = {
 export function Fc(): JSX.Element {
 
     const [items, setItems] = useState<dataT[] | null>(null);
-    useEffect(() => {
+    React.useEffect(() => {
+        console.log('rrrrrrrrrrrrrrrrrrrr');
         async function tt() {
             setItems(await chercheData())
         }
@@ -51,18 +52,18 @@ export function Fc(): JSX.Element {
     }, [])
 
     return (
-        <>
+        <div>
             {items !== null ?
 
                 Array.from(items).map((object, i) =>
 
-                    <div key={i} className='rr'>AAA</div>
+                    <div key={i} className='rr'>AAAAA</div>
                 )
                 :
-                <div className='rr'>AA</div>
+                <div className='rr'>AAZZ</div>
 
             }
-        </>
+        </div>
     )
 
 

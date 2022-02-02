@@ -11,23 +11,10 @@ export function Navbar(props: any) {
   return (
     <nav className="navbar-perso">
       {/* <ul className="navbar-icone-perso">
-        <li >
-          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
-            <Image
-              width={40}
-              height={40}
-              src={github} />
-          </a>
-
-          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
-            <Image
-              width={30}
-              height={30}
-              src={linkedin} />
-          </a>
-        </li>
+        
       </ul> */}
       <ul className="navbar-nav-perso">{props.children}</ul>
+      {/* <ul><li>eqfqfpty</li></ul> */}
     </nav>
   );
 }
@@ -64,10 +51,26 @@ export function NavItem(props: any) {
   let hover: string = ""
   let hover_planet: string = ""
   hover_planet = router.pathname === '/planet' ? "nav-item noselect nav_item_selected" : "nav-item noselect"
-  hover = router.pathname === '/planet' ? "nav-item noselect" : "nav-item noselectt nav_item_selected"
+  hover = router.pathname === '/planet' ? "nav-item noselect" : "nav-item noselect nav_item_selected"
   return (
     <>
+      <li >
+        <div>
+          <a style={{ margin: "auto", top: "55%", bottom: "45%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+            <Image
+              width={35}
+              height={35}
+              src={github} />
+          </a>
 
+          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+            <Image
+              width={30}
+              height={30}
+              src={linkedin} />
+          </a>
+          </div>
+        </li>
 
       <li className={hover_planet}>
         <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
@@ -78,9 +81,10 @@ export function NavItem(props: any) {
 
 
 
-      <li className={hover}>
+      {/* <li className={hover}>
         <span className="navtext" onClick={() => Router.push('/detail_dev')}>Temps de développement</span>
-      </li>
+      </li> */}
+      
 
       {/* <li className="nav-item noselect">
 

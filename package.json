@@ -56,7 +56,7 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS=--openssl-legacy-provider next dev",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
+    "build": "next build",
     "start": "NODE_ENV=production next start",
     "rrr": "webpack",
     "test": "jest --watchAll=false --no-watchman",
