@@ -63,7 +63,7 @@ export function NavItem(props: any) {
               src={github} />
           </a>
 
-          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+          <a style={{ margin: "auto", top: "50%", bottom: "50%" }} href="https://www.linkedin.com/in/amaurypichat/">
             <Image
               width={30}
               height={30}
