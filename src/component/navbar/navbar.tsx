@@ -1,23 +1,80 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import Image from 'next/image'
 import Router, { useRouter } from 'next/router';
 import Modal_window from './modal';
 import 'bootstrap/dist/css/bootstrap.css';
 import github from "../../img/github.png";
-import linkedin from "../../img/linkedin.png";
+import linkedin from "../../img/lk.png";
+// import { motion } from 'framer-motion';
+import shortid from 'shortid'
+import { motion, useViewportScroll, useAnimation, useTransform } from "framer-motion";
+
 export function Navbar(props: any) {
   const router = useRouter()
+  const { scrollYProgress } = useViewportScroll();
+  const controls = useAnimation();
+  // const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
+  const [hookedYPostion, setHookedYPosition] = React.useState(0);
+  // const Variants = {
+  //   enhaut: {
+  //     backgroundColor: 'rgb(49,55,62)',
+  //     height: '50px'
+  //   },
+  //   pasenhaut: {
+  //     backgroundColor: '#f00',
+  //     height: '40px',
+  //     // position: '-webkit-sticky',
+  //     position: 'sticky',
+  //   }
+  // };
+  useEffect(() => {
+    console.log("rr");
+    scrollYProgress.onChange(v => setHookedYPosition(v));
+    if (hookedYPostion > 0) {
+      controls.start("pasenhaut")
+
+      console.log("pasenhaut");
+    }
+    if (hookedYPostion === 0) {
+      controls.start("enhaut")
+      console.log("enahut");
+
+    }
+  }, [scrollYProgress]);
+
   return (
-    <nav className="navbar-perso">
-      {/* <ul className="navbar-icone-perso">
-        
-      </ul> */}
-      <ul className="navbar-nav-perso">{props.children}</ul>
-      {/* <ul><li>eqfqfpty</li></ul> */}
-    </nav>
+    <>
+
+      <nav className="navbar-perso">
+
+        {/* {hookedYPostion} */}
+        <ul className="navbar-nav-perso">{props.children}</ul>
+      </nav>
+    </>
   );
 }
+
+
+{/* <motion.div
+      key={shortid.generate()}
+      initial="enhaut"
+      animate={controls}
+      variants={{
+        enhaut: {
+          backgroundColor: 'rgb(49,55,62)',
+          height: '50px',
+          position: 'sticky',
+        },
+        pasenhaut: {
+          backgroundColor: '#f00',
+          height: '40px',
+          // position: '-webkit-sticky',
+          position: 'sticky',
+        }
+      }}
+    transition={{ type: "spring", duration: 1 }}
+    > */}
 
 // export default function Lien(props: any) {
 //   const router = useRouter()
@@ -56,7 +113,7 @@ export function NavItem(props: any) {
     <>
       <li >
         <div>
-          <a style={{ margin: "auto", top: "55%", bottom: "45%" }} href="https://github.com/amapic/my-app/tree/branche_principale">
+          <a style={{ margin: "auto", top: "55%", bottom: "45%" }} href="https://github.com/amapic/app/tree/">
             <Image
               width={35}
               height={35}
@@ -88,7 +145,7 @@ export function NavItem(props: any) {
           <li className={hover_planet}>
             <span className="navtext" onClick={() => Router.push('/planet')}>Dashboard Exoplanète</span>
           </li>
-          
+
         </>
       }
 
