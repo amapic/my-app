@@ -27,7 +27,7 @@ a:active {
 /* <nav> */
 .navbar-perso {
   height: var(--nav-size);
-  background-color: var(--bg);
+  // background-color: var(--bg);
   padding: 0 1rem;
   border-bottom: 3px;
   z-index: 2;
@@ -71,7 +71,10 @@ a:active {
   align-items: center;
   position: relative;
   z-index: 2;
-  border-bottom: 4px solid rgb(36, 37, 38);
+  // border-bottom: 4px solid rgb(36, 37, 38);
+  // border-bottom: 4px solid rgb(49, 55, 62);
+  border-bottom: 4px solid transparent;
+  
   cursor: pointer;
   text-align: center;
   min-width: 60px; //pour que les images du titre gardent une distance à pettite echelle

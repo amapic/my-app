@@ -5,53 +5,75 @@ import Router, { useRouter } from 'next/router';
 import Modal_window from './modal';
 import 'bootstrap/dist/css/bootstrap.css';
 import github from "../../img/github.png";
-import linkedin from "../../img/lk.png";
+import linkedin from "../../img/linkedin.png";
 // import { motion } from 'framer-motion';
 import shortid from 'shortid'
 import { motion, useViewportScroll, useAnimation, useTransform } from "framer-motion";
 
 export function Navbar(props: any) {
   const router = useRouter()
-  const { scrollYProgress } = useViewportScroll();
+  const { scrollY } = useViewportScroll();
   const controls = useAnimation();
   // const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
-  const [hookedYPostion, setHookedYPosition] = React.useState(0);
-  // const Variants = {
-  //   enhaut: {
-  //     backgroundColor: 'rgb(49,55,62)',
-  //     height: '50px'
-  //   },
-  //   pasenhaut: {
-  //     backgroundColor: '#f00',
-  //     height: '40px',
-  //     // position: '-webkit-sticky',
-  //     position: 'sticky',
-  //   }
-  // };
+  // const [hookedYPostion, setHookedYPosition] = React.useState(0);
+
   useEffect(() => {
     console.log("rr");
-    scrollYProgress.onChange(v => setHookedYPosition(v));
-    if (hookedYPostion > 0) {
-      controls.start("pasenhaut")
+    scrollY.onChange(v => {
+      console.log("hh", v);
 
-      console.log("pasenhaut");
-    }
-    if (hookedYPostion === 0) {
-      controls.start("enhaut")
-      console.log("enahut");
+      if (v > 0) {
+        controls.start("pasenhaut")
+        console.log("pasenhaut");
+      }
+      if (v === 0) {
+        controls.start("enhaut")
+        console.log("enahut");
+      }
+    });
 
-    }
-  }, [scrollYProgress]);
+  }, []);
+
 
   return (
-    <>
 
+    <motion.div
+      key={shortid.generate()}
+      initial="enhaut"
+      animate={controls}
+      variants={{
+        enhautPlanet: {
+          backgroundColor: 'rgb(0,0,0)',
+          height: '40px',
+          position: 'sticky',
+          top:'0px',
+          zIndex:7
+        },
+        enhaut: {
+          backgroundColor: 'rgb(49,55,62)',
+          height: '40px',
+          position: 'sticky',
+          top:'0px',
+          zIndex:7
+        },
+        pasenhaut: {
+          backgroundColor: 'rgb(33,37,39)',
+          height: '40px',
+          // position: '-webkit-sticky',
+          position: 'sticky',
+          top:'0px',
+          zIndex:7
+        }
+      }}
+      transition={{ type: "spring", duration: 1 }}
+    >
       <nav className="navbar-perso">
 
         {/* {hookedYPostion} */}
         <ul className="navbar-nav-perso">{props.children}</ul>
       </nav>
-    </>
+    </motion.div>
+
   );
 }
 
