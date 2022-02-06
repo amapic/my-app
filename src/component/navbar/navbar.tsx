@@ -18,17 +18,17 @@ export function Navbar(props: any) {
   // const [hookedYPostion, setHookedYPosition] = React.useState(0);
 
   useEffect(() => {
-    console.log("rr");
+    // console.log("rr");
     scrollY.onChange(v => {
-      console.log("hh", v);
+      // console.log("hh", v);
 
       if (v > 0) {
         controls.start("pasenhaut")
-        console.log("pasenhaut");
+        // console.log("pasenhaut");
       }
       if (v === 0) {
         controls.start("enhaut")
-        console.log("enahut");
+        // console.log("enahut");
       }
     });
 

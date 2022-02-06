@@ -35,8 +35,8 @@ export function ToggleButtonPerso(props:any) {
 
             <>
             {radioValue === item.value}
-              <input checked={radioValue === item.value} onChange={(e) => { setRadioValue(e.currentTarget.value); handleChange(e.currentTarget.value) }} className={classInput} id={"radio1-" + item.value.toString()} name="radio" type="radio" value={item.value.toString()}/>
-              <label id={"radio2-" + item.value.toString()} htmlFor={"radio1-" + item.value.toString()} role="button" className={classLabel}>{item.name}</label>
+              <input key={item.value +"input"} checked={radioValue === item.value} onChange={(e) => { setRadioValue(e.currentTarget.value); handleChange(e.currentTarget.value) }} className={classInput} id={"radio1-" + item.value.toString()} name="radio" type="radio" value={item.value.toString()}/>
+              <label key={item.value+"label"} id={"radio2-" + item.value.toString()} htmlFor={"radio1-" + item.value.toString()} role="button" className={classLabel}>{item.name}</label>
             </>)
         })}
       </div>

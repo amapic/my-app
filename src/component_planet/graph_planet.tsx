@@ -399,87 +399,15 @@ type MyState = {
     onRerender: boolean
 };
 
-export class Graph_count_type_planete extends React.Component<{}, MyState> {
-    isMounted = false;
+export function Graph_count_type_planete() {
 
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            items: [],
-            myRef: React.createRef(),
-            onRerender: false
-        };
-
-    };
+    const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
+    const myRef = useRef<HTMLHeadingElement>(null);
 
 
-    // debouncedHandleResize = debounce(() => {
-    //     this.setState({ onRerender: true })
-    // }, 1000)
-
-    debouncedFunction = debounce(() => this.setState({ onRerender: true }), 1000, { isImmediate: true });
-
-    componentWillUnmount() {
-        this.isMounted = false;
-        // window.removeEventListener('resize', this.debouncedFunction)
-    }
-
-    componentDidUpdate() {
-        // if (this.state.onRerender) {
-        // setTimeout(() => this.setState({ onRerender: false }), 1000)
-        // console.log("update");
-        // if (this.state.myRef.current) {
-        // var parser = new DOMParser();
-        // var content: Document = parser.parseFromString(this.state.myRef.current.innerHTML, "image/svg+xml");
-        // var content2: Document = parser.parseFromString(document.body.innerHTML, "text/xml");
-        // if (document) {
-        //     var graph: Element | null = document.querySelector("#stat_type_planete")
-        //     graph = graph ? graph.clientWidth : null
-        //     var titre: Element | null = document.querySelector("#titre_count_type_planete")
-        //     titre = titre ? titre.clientWidth : null
-        //     console.log(graph);
-        //     console.log(titre);
-        //     if (graph && titre) {
-        //         if (graph <= titre && this.state.onRerender) {
-        //             this.setState({ onRerender: false })
-        //         } else if (graph > titre + 10 && !this.state.onRerender) {
-        //             this.setState({ onRerender: true })
-        //         }
-        //         var today = new Date();
-        //         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-        //         console.log("update", time);
-        //     }
-        // }
-        // }
-        // }
-    }
-
-    breakpointCHecker() {
-        var lg = window.getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-lg');
-        console.log(lg);
-        if (window.matchMedia("(min-width: " + lg + ")").matches) {
-            console.log("rr", lg);
-        } else {
-            console.log("ee", lg);
-        }
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', () => {
-            // this.setState({ onRerender: true });
-            // this.debouncedFunction
-            // this.setState({ onRerender: true })
-            // this.breakpointCHecker()
-            var today = new Date();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-            // console.log("event_begin", time);
-        })
-        this.isMounted = true;
+    useEffect(() => {
         chercheData().then((tt) => {
             var gg = Object.values(tt)
-
             for (var i = gg.length - 1; i >= 0; i--) {
                 if (gg[i].radius === null) {
                     gg.splice(i, 1);
@@ -505,82 +433,84 @@ export class Graph_count_type_planete extends React.Component<{}, MyState> {
                 }
             }
             var counts = countBy(gg, 'sizeType');
-
             var arraytypeplanet: typePlaneteT[] = []
             for (const [key, value] of Object.entries(counts)) {
                 if (key !== 'autre') {
                     arraytypeplanet.push({ 'type': key, 'value': value })
                 }
             }
-            if (this.isMounted) this.setState({ items: arraytypeplanet })
+            setItems(arraytypeplanet)
         });
+    }, [])
 
-    }
+    const onResize = useCallback((props) => {
+        console.log('fdfd');
 
-    render() {
-        // if (!this.state.onRerender) {
-        var style_image: CSS.Properties = (!this.state.onRerender) ? { visibility: "visible", display: 'block' } : { visibility: "hidden" }
-        var style_image2: CSS.Properties = (this.state.onRerender) ? { visibility: "visible", display: 'block' } : { display: "none" }
+        //on regarde si l'axe y est là pour savoir lsi le graph est affiché
+        setTimeout(function () {
+            if (myRef.current) {
+                var parser = new DOMParser();
+                var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
+                var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
+                if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
+                    let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
+                    oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
+                    var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
+                    objet_svg_area=objet_svg_area[objet_svg_area.length-1]
+                    // let a=objet_svg_area.outerHTML.indexOf("x")
+                    // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
+                    var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
+                    var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
+                    if (oldViewBox && objet_svg_area && objet_svg_grid) {
+                        var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
+                        if (objet_svg_area) {
+                            objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
+                        }
+                    }
 
-        if (!this.state.onRerender) {
-            return (
-                <>
+                }
+            }
+        }, 3000)
 
-                    <div ref={this.state.myRef}>
-                        {/* <div style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}>
-                            <div id='rtt' >
-                                <Image layout="fixed" width="50px" height="50px" object-position="50% 50%" sizes="(max-height: 500px) 1000px" src={wait} />
-                            </div >
-                        </div > */}
-                        <div style={style_image} >
-                            {
-                                process.env.NODE_ENV === "test" ?
-                                    <>
-                                        <BarChart  width={100} height={200} id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                                            <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                                            <YAxis />
-                                            <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                                        </BarChart></>
-                                    :
-                                    <>
-                                        {/* <Image width="50px" height="50px" src={wait} /> */}
-                                        <ResponsiveContainer aspect={0.5}>
-                                            <BarChart id="stat_type_planete" data={this.state.items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                                                <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                                                <YAxis />
-                                                <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                                            </BarChart>
-                                        </ResponsiveContainer></>
-                            }
-                        </div>
-                    </div>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <div ref={this.state.myRef} >
-                        <Ratio aspectRatio={0.5}>
-                            <div style={{
-                                display: "flex",
-                                justifyContent: "center",
-                            }}>
+    }, []);
 
+    const { width, height, ref } = useResizeDetector({
+        handleHeight: false,
+        refreshMode: 'debounce',
+        refreshRate: 500,
+        onResize
+    });
 
+    return (
 
-                                <Image layout="fixed" width="50px" height="50px" object-position="50% 50%" sizes="(max-height: 500px) 1000px" src={wait} />
-                            </div >
-                            {/* </div > */}
-                        </Ratio>
-                    </div ></>
-            )
-        }
-    }
+        <>
+
+            <div ref={myRef}>
+
+                {
+                    process.env.NODE_ENV === "test" ?
+                        <>
+                            <BarChart width={100} height={200} id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                                <YAxis />
+                                <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+                            </BarChart></>
+                        :
+                        <>
+                            {/* <Image width="50px" height="50px" src={wait} /> */}
+                            <ResponsiveContainer aspect={0.5}>
+                                <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                                    <YAxis />
+                                    <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+                                </BarChart>
+                            </ResponsiveContainer></>
+                }
+            </div>
+        </>
+    )
 
 
 }

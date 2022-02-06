@@ -45,8 +45,6 @@ const clickk = function (i:string, mapProps:mapPropsT, color:string) {
     old_value.push(color)
     // subjectregioncolor.next(old_value);
 
-
-
   }
   subjectregioncolor.next(old_value);
   subjectregion.next(listeRegion)
@@ -113,7 +111,7 @@ export default function Popoverwrap(props:any) {
       }
 
     />
-    <Popover
+    {/* <Popover
       id={"mouse-over-popover"}
       // className={visiblePopup ? classes.popovervisible : classes.popovernotvisible}
       classes={{
@@ -135,6 +133,6 @@ export default function Popoverwrap(props:any) {
     >
       Première dose : {anchorEl.d} <br />
       Seconde dose : {anchorEl.e}
-    </Popover>
+    </Popover> */}
     </>)
 }
