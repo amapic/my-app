@@ -11,7 +11,7 @@ import 'chai/register-should';
 // const { act } = renderer;
 import Modal_window from '../component/navbar/modal';
 import {Modal} from 'react-bootstrap'
-import Home from './aamock'
+import Home from './test'
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 // const useStateSpy=jest.spyOn(React, "useState")
 // jest.mock('react', () => ({
@@ -50,19 +50,19 @@ describe('<Home />', () => {
         ref.current.dialog.should.exist;
       });
 
-    // beforeEach(() => {
-    //     useStateMock.mockImplementation(init => [init, setState]);
-    //     useRouter.mockImplementation(() => ({
-    //         pathname: '/planet'
-    //     }))
-    //     // const container = document.createElement("div");
-    //     // document.body.appendChild(container);
-    //     wrapper = mount(<Modal_window show={true} onHide={()=>{}} />)
-    // },{timeout:15000});
+    beforeEach(() => {
+        useStateMock.mockImplementation(init => [init, setState]);
+        useRouter.mockImplementation(() => ({
+            pathname: '/planet'
+        }))
+        // const container = document.createElement("div");
+        // document.body.appendChild(container);
+        wrapper = mount(<Modal_window show={true} onHide={()=>{}} />)
+    },{timeout:15000});
 
-    // afterEach(() => {
-    //     jest.clearAllMocks();
-    // });
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     // describe('Count Up', () => {
         
@@ -83,7 +83,7 @@ describe('<Home />', () => {
 })
 
 // const useStateMock = jest.spyOn(React, 'useState');
-// describe('Space test suite', () => {
+describe('Space test suite', () => {
 
 
 //     it('test absence modal apparition écran', async () => {
@@ -128,32 +128,32 @@ describe('<Home />', () => {
 //     });
 
 
-//     // it('renders correctly lien vers page planète', () => {
+    it('renders correctly lien vers page planète', () => {
 
-//     //     useRouter.mockImplementationOnce(() => ({
-//     //         pathname: '/'
-//     //     }))
+        useRouter.mockImplementationOnce(() => ({
+            pathname: '/'
+        }))
 
-//     //     render(<Lien />)
-//     //     const lien = screen.getByText(/◄/)
+        render(<Lien />)
+        const lien = screen.getByText(/◄/)
 
-//     //     expect(lien.innerHTML).toMatch(/Dashboard exoplanète/);
-//     // });
+        expect(lien.innerHTML).toMatch(/Dashboard exoplanète/);
+    });
 
-//     // it('renders correctly lien vers page planète', () => {
-//     //     useRouter.mockImplementationOnce(() => ({
-//     //         pathname: '/planet'
-//     //     }))
-//     //     const tree = renderer
-//     //         .create(<Lien />)
-//     //         .toJSON();
-//     //     expect(tree.children[0]).toMatch(/Suivi de campagne vaccinatoire/);
-//     // });
+    it('renders correctly lien vers page planète', () => {
+        useRouter.mockImplementationOnce(() => ({
+            pathname: '/planet'
+        }))
+        const tree = renderer
+            .create(<Lien />)
+            .toJSON();
+        expect(tree.children[0]).toMatch(/Suivi de campagne vaccinatoire/);
+    });
 
 
-//     // it('adresse origine de l api', () => {
+    it('adresse origine de l api', () => {
 
-//     //   expect(adresse).toEqual("http://68.183.74.150")
-//     // });
+      expect(adresse).toEqual("http://68.183.74.150")
+    });
 
-// });
+});

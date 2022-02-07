@@ -1,12 +1,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-// import CaretIcon_up from '../img/icons/caret_up.svg';
-// import CaretIcon_down from '../img/icons/caret_down.svg';
-// import ee from '../img/icons_as_text/img1.js';
-// import ff from '../img/icons_as_text/img2.js';
-// // import SVG from '@svgdotjs/svg.js'
-// import { useSpring, animated, config } from 'react-spring';
-// import { useResizeDetector } from 'react-resize-detector';
+
 
 
 
@@ -26,14 +20,6 @@ export function LegendeSvg(props: any): any {
                     <line x1="98%" y1="15" x2="98%" y2="10" stroke="black" strokeWidth={strokeWidth} />
                     <text alignmentBaseline="middle" textAnchor="middle" fontFamily="Roboto, Helvetica, Arioal, sans-serif" x="50%" y="28" fill="black">{texte}</text>
                 </svg>
-                {/* <svg width="150" height="100" viewBox="0 0 3 2">
-                    <rect width="1" height="2" x="0" fill="#008d46" />
-                    <rect width="1" height="2" x="1" fill="#ffffff" />
-                    <rect width="1" height="2" x="2" fill="#d2232c" />
-                </svg> */}
-                {/* <svg preserveAspectRatio="xMinYMid meet" width="100" height="50" viewBox="0 0 100 50">
-                    <text alignment-baseline="middle" fontFamily="Roboto, Helvetica, Arioal, sans-serif" x="0" y="0" fill="black">Distance Terre-Soleil</text>
-                </svg> */}
             </>
         </div>
     )

@@ -43,21 +43,14 @@ export default function Deposits() {
 
   return (
     <>
-      {/* className={classes.title} */}
       <Title  >Population vacciné</Title>
-      {/* className={classes.title} */}
       <LinearProgress variant="determinate" value={items * 100}  />
       <Typography align="center" color="secondary" >
         Première dose : {(items * 100).toFixed(1)} %
       </Typography>
       <br />
-      {/* className={classes.depositContext} */}
-      {/* className={classes.depositContext} */}
-      {/* style={theme.palette.secondary.bar_droite1} */}
-      {/* style={theme.palette.secondary.bar_droite1} */}
-      {/* <ThemeProvider theme={theme}> */}
+
       <LinearProgress variant="determinate" value={items2 * 100}  />
-      {/* </ThemeProvider> */}
       <Typography align="center" color="secondary" >
         Seconde dose : {(items2 * 100).toFixed(1)} %
       </Typography>

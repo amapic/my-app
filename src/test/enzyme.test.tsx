@@ -2,7 +2,7 @@
 import React, { useState as useStateMock } from 'react';
 import { waitFor, render, screen, getByText, cleanup } from "@testing-library/react";
 import { render as renderEnzyme } from 'enzyme';
-import Dashboard, { Fc_containing_FC,Fc } from './aamock'
+import Dashboard, { Fc_containing_FC,Fc } from './test'
 import { expect } from 'chai';
 import {describe, expect as expectjs, it } from '@jest/globals'
 jest.setTimeout(100000)

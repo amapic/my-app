@@ -43,7 +43,6 @@ export function Fc(): JSX.Element {
 
     const [items, setItems] = useState<dataT[] | null>(null);
     React.useEffect(() => {
-        console.log('rrrrrrrrrrrrrrrrrrrr');
         async function tt() {
             setItems(await chercheData())
         }

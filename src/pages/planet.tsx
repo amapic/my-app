@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Count_annee, Graph_masse_distance,  Graph_count_type_planete,DessinSystemeSolaire } from '../component_planet/graph_planet';
+import { Count_annee, Graph_masse_distance,  Graph_count_type_planete,GraphiqueSystemeSolaire } from '../component_planet/graph_planet';
 import { Navbar, NavItem } from '../component/navbar/navbar'
 import Total_planete from '../component_planet/chiffre'
 import 'bootstrap/dist/css/bootstrap.css';
@@ -37,7 +37,7 @@ export default function Dashboard():JSX.Element {
                   <br></br>
                   <p style={{textIndent:"5%"}}>Aujourd'hui des systèmes solaires contenant jusqu'à 8 planètes sont connus.</p>
                   <br></br>
-                  <DessinSystemeSolaire />
+                  <GraphiqueSystemeSolaire />
                 </div>
               </div>
 

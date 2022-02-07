@@ -1,7 +1,6 @@
 // import { boolean } from 'mathjs';
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Image from 'next/image'
-import Ratio from 'react-bootstrap/Ratio'
 import mars from "./../img/frise/mars.png";
 import mars2 from "./../img/frise/mars2.png";
 import gaz from "./../img/frise/gaz.jpg";
@@ -11,13 +10,10 @@ import gaz4 from "./../img/frise/gaz4.png";
 import gaz5 from "./../img/frise/gaz5.png";
 import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
-import wait from "./../img/wait.gif";
 import { LegendeSvg } from "./creation_svg"
 import { countBy } from 'underscore'
 import shortid from 'shortid'
 import { useResizeDetector } from 'react-resize-detector';
-import logo from '../img/ezgif.com-gif-maker2.gif'
-import CSS from 'csstype'
 import {
     ScatterChart,
     XAxis,
@@ -36,7 +32,7 @@ import { chercheData } from '../fonction/fonction'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
 import { debounce } from "ts-debounce";
 
-export const DessinSystemeSolaire = (props: any) => {
+export const GraphiqueSystemeSolaire = (props: any) => {
     const dataTEmpty = {} as dataT[]
     const [sSolaire, setsSolaire] = useState<string>("HD 219134");
     const [items, setItems] = useState<dataT[] | null>(null);
@@ -444,7 +440,6 @@ export function Graph_count_type_planete() {
     }, [])
 
     const onResize = useCallback((props) => {
-        console.log('fdfd');
 
         //on regarde si l'axe y est là pour savoir lsi le graph est affiché
         setTimeout(function () {
@@ -455,16 +450,13 @@ export function Graph_count_type_planete() {
                 if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
                     let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
                     oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
-                    var objet_svg_area :NodeListOf<Element>= document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
-                    objet_svg_area=objet_svg_area[objet_svg_area.length-1]
-                    // let a=objet_svg_area.outerHTML.indexOf("x")
-                    // objet_svg_area=objet_svg_area.outerHTML.substr(a+3,2)
+                    var objet_svg_area: NodeListOf<Element> | Element = document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
+                    objet_svg_area = objet_svg_area[objet_svg_area.length - 1]
                     var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
-                    var x1=parser.parseFromString(objet_svg_grid.outerHTML, "text/xml")
                     if (oldViewBox && objet_svg_area && objet_svg_grid) {
                         var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
                         if (objet_svg_area) {
-                            objet_svg_area.setAttribute('viewBox', "18"  + oldViewBox.substring(2));
+                            document.querySelector("#stat_type_planete").setAttribute('viewBox', "18 " + oldViewBox.substring(2));
                         }
                     }
 
@@ -474,42 +466,43 @@ export function Graph_count_type_planete() {
 
     }, []);
 
-    const { width, height, ref } = useResizeDetector({
-        handleHeight: false,
-        refreshMode: 'debounce',
-        refreshRate: 500,
-        onResize
-    });
+    if (process.env.NODE_ENV !== "test") {
+        const { width, height, ref } = useResizeDetector({
+            handleHeight: false,
+            refreshMode: 'debounce',
+            refreshRate: 500,
+            onResize
+        });
+    }
 
     return (
 
-        <>
 
-            <div ref={myRef}>
 
-                {
-                    process.env.NODE_ENV === "test" ?
-                        <>
-                            <BarChart width={100} height={200} id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+        <div ref={myRef}>
+
+            {
+                process.env.NODE_ENV === "test" ?
+                    <>
+                        <BarChart width={100} height={200} id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                            <YAxis />
+                            <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+                        </BarChart></>
+                    :
+                    <div ref={ref}>
+                        <ResponsiveContainer aspect={0.5}>
+                            <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                                 <YAxis />
                                 <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                            </BarChart></>
-                        :
-                        <>
-                            {/* <Image width="50px" height="50px" src={wait} /> */}
-                            <ResponsiveContainer aspect={0.5}>
-                                <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                                    <YAxis />
-                                    <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                                </BarChart>
-                            </ResponsiveContainer></>
-                }
-            </div>
-        </>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+            }
+        </div>
     )
 
 
@@ -551,14 +544,12 @@ export function Count_annee() {
         <>
             {
                 process.env.NODE_ENV === "test" ?
-                    // <ResponsiveContainer aspect={3.5}>
                     <BarChart width={730} height={250} data={items}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="year" />
                         <YAxis />
                         <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                     </BarChart>
-                    // </ResponsiveContainer>
                     :
                     <ResponsiveContainer aspect={4.5}>
                         <BarChart width={730} height={250} data={items}>
