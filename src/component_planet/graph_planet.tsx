@@ -466,14 +466,14 @@ export function Graph_count_type_planete() {
 
     }, []);
 
-    if (process.env.NODE_ENV !== "test") {
+    // if (process.env.NODE_ENV !== "test") {
         const { width, height, ref } = useResizeDetector({
             handleHeight: false,
             refreshMode: 'debounce',
             refreshRate: 500,
             onResize
         });
-    }
+    // }
 
     return (
 
