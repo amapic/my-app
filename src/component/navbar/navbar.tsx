@@ -135,7 +135,7 @@ export function NavItem(props: any) {
     <>
       <li >
         <div>
-          <a style={{ margin: "auto", top: "55%", bottom: "45%" }} href="https://github.com/amapic/app/tree/">
+          <a style={{ margin: "auto", top: "55%", bottom: "45%" }} href="https://github.com/amapic/app/">
             <Image
               width={35}
               height={35}
