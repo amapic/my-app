@@ -235,10 +235,6 @@ export default function Dashboard() {
                   <Deposits />
                 </Paper>
 
-                {/* <Paper className={classes.paper_droite}  >
-                  <Deposits2 />
-                </Paper> */}
-
               </Grid>
             </Grid>
 

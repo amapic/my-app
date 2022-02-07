@@ -94,20 +94,19 @@ export default function SliderZone() {
   if (error || error === undefined) {
     return <div>loading...</div>
   } else {
+    let length_marks=range.marks.length
     for (var i = range.marks.length - 2; i > 1; i--) {
 
-      if (i % 2 === 0) {
-
+      if (i % 2 === 0 || i===length_marks -2 ) {
         range.marks.splice(i, 1);
+        
       }
 
     }
+    // range.marks.splice(i, 1);
     return (
       <>
-        <Typography id="range-slider" gutterBottom>
-          Date
-          {range.max}
-        </Typography>
+
 
         <Slider
           key={shortid.generate()}

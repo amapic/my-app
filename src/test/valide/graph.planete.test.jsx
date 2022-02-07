@@ -8,9 +8,13 @@ import { mount, render as renderEnzyme } from 'enzyme';
 jest.setTimeout(60000)
 
 
+jest.mock('react-resize-detector', () => ({
+    ...jest.requireActual('react-resize-detector'),
+    'useResizeDetector': jest.fn(() => ({width:0,height:0,ref:null}))
+}));
 describe("Graph et titre", () => {
     describe("Graph", () => {
-        describe("Graph type de planète", () => {
+        describe("Liste système solaire", () => {
             let graphContainer;
             beforeEach(() => {
                 const { container } = render(
@@ -58,7 +62,7 @@ describe("Graph et titre", () => {
 
         });
 
-        describe.only("Graph type de planète", () => {
+        describe("Graph type de planète", () => {
 
             let graphContainer;
             beforeEach(() => {
@@ -70,14 +74,6 @@ describe("Graph et titre", () => {
               graphContainer = container;
             });
       
-            // test("les 5 types de planètes sont représentés", async () => {
-            //   await waitFor(() => {
-            //     const bars = graphContainer.querySelectorAll(".recharts-rectangle")
-            //     expect(bars.length).toBe(5)
-            //   }, { timeout: 3000 });
-      
-      
-            // });
       
             test.each`
               index |  type        
@@ -90,7 +86,7 @@ describe("Graph et titre", () => {
               ("le titre des types est affiché", async ({ index, type }) => {
                 // waits for rectangles to appear due to animation in graph library
                 await waitFor(() => {
-      
+                    // navigationEnabled.mockReturnValueOnce({width:0,height0,ref:null});
                   expect(getByText(graphContainer, type)).toHaveTextContent(
                     type
                   )
@@ -127,8 +123,8 @@ describe("Graph et titre", () => {
         });
       
         describe("Graph Masse distance", () => {
-          const data = [40, 60];
-          const size = { width: 500, height: 1000 };
+        //   const data = [40, 60];
+        //   const size = { width: 500, height: 1000 };
       
           let graphContainer;
           beforeEach(() => {
@@ -155,16 +151,14 @@ describe("Graph et titre", () => {
             ("les légendes sont oks", async ({ index, type }) => {
               // waits for rectangles to appear due to animation in graph library
               await waitFor(() => {
-                expect(getByText(graphContainer, type)).toHaveTextContent(
-                  type
-                )
+                expect(getByText(graphContainer, type)).toBeInTheDocument();
       
-              }, { timeout: 3000 });
+              }, { timeout: 5000 });
       
             });
     });
 
-    describe("Titre", () => {
+    describe.skip("Titre", () => {
         let graphContainer;
         let texte;
         afterEach(cleanup)

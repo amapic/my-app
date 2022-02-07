@@ -383,9 +383,6 @@ export function Graph_masse_distance() {
         </>)
 
 
-
-
-
 }
 
 
@@ -400,8 +397,8 @@ export function Graph_count_type_planete() {
     const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
     const myRef = useRef<HTMLHeadingElement>(null);
 
-
     useEffect(() => {
+        let isMounted = true;
         chercheData().then((tt) => {
             var gg = Object.values(tt)
             for (var i = gg.length - 1; i >= 0; i--) {
@@ -437,73 +434,73 @@ export function Graph_count_type_planete() {
             }
             setItems(arraytypeplanet)
         });
+        return () => { isMounted = false };
     }, [])
 
     const onResize = useCallback((props) => {
 
         //on regarde si l'axe y est là pour savoir lsi le graph est affiché
-        setTimeout(function () {
-            if (myRef.current) {
-                var parser = new DOMParser();
-                var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
-                var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
-                if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
-                    let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
-                    oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
-                    var objet_svg_area: NodeListOf<Element> | Element = document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
-                    objet_svg_area = objet_svg_area[objet_svg_area.length - 1]
-                    var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
-                    if (oldViewBox && objet_svg_area && objet_svg_grid) {
-                        var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
-                        if (objet_svg_area) {
-                            document.querySelector("#stat_type_planete").setAttribute('viewBox', "18 " + oldViewBox.substring(2));
+        if (process.env.NODE_ENV !== "test") {
+            setTimeout(function () {
+                if (myRef.current) {
+                    var parser = new DOMParser();
+                    var content: Document = parser.parseFromString(myRef.current.innerHTML, "image/svg+xml");
+                    var objet_svg_axe_y = document.querySelector("#stat_type_planete g.recharts-cartesian-axis-tick");
+                    if (content && objet_svg_axe_y && objet_svg_axe_y.lastElementChild && objet_svg_axe_y.lastElementChild.clientWidth != 0) {
+                        let oldViewBox: Element | null | string = document.querySelector("#stat_type_planete")
+                        oldViewBox = oldViewBox ? oldViewBox.getAttribute('viewBox') : null
+                        var objet_svg_area: NodeListOf<Element> | Element = document.querySelectorAll("#stat_type_planete g.recharts-cartesian-axis-tick text");
+                        objet_svg_area = objet_svg_area[objet_svg_area.length - 1]
+                        var objet_svg_grid = document.querySelector("#stat_type_planete g.recharts-cartesian-grid-horizontal line");
+                        if (oldViewBox && objet_svg_area && objet_svg_grid) {
+                            var newViewBox = parseInt(oldViewBox.split(" ")[3]) - objet_svg_area.clientWidth - objet_svg_grid.clientWidth
+                            if (objet_svg_area) {
+                                document.querySelector("#stat_type_planete").setAttribute('viewBox', "18 " + oldViewBox.substring(2));
+                            }
                         }
-                    }
 
+                    }
                 }
-            }
-        }, 3000)
+            }, 3000)
+        }
 
     }, []);
 
-    // if (process.env.NODE_ENV !== "test") {
-        const { width, height, ref } = useResizeDetector({
-            handleHeight: false,
-            refreshMode: 'debounce',
-            refreshRate: 500,
-            onResize
-        });
-    // }
-
-    return (
+    const { width, height, ref } = useResizeDetector({
+        handleHeight: false,
+        refreshMode: 'debounce',
+        refreshRate: 500,
+        onResize
+    });
 
 
+return (
 
-        <div ref={myRef}>
+    <div ref={myRef}>
 
-            {
-                process.env.NODE_ENV === "test" ?
-                    <>
-                        <BarChart width={100} height={200} id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+        {
+            process.env.NODE_ENV === "test" ?
+                <>
+                    <BarChart width={100} height={200} id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
+                        <YAxis />
+                        <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+                    </BarChart></>
+                :
+                <div ref={ref}>
+                    <ResponsiveContainer aspect={0.5}>
+                        <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                             <YAxis />
                             <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                        </BarChart></>
-                    :
-                    <div ref={ref}>
-                        <ResponsiveContainer aspect={0.5}>
-                            <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
-                                <YAxis />
-                                <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
-            }
-        </div>
-    )
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+        }
+    </div>
+)
 
 
 }
