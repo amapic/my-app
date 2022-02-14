@@ -11,7 +11,6 @@ import shortid from 'shortid'
 import { motion, useViewportScroll, useAnimation, useTransform } from "framer-motion";
 
 export function Navbar(props: any) {
-  const router = useRouter()
   const { scrollY } = useViewportScroll();
   const controls = useAnimation();
   // const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
@@ -44,7 +43,7 @@ export function Navbar(props: any) {
       variants={{
         enhautPlanet: {
           backgroundColor: 'rgb(0,0,0)',
-          height: '40px',
+          height: '80px',
           position: 'sticky',
           top:'0px',
           zIndex:7
@@ -118,14 +117,14 @@ export function NavItem(props: any) {
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  // const handleClose = () => {
+  //   setOpen(false)
+  // }
 
-  const handleOpen = () => {
-    console.log(open);
-    setOpen(!open);
-  }
+  // const handleOpen = () => {
+  //   console.log(open);
+  //   setOpen(!open);
+  // }
 
   let hover: string = ""
   let hover_planet: string = ""

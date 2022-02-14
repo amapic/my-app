@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
-// import {
-//     useTheme
-// }
-// from '@material-ui/core/styles';
+import {
+    createTheme,
+    Theme,
+    ThemeProvider,
+    SimplePaletteColorOptions
+} from '@material-ui/core/styles';
+import {
+    PaletteOptions
+} from '@material-ui/core/styles/createPalette'
+
 import { makeStyles } from '@material-ui/core/styles';
 import {
     XAxis,
@@ -26,10 +32,10 @@ import theme from '../../custom.d';
 
 const useStyles = makeStyles((theme) => ({
     container_barchart: {
-      display: 'flex',
-      width:'100%',
-      marginRight:'auto',
-      marginLeft:'auto'
+        display: 'flex',
+        width: '100%',
+        marginRight: 'auto',
+        marginLeft: 'auto'
     }
 }
 ));
@@ -43,11 +49,9 @@ const chercheData = async (url: string, liste_selected: string[]) => {
 
     const response = await fetch(url, { mode: 'cors' });
     const responseData = await response.json();
-    var liste_nom_region2: { [key:string]: string } = liste_nom_region
+    var liste_nom_region2: { [key: string]: string } = liste_nom_region
     var liste_selected_str: number[] = []
-    // 1ere_dose:number,
-    //     2eme_dose:number
-    
+
 
     liste_selected.forEach(element => liste_selected_str.push(parseInt(element)));
     if (response.ok) {
@@ -59,9 +63,7 @@ const chercheData = async (url: string, liste_selected: string[]) => {
             miniDict['name'] = liste_nom_region2[liste_selected[i]]
             miniDict['1ere_dose'] = responseData.n_cum_dose1[i]
             miniDict['2eme_dose'] = responseData.n_cum_dose2[i]
-            // if (liste_selected_str.includes(Object.values(dictOfResponseData.reg)[i])) {
             data.push(miniDict);
-            // }
             miniDict = {}
         }
 
@@ -81,12 +83,49 @@ const format = (num: number): string =>
 
     ;
 
+declare module '@material-ui/core/styles' {
+    interface SimplePaletteColorOptions {
+        lighter?: string;
+        darker?: string;
+    }
+
+    interface PaletteColor {
+        lighter?: string;
+        darker?: string;
+    }
+
+
+
+}
+interface DefaultPaletteOptions extends PaletteOptions {
+    primary?: SimplePaletteColorOptions;
+}
+
+const Default = (): DefaultPaletteOptions => {
+
+    return {
+        primary: {
+            lighter: '#ddd',
+            light: '#ddd',
+            main: '#ddd',
+            dark: '#ddd',
+            darker: '#ddd'
+        },
+    };
+};
+
 export default function BarChartWrap(props: any) {
+    
+    
     let miniDictempty = {} as miniDictT[]
     const [items, setItems] = useState<miniDictT[]>(miniDictempty);//l'état initial doit être un array ne contenant pas d'objet
     var g = []
     const classes = useStyles();
-    const barColors = [theme.palette.secondary.first, theme.palette.secondary.second, theme.palette.secondary.third, theme.palette.secondary.first];
+    // theme.palette.primary.
+    const barColors = [theme.palette.primary.darker,
+    theme.palette.secondary.second,
+    theme.palette.secondary.third,
+    theme.palette.secondary.first];
     g = subjectregioncolor.getValue()
     useEffect(() => {
         subjectregion.subscribe(
@@ -116,7 +155,7 @@ export default function BarChartWrap(props: any) {
         <>
             <div id='contient_responsive' className={classes.container_barchart}>
                 < ResponsiveContainer id="responsive_cont_barcharts" height={190} width="100%" >
-                    
+
                     <BarChart barGap="5" data={items} margin={{ top: 5, right: 0, left: 5, bottom: 30 }}>
                         <XAxis dataKey="name" angle={10} textAnchor="begin" interval={0} dy={2} />
                         <YAxis interval={0} tickFormatter={tickFormatter} domain={[0, 100]} tickMargin={15} />

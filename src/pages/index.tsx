@@ -20,12 +20,7 @@ import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 import { Navbar, NavItem } from '../component/navbar/navbar'
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+
 const drawerWidth = 0;
 
 const useStyles = makeStyles((theme) => ({
@@ -168,21 +163,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  
 
   const fixedHeightPaper = clsx(classes.paper);
   const paper_droite = clsx(classes.paper_droite);
 
 
   return (
+    <React.StrictMode>
     <div className={classes.root} >
 
       <ThemeProvider theme={theme}>
@@ -242,6 +230,7 @@ export default function Dashboard() {
         </main>
       </ThemeProvider>
     </div >
+    </React.StrictMode>
 
   );
 }

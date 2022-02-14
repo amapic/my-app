@@ -27,8 +27,8 @@
     /* Strict Type-Checking Options */
     "strict": true,
     /* Enable all strict type-checking options. */ // "noImplicitAny": true,                       /* Raise error on expressions and declarations with an implied 'any' type. */
-    "strictNullChecks": true,
-    "noImplicitAny":true,                   /* Enable strict null checks. */
+    "strictNullChecks": false,
+    "noImplicitAny":false,                   /* Enable strict null checks. */
     // "strictFunctionTypes": true,                 /* Enable strict checking of function types. */
     // "strictBindCallApply": true,                 /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
     // "strictPropertyInitialization": true,        /* Enable strict checking of property initialization in classes. */
@@ -89,7 +89,7 @@
     "custom_image.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/fonction/region_load.js", "src/test/space.speggc.jsx",
+    "**/*.tsx", "src/fonction/region_load.js",
   ],
   "exclude": [
     "node_modules"

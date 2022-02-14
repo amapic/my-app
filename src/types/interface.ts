@@ -36,5 +36,3 @@ export interface sSolaireT {
   star_name:string,
   count_planet?: number,
 }
-
-// type OmitA = Omit<dataT|boolean, boolean>

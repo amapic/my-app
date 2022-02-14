@@ -1,6 +1,6 @@
 import adresse from './conf'
 import fetch from "node-fetch";
-
+import { liste_planete } from '../component_planet/observable/observable';
 export var liste_nom_region: { [key: string]: string } = {}
 liste_nom_region["1"] = "Guadeloupe"
 liste_nom_region["2"] = "Martinique"
@@ -84,5 +84,40 @@ export const chercheData = async (): Promise<dataT[]> => {
             failureCallback(dataTempty)
         }
     })
+}
+
+
+export const liste_planete_par_systeme = async () => {
+
+    let liste_planete_active: string[] = ["KOI-351", "TRAPPIST-1", "HD 219134"]
+    let array_retour = {}
+    const get_planete = (planete_active) => {
+        return new Promise((resolve, reject) => {
+            chercheData().then((data) => {
+                data = Object.values(data);
+                for (var i: any = data.length - 1; i >= 0; i--) {
+                    if (data[i].star_name != planete_active) {
+                        data.splice(i, 1);
+                    }
+                }
+                function sortByKey(data2: any[], key: string) {
+                    return data2.sort(function (a: any, b: any) {
+                        var x = a[key]; var y = b[key];
+                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    });
+                }
+                sortByKey(data, "semi_major_axis")
+                resolve(array_retour[planete_active] = data)
+
+            })
+        })
+    }
+    Promise.all([get_planete(liste_planete_active[0]), get_planete(liste_planete_active[1]), get_planete(liste_planete_active[2])]).then(() => {
+        liste_planete.next(array_retour)
+    })
+    // liste_planete_active.forEach(planete_active => {
+
+    // });
+
 }
 

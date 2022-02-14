@@ -4,94 +4,138 @@ import { Theme } from '@material-ui/core/styles/createTheme';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui/core/styles/createPalette';
 // Create a theme instance.
+// const defaultTheme = createTheme();
+// const theme = createTheme( {
+//   palette: {
+//     primary: {
+//       main: '#ffffff'
+      
+//     },
+//     secondary: {
+//       main: '#ffffff',
+//       third:'rgb(154,80,82)',
+//       fourth:'rgb(72,145,118)',
+//       fifth:'rgb(160,175,82)',
+//       sixth:'rgb(104,120,131)',
+//       seventh:'rgb(204,182,82)',
+//       heigth:'rgb(164,135,105)',
+//       bgPaper: 'rgb(33,37,39)',
+//       tt:'rgb(5,98,138)',
+//       tenth:'rgb(5,98,138)',
+//       bar_droite1:'rgb(206,136,87)',
+//       bar_droite2:'rgb(5,98,138)',
+//       first:'rgb(5,98,138)',
+//       second:'rgb(5,98,138)',
+      
+//     },
+//     error: {
+//       main: red.A400,
+//     },
+//     background: {
+//       default: 'rgb(49,55,62)',
+//     }
+//   },
+//   breakpoints:{
+//     values:{
+//       xs:0,
+//       sm: 450,
+//       md: 700,
+//       lg: 900,
+//       xl: 1400
+//     }
+//   },
+//   overrides: {
+//     MuiAppBar: {
+//       colorPrimary: {
+//         backgroundColor: 'rgb(33,37,39)',
+//         color:'#ffffff'
+//       }
+//     },
+//     MuiSlider: {
+//       markLabel: {
+//         top: '20px',
+//         fontSize: '1rem',
+//         color:'#ffffff'
+//       },
+//       markLabelActive: {
+//         top: '20px',
+//         fontSize: '1rem',
+//         color:'#ffffff'
+//       },
+//       root: {
+//         margin: '0 2rem 0 0',
+//       }
+//     },
+//     MuiTypography: {
+//       body1: {
+//         fontSize: '1rem',
+//         color:'#ffffff'
+//       }
+//     },
+//     MuiPaper: {
+//       root: {
+//         backgroundColor:'rgb(33,37,39)',
+//         color:'#ffffff'
+//       }
+//     },
+//     MuiLinearProgress:{
+//       barColorPrimary: {
+//         backgroundColor:'#FF8042'
+//       }
+//     }
+//   }
+// })
 
-const theme = createTheme( {
-  palette: {
-    primary: {
-      main: '#ffffff'
-      
-    },
-    secondary: {
-      main: '#ffffff',
-      third:'rgb(154,80,82)',
-      fourth:'rgb(72,145,118)',
-      fifth:'rgb(160,175,82)',
-      sixth:'rgb(104,120,131)',
-      seventh:'rgb(204,182,82)',
-      heigth:'rgb(164,135,105)',
-      bgPaper: 'rgb(33,37,39)',
-      tt:'rgb(5,98,138)',
-      tenth:'rgb(5,98,138)',
-      bar_droite1:'rgb(206,136,87)',
-      bar_droite2:'rgb(5,98,138)',
-      
-    },
-    error: {
-      main: red.A400,
-    },
-    background: {
-      default: 'rgb(49,55,62)',
-    }
-  },
-  breakpoints:{
-    values:{
-      xs:0,
-      sm: 450,
-      md: 700,
-      lg: 900,
-      xl: 1400
-    }
-  },
-  overrides: {
-    MuiAppBar: {
-      colorPrimary: {
-        backgroundColor: 'rgb(33,37,39)',
-        color:'#ffffff'
-      }
-    },
-    MuiSlider: {
-      markLabel: {
-        top: '20px',
-        fontSize: '1rem',
-        color:'#ffffff'
-      },
-      markLabelActive: {
-        top: '20px',
-        fontSize: '1rem',
-        color:'#ffffff'
-      },
-      root: {
-        margin: '0 2rem 0 0',
-      }
-    },
-    MuiTypography: {
-      body1: {
-        fontSize: '1rem',
-        color:'#ffffff'
-      }
-    },
-    MuiPaper: {
-      root: {
-        backgroundColor:'rgb(33,37,39)',
-        color:'#ffffff'
-      }
-    },
-    MuiLinearProgress:{
-      barColorPrimary: {
-        backgroundColor:'#FF8042'
-      }
-    }
+// interface itemstype {
+//   max_text: number,
+//   min_text: number,
+//   min: string,
+//   max: string,
+//   marks: { label: string, value: number }[]
+// }
+
+declare module '@material-ui/core/styles'; {
+  interface Theme {
+    status: {
+      danger: React.CSSProperties['color'];
+    };
   }
-})
 
-interface itemstype {
-  max_text: number,
-  min_text: number,
-  min: string,
-  max: string,
-  marks: { label: string, value: number }[]
+  interface Palette {
+    neutral: Palette['primary'];
+  }
+  interface PaletteOptions {
+    neutral: PaletteOptions['primary'];
+  }
+
+  interface PaletteColor {
+    darker?: string;
+  }
+  interface SimplePaletteColorOptions {
+    darker?: string;
+  }
+  interface ThemeOptions {
+    status: {
+      danger: React.CSSProperties['color'];
+    };
+  }
 }
 
+const theme = createTheme({
+  status: {
+    danger: '#e53e3e',
+  },
+  palette: {
+    primary: {
+      main: '#0971f1',
+      darker: '#053e85',
+    },
+    neutral: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  },
+});
 
 export default theme;
 
@@ -132,42 +176,42 @@ export default theme;
 //   }
 // }
 
-declare module '@material-ui/core/styles/CreatePalette' {
-  interface SimplePaletteColorOptions {
-    bar_droite1?: string;
-  }
+// declare module '@material-ui/core/styles/CreatePalette' {
+//   interface SimplePaletteColorOptions {
+//     bar_droite1?: string;
+//   }
   
-  interface PaletteColor {
-    bar_droite1: string;
-    first:string;
-    second:string;
-    third:string;
-  }
+//   interface PaletteColor {
+//     bar_droite1: string;
+//     first:string;
+//     second:string;
+//     third:string;
+//   }
   
-}
+// }
 
-declare module '@material-ui/core/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    },
-    prout:string
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
+// declare module '@material-ui/core/styles' {
+//   interface Theme {
+//     status: {
+//       danger: string;
+//     },
+//     prout:string
+//   }
+//   // allow configuration using `createTheme`
+//   interface ThemeOptions {
+//     status?: {
+//       danger?: string;
+//     };
+//   }
 
-  // interface PaletteColor {
-  //   light: string;
-  //   main: string;
-  //   dark: string;
-  //   contrastText: string;
-  //   first:string;
-  // }
-}
+//   // interface PaletteColor {
+//   //   light: string;
+//   //   main: string;
+//   //   dark: string;
+//   //   contrastText: string;
+//   //   first:string;
+//   // }
+// }
 
 
 

@@ -16,8 +16,6 @@ const Maps = () => {
     }, [])
 
     var list_poly2:any[] = list_poly
-    // subjectregioncolor.next(['rgb(5,98,138)'])
-    //mettre imeratif
     var style_image: CSS.Properties = (Object.keys(style)[0] === 'display') ? { visibility: "visible",display:'block' } : { display: "none" }
     return (
         <div style={{ height: 'auto', maxWidth: '100%', maxHeight: '100%',display:'block',marginLeft:'auto',marginRight:'auto' }}>

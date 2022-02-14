@@ -2,8 +2,30 @@ h4 {
   margin-top: 0.3rem !important;
 }
 
+.aa {
+  
+    display: initial;
+ 
+}
+
 .container {
   max-width: 80rem !important;
+}
+
+#table-liste-planete{
+  // --bs-gutter-y:var(--bs-gutter-y)
+  margin: 0 0 0 0!important;
+}
+
+//tableau de liste des planètes
+
+#table-liste-planete td,th{
+  text-align:center;
+  padding: 0.5rem;
+}
+
+#table-liste-planete{
+  margin:0 0 0 0;
 }
 
 .svg-container {
@@ -22,11 +44,6 @@ h4 {
   left: 0;
 }
 
-// #rtt {
-//   width: "100%";
-//   height: "100%";
-//   display: "relative";
-// }
 
 #frise-container {
   margin-top: 2em;
@@ -84,11 +101,22 @@ thead {
   color: white;
   background-color: #242526;
   height: fit-content;
+  text-align: center;
 }
 
 .table-concept .row {
   border: 1px solid;
 }
+
+.table-liste-planete:nth-child(2n) {
+  border-color: #fff;
+}
+
+.table-liste-planete:nth-child(2n + 1) {
+  border-color: #ccc;
+  background: #ccc;
+}
+
 
 .table-row:nth-child(2n) {
   border-color: #fff;
@@ -102,3 +130,27 @@ thead {
 .table-row-collapse {
   background: #f00 !important;
 }
+
+
+//classe des svg
+
+.planetwrap:hover  {
+  transform: scale(1.1);
+}
+.planetwrap {
+  transition: all 0.1s;
+  transform-origin: 50% 50%;
+}
+
+.svgparent {
+  overflow: visible;
+}
+
+// planetwrap
+
+// svg#jupiter:hover path {
+//   d: path(
+//     "M0 9.35772H50.9956L44.2001 2.29941L46.4134 0L57 11L46.4134 22L44.2001 19.7006L50.9956 12.6423H0V9.35772Z"
+//   );
+//   d: "M0 9.35772H50.9956L44.2001 2.29941L46.4134 0L57 11L46.4134 22L44.2001 19.7006L50.9956 12.6423H0V9.35772Z";
+// }

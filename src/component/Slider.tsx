@@ -103,7 +103,6 @@ export default function SliderZone() {
       }
 
     }
-    // range.marks.splice(i, 1);
     return (
       <>
 

@@ -1,48 +1,57 @@
-// import { createTheme } from '@material-ui/core/styles';
-
-//global ts => augmlentation de type marche pas avec import dnas fichier
-// // import * as createPalette from '@material-ui/core/styles/createPalette';
-// // declare module '@material-ui/core/styles/createPalette' {
-// //     interface PaletteOptions {    
-// //         success?: PaletteColorOptions;
-// //         warning?: PaletteColorOptions;
-// //     }
-
-//     export interface PaletteColor {
-//         light: string;
-//         main: string;
-//         dark: string;
-//         contrastText: string;
-//         bar_droite1?:string;
-//         bar_droite2?:string;
-//         second?:string;
-//         third?:string;
-//         fourth?:string;
-//         fifth?:string;
-//         sixth?:string;
-//         seventh?:string;
-//         heigth?:string;
-//         bgPaper?:string;
-//       }
+// // import "@mui/material/styles/createPalette";
+// // declare module "@mui/material/styles/createPalette" {
+// //   interface Palette {
+// //     brown: PaletteColor;
+// //   }
+// //   interface PaletteOptions {
+// //     brown: PaletteColorOptions;
+// //   }
 // // }
 
-declare module "*.svg" {
-    const content: any;
-    export default content;
-}
+// import {
+//   createTheme,
+//   Theme,
+//   ThemeProvider,
+//   PaletteOptions
+// } from '@material-ui/core/styles';
 
-declare module "*.png" {
-    const content: any;
-    export default content;
-}
+// import Button from '@material-ui/core/Button';
 
-declare module "*.jpg" {
-    const content: any;
-    export default content;
-}
+// declare module '@material-ui/core/styles' {
+//   interface SimplePaletteColorOptions {
+//     lighter?: string;
+//     darker?: string;
+//   }
 
-declare module "*.gif" {
-    const content: any;
-    export default content;
-}
+//   interface PaletteColor {
+//     lighter?: string;
+//     darker?: string;
+//   }
 
+//   interface DefaultPaletteOptions extends PaletteOptions {
+//     primary?: SimplePaletteColorOptions;
+//   }
+// }
+
+// const Default = () : DefaultPaletteOptions => {
+
+//   return {
+//     primary: {
+//       lighter: '#ddd',
+//       light: '#ddd',
+//       main: '#ddd',
+//       dark: '#ddd',
+//       darker: '#ddd'
+//     },
+//   };
+// };
+
+import "@mui/material/styles/createPalette";
+declare module "@mui/material/styles/createPalette" {
+  interface Palette {
+    brown: PaletteColor;
+  }
+  interface PaletteOptions {
+    brown: PaletteColorOptions;
+  }
+}

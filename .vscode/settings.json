@@ -1,3 +1,4 @@
 {
-	"debug.focusWindowOnBreak": false
+	"debug.focusWindowOnBreak": false,
+	"deepscan.enable": true
 }
