@@ -6,6 +6,8 @@ import Dashboard from '../../pages/planet'
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 import { mount, render as renderEnzyme } from 'enzyme';
 const computed = require('computed-proxy')
+
+import * as comp from '../fonction_pour_test';
 jest.setTimeout(60000)
 
 
@@ -36,12 +38,19 @@ describe("Graph et titre", () => {
         ...jest.requireActual('react-resize-detector'),
         'useResizeDetector': jest.fn(() => ({ width: 0, height: 0, ref: null }))
       }));
+      const mockAddProduct = jest.fn();
 
+      // jest.mock(comp, () => ({
+      //   ...jest.requireActual('../fonction_pour_test'),
+      //   'fonction_handclick': () => {mockAddProduct();console.log('ggg');}
+      // }));
 
-      beforeAll(() => {
+      // jest.mock('../fonction_pour_test/fonction_handclick');
+
+      beforeEach(() => {
         const { container } = render(
           <div>
-            <GraphiqueSystemeSolaire />
+            <Table />
           </div>
         );
         graphContainer = container;
@@ -49,30 +58,41 @@ describe("Graph et titre", () => {
       });
 
       test("il y a plus de 2 lignes dans le tableau", async () => {
+        const mock = jest.spyOn(comp, 'fonction_handclick').mockImplementationOnce((aa) => {
+          console.log(aa);
+        });
+
         await waitFor(() => {
           const bars = graphContainer.querySelectorAll(".table-row")
-          if (Object.keys(bars).length > 0) {
 
-            const elem = computed(bars[0])
-            // expect(bars[0].outerHTML).toContain("rowSelected")
-            fireEvent.click(bars[0])
-            const mEvent = { fonction_pour_test: jest.fn() };
-            expect(mEvent.fonction_pour_test).toBeCalledTimes(1);
-            // const colorActive=getComputedStyle(elem,'background-color');
-            // console.log(colorActive);
-          }
-          // if (bars[0].outerHTML) {
-            // expect(bars[0].outerHTML).toContain("rowSelected")
-            
-          // }
+          const elem = computed(bars[0])
+          fireEvent.click(bars[0])
+          expect(mock).toBeCalledTimes(1);
 
-          // const bars2 = graphContainer.querySelectorAll(".table-row")
-          // const elem2=graphContainer.querySelectorAll(".table-row")[1]
-          // const colorActive2=getComputedStyle(elem2,'background-color');
-          // 
-          // console.log(colorActive2);
-          // // expect(handleClick).toHaveBeenCalled();
-          // expect(colorActive).not.toBe(colorActive2)
+        }, { timeout: 10000 });
+
+        // await waitFor(() => {
+        //   const bars = graphContainer.querySelectorAll(".table-row")
+
+        //   // const elem = computed(bars[0])
+        //   fireEvent.click(bars[1])
+        //   expect(mock).toBeCalledTimes(1);
+
+        // }, { timeout: 10000 });
+      })
+
+      test("il y a plus de 2 lignes dans le tableau", async () => {
+        const mock = jest.spyOn(comp, 'fonction_handclick').mockImplementationOnce((aa) => {
+          console.log(aa);
+        });
+        
+        await waitFor(() => {
+          const bars = graphContainer.querySelectorAll(".table-row")
+          fireEvent.click(bars[1])
+
+          // const elem = computed(bars[0])
+
+          expect(mock).toBeCalledTimes(1);
 
         }, { timeout: 10000 });
       })
@@ -88,7 +108,7 @@ describe("Graph et titre", () => {
       //       // console.log(colorActive);
       //     }
       //     // if (bars[1].outerHTML) {
-            
+
       //     // }
       //     // fireEvent.click(bars[0])
 

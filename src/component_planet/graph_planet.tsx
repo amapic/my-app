@@ -30,7 +30,7 @@ import {
 
 } from 'recharts'
 import { chercheData } from '../fonction/fonction'
-import { fonction_pour_test } from '../test/fonction_pour_test'
+import * as comp from '../test/fonction_pour_test'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
 // import { debounce } from "ts-debounce";
 // import DATA from '../data/france_geojson';
@@ -116,55 +116,28 @@ export const Liste_planete2 = () => {
     )
 }
 
+export const Test_svg = () => {
+
+
+    return (
+        <svg width="200" height="200">
+            <defs>
+                <pattern id="Base_motif" x="0" y="0" width="1" height="0.1">
+                    <rect fill="grey" width="1" height="8" />
+                </pattern>
+            </defs>
+            <rect fill="url(#Base_motif)" width="1" height="200" />
+        </svg>
+    )
+}
+
 export const Liste_planete = () => {
     const [items, setItems] = useState<dataT[] | null>(null)
     const [planete_active, setPlanete_active] = useState<string | null>("HD 219134")
-    if (!planete_active) {
-        // let planete: string = planete_cliquee.getValue()
-        // let next_set_of_planet: dataT[] | null = liste_planete.getValue()
-        // if (!next_set_of_planet){
-        //     liste_planete.subscribe(
-        //         planete_list => {
-        //             // if (planete !== planete_active) {
-        //                 // , liste_planete
-        //                 if (planete_list){
-        //                 setPlanete_active(planete_cliquee.getValue())
-        //                 // let next_set_of_planet = liste_planete.getValue()
-        //                 // setItems(planete_list[planete_cliquee.getValue()])
-        //                 }
-        //             // }
-        //         }
-        //     );
-        // }else{
-        //     setItems(next_set_of_planet[planete])
-        // }
-    }
 
-    // var currentdate = new Date();
-    // console.log(currentdate.getSeconds());
-    // useEffect(() => {
-    //     let isMounted = true;
-    //         chercheData().then((data) => {
-    //             data=Object.values(data);
-    //             for (var i: any = data.length - 1; i >= 0; i--) {
-    //                 if (data[i].star_name != planete_active) {
-    //                     data.splice(i, 1);
-    //                 }
-    //             }
-    //             function sortByKey(data2: any[], key: string) {
-    //                 return data2.sort(function (a: any, b: any) {
-    //                     var x = a[key]; var y = b[key];
-    //                     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    //                 });
-    //             }
-    //             sortByKey(data, "semi_major_axis")
-    //             setItems(data)
-    //         })
-    //     return () => { isMounted = false };
-    // },[planete_active])
 
     useEffect(() => {
-        const subscription = planete_cliquee.subscribe(
+        const subscription_planete_active = planete_cliquee.subscribe(
             planete => {
                 let next_set_of_planet = liste_planete.getValue()
                 if (planete !== planete_active && planete && next_set_of_planet) {
@@ -174,7 +147,9 @@ export const Liste_planete = () => {
                 }
             }
         );
-        const subscription2 = liste_planete.subscribe(
+        //la liste est maj après le composant lors du chargement de la page
+        // C'est pas le cas pour les maj
+        const subscription_liste_planete = liste_planete.subscribe(
             liste => {
                 let planete_active = planete_cliquee.getValue()
                 if (planete_active && liste) {
@@ -184,8 +159,8 @@ export const Liste_planete = () => {
             }
         );
         return () => {
-            subscription.unsubscribe()
-            subscription2.unsubscribe()
+            subscription_planete_active.unsubscribe()
+            subscription_liste_planete.unsubscribe()
         }
     })
 
@@ -231,10 +206,12 @@ export const Table = (props: any) => {
     const [starSelected, setStarSelected] = useState<string>("HD 219134");
 
     const handleClick = (e: any, param: string) => {
-        props.setSsolaire(param)
-        planete_cliquee.next(param);
-        setStarSelected(param)
-        fonction_pour_test()
+        if (process.env.NODE_ENV != "test") {
+            props.setSsolaire(param)
+            planete_cliquee.next(param);
+            setStarSelected(param)
+        }
+        comp.fonction_handclick(param)
     }
 
     useEffect(() => {
@@ -322,7 +299,7 @@ export const TableRow = (props: any) => {
     const handleClick = props.handleClick
     return (
         <>
-            <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => { handleClick(e, row.star_name) }}>
+            <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => selected ? handleClick(e, row.star_name) :()=>false}>
 
                 <td className={"col col1 noselect"}>
                     {row.star_name}
@@ -405,7 +382,7 @@ export const CustomizedShapeTerre = (props: any) => {
 const CustomizedShapePegasus = (props: any) => {
     const { cx, cy, fill, planeteName } = props;
     return (
-        <svg className="svgParent" x={cx - 18} y={cy - 18} width="26" height="26" viewBox="0 0 36 36">
+        <svg className="svgparent" x={cx - 18} y={cy - 18} width="26" height="26" viewBox="0 0 36 36">
             <g className="planetwrap">
                 <rect fill="#fff" x={0} y={0} width="36" height="36" />
                 <g id="surface1">

@@ -1,7 +1,7 @@
 
 import React from 'react';
 // import {Demo} from  '../component_planet/demo'; 
-import { Count_annee, Graph_masse_distance, Liste_planete, Graph_count_type_planete,GraphiqueSystemeSolaire } from '../component_planet/graph_planet';
+import { Test_svg,Count_annee, Graph_masse_distance, Liste_planete, Graph_count_type_planete,GraphiqueSystemeSolaire } from '../component_planet/graph_planet';
 import { Navbar, NavItem } from '../component/navbar/navbar'
 import Total_planete from '../component_planet/chiffre'
 import 'bootstrap/dist/css/bootstrap.css';
@@ -69,10 +69,16 @@ export default function Dashboard():JSX.Element {
 
                       {/* <h4 id="titre_count_type_planete" className='text-center titre_col_droite'>Type de <br></br>planète</h4> */}
 
-                      <Liste_planete />
+                      {/* <Liste_planete /> */}
 
                     </div>
+                    <div className="border border-dark rounded mr-0 p-1">
 
+                      {/* <h4 id="titre_count_type_planete" className='text-center titre_col_droite'>Type de <br></br>planète</h4> */}
+
+                      <Test_svg />
+
+                    </div>
                     
                   </div>
                 </div>
