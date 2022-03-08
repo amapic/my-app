@@ -85,11 +85,13 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
+    "custom_palette.d.ts",
     "custom.d.ts",
     "custom_image.d.ts",
+    "custom_palette.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/fonction/region_load.js",
+    "**/*.tsx", "src/fonction/region_load.js", "src/pages/detail_dev.js",
   ],
   "exclude": [
     "node_modules"

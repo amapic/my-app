@@ -15,15 +15,34 @@ import Slider_zone from '../component/Slider';
 import { Camembert } from '../component/PieChart';
 import { ToggleButtonPerso } from '../component/RadioButton';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../custom.d';
+// import theme,{CustomTheme} from '../../custom.d';
 import Maps from '../component/Maps'
 import BarChartWrap from '../component/BarChart'
 import { Navbar, NavItem } from '../component/navbar/navbar'
+// import theme from '../types/theme';
+import theme from '../../custom.d';
+// import {DefaultTheme} from '@material-ui/core/styles'
 
-
+import Login from '../Login/Login'
+import {test,get_login} from '../fonction/fonction'
 const drawerWidth = 0;
 
+// const theme = createTheme({
+//   palette: {
+//     common: {
+//       layout: {
+//         offBlack: "#14142B",
+//         offWhite: "#FCFCFC",
+//       },
+//     },
+//   },
+// });
+
 const useStyles = makeStyles((theme) => ({
+  
+  // target: {
+  //   backgroundColor: theme.palette.primary
+  // },
   root: {
     display: 'block',
     // position:'absolute'
@@ -183,7 +202,11 @@ export default function Dashboard() {
 
         <main className={classes.content}>
           {/* <div className={classes.appBarSpacer} /> */}
+          {/* <button onClick={test}>PROUT</button> */}
+          {/* <button onClick={get_login}>PROUT</button> */}
+          
           <Container className={classes.containerprinc} maxWidth={false}>
+          <Login />
             <Grid container className={classes.container} spacing={3}>
               <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
                 <Grid item xs={12} md={12} lg={12} >

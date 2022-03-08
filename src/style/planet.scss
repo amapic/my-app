@@ -1,31 +1,96 @@
+$base-color: #036;
+@for $i from 1 through 3 {
+  .aaa>div:nth-child( #{$i}) {
+    background-color: lighten($base-color, $i * 5%)!important;
+  }
+}
+@for $i from 1 through 30 {
+  .recharts-bar-rectangles>g:nth-child( #{$i}) {
+    fill: lighten($base-color, $i * 3%)!important;
+  }
+}
+// @for $i from 1 through 30 {
+//   .animation>.recharts-bar-rectangles>g:nth-child( #{$i}) {
+//     // fill: lighten($base-color, $i * 3%)!important;
+//     animation: sampleanimation3 0.8s forwards;
+//     animation-delay:$i*0.01s;
+//     transform-origin: bottom;
+//   }
+// }
+
+@keyframes sampleanimation2 {
+  from {
+    // transform: scale(1);
+    height:100%
+  }
+  50% {
+    // transform: scale(1, 0.9);
+    height:50%
+  }
+  to {
+    // transform: scale(1);
+    height:100%
+  }
+}
+
+@keyframes sampleanimation3 {
+  from {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.8)
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 h4 {
   margin-top: 0.3rem !important;
 }
 
 .aa {
-  
-    display: initial;
- 
+  display: initial;
 }
 
-.container {
-  max-width: 80rem !important;
+// .planetwrap {
+
+//   animation: splash 1s normal forwards ease-in-out;
+//   // -webkit-animation: splash 0.5s normal forwards;
+//   // -moz-animation:    splash 0.5s normal forwards;
+//   // -o-animation:      splash 0.5s normal forwards;
+// }
+
+p {
+  font-size: 1rem;
 }
 
-#table-liste-planete{
+#container_global {
+  // max-width: 80rem !important;
+  // padding-left: 0!important;
+  // padding-right: 0!important;
+}
+.container-xxl {
+  // max-width: 80rem !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+#table-liste-planete {
   // --bs-gutter-y:var(--bs-gutter-y)
-  margin: 0 0 0 0!important;
+  margin: 0 0 0 0 !important;
 }
 
 //tableau de liste des planètes
 
-#table-liste-planete td,th{
-  text-align:center;
+#table-liste-planete td,
+th {
+  text-align: center;
   padding: 0.5rem;
 }
 
-#table-liste-planete{
-  margin:0 0 0 0;
+#table-liste-planete {
+  margin: 0 0 0 0;
 }
 
 .svg-container {
@@ -43,7 +108,6 @@ h4 {
   top: 0;
   left: 0;
 }
-
 
 #frise-container {
   margin-top: 2em;
@@ -117,7 +181,6 @@ thead {
   background: #ccc;
 }
 
-
 .table-row:nth-child(2n) {
   border-color: #fff;
 }
@@ -131,26 +194,126 @@ thead {
   background: #f00 !important;
 }
 
-
 //classe des svg
 
-.planetwrap:hover  {
+@keyframes splash {
+  from {
+    // scale: 1;
+    // transform: scale(0, 0);
+    transform: scale(1);
+  }
+  50% {
+    // scale: 10;
+    transform: scale(1.5);
+  }
+  to {
+    // scale: 3;
+    transform: scale(1);
+  }
+}
+
+.planetwrap:hover {
   transform: scale(1.2);
 }
-.planetwrap {
-  transition: all 0.1s;
-  transform-origin: 50% 50%;
-}
+// .planetwrap {
+//   transition: scale 0.1s;
+//   transform-origin: 50% 50%;
+// }
 
 .svgparent {
   overflow: visible;
 }
 
-// planetwrap
+.planetwrap {
+  // animation: splash 3s normal forwards ease-in-out;
+  animation-name: splash;
+  animation-duration: 0.5s;
+  animation-iteration-count: 2;
+  transform-origin: 50% 50%;
+}
 
-// svg#jupiter:hover path {
-//   d: path(
-//     "M0 9.35772H50.9956L44.2001 2.29941L46.4134 0L57 11L46.4134 22L44.2001 19.7006L50.9956 12.6423H0V9.35772Z"
-//   );
-//   d: "M0 9.35772H50.9956L44.2001 2.29941L46.4134 0L57 11L46.4134 22L44.2001 19.7006L50.9956 12.6423H0V9.35772Z";
-// }
+.recharts-rectangle.animation {
+  // animation: sampleanimation 2s forwards;
+  // transform-origin: 50% 0%;
+  // animation: bounce-7;
+  // animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+@keyframes sampleanimation2 {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1, 0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes sampleanimation {
+  70% {
+    transform: translateY(0%);
+    padding-bottom: 7px;
+  }
+  80% {
+    transform: translateY(-15%);
+  }
+  90% {
+    transform: translateY(0%);
+    padding-bottom: 8px;
+  }
+  95% {
+    transform: translateY(-7%);
+  }
+  97% {
+    transform: translateY(0%);
+    padding-bottom: 9px;
+  }
+  99% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+    padding-bottom: 9px;
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-7 {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(1.1, 0.9) translateY(0);
+  }
+  30% {
+    transform: scale(0.9, 1.1) translateY(-100px);
+  }
+  50% {
+    transform: scale(1.05, 0.95) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(-7px);
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+.card_perso {
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.13);
+  transition: all 0.4s ease;
+  display:flex;
+  flex-direction: column;
+}
+.card_perso:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.13);
+  border-radius: 10px;
+}

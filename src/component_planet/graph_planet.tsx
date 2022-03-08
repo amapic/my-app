@@ -10,11 +10,14 @@ import gaz4 from "./../img/frise/gaz4.png";
 import gaz5 from "./../img/frise/gaz5.png";
 import gaz6 from "./../img/frise/gaz6.png";
 import sun from "./../img/frise/sun.jpg";
-import { LegendeSvg } from "./creation_svg"
+import { LegendeSvg, LegendeSvg_large } from "./creation_svg"
 import { countBy } from 'underscore'
 import shortid from 'shortid'
 import { useResizeDetector } from 'react-resize-detector';
 import { planete_cliquee, liste_planete } from './observable/observable'
+import { motion, useViewportScroll, useAnimation, useTransform } from "framer-motion";
+import { bounce } from 'react-animations'
+import styled, { keyframes } from 'styled-components';
 import {
     ScatterChart,
     XAxis,
@@ -32,10 +35,9 @@ import {
 import { chercheData } from '../fonction/fonction'
 import * as comp from '../test/fonction_pour_test'
 import { sSolaireT, dataT, typePlaneteT } from '../types/interface'
-// import { debounce } from "ts-debounce";
-// import DATA from '../data/france_geojson';
 
-export const GraphiqueSystemeSolaire = (props: any) => {
+
+const GraphiqueSystemeSolaire = (props: any) => {
     // const dataTEmpty = {} as dataT[]
     const [sSolaire, setsSolaire] = useState<string>("HD 219134");
     const [items, setItems] = useState<dataT[] | null>(null);
@@ -84,7 +86,7 @@ export const GraphiqueSystemeSolaire = (props: any) => {
                         dist = dist.toString() + "%"
 
                         return (
-                            <div key={index} style={{ width: dist }} className="frise-item">
+                            <div key={index} style={{ width: dist,transition: "all 0.5s" }} className="frise-item">
                                 {index == 0 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={mars} />)}
                                 {index == 1 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={mars2} />)}
                                 {index == 2 && (<Image width={25 + (item.radius * 25)} height={25 + (item.radius * 25)} src={gaz} />)}
@@ -99,7 +101,7 @@ export const GraphiqueSystemeSolaire = (props: any) => {
                     })
                 }
             </div>
-            <LegendeSvg items={items} />
+            <LegendeSvg_large items={items} />
         </>
     )
 }
@@ -232,7 +234,7 @@ export const Table = (props: any) => {
             });
 
             Object.keys(counts).forEach((key, index) => {
-                if (counts[key] < 7 || key == '') {
+                if (counts[key] < 6 || key == '') {
                     delete counts[key];
                 }
             });
@@ -299,7 +301,7 @@ export const TableRow = (props: any) => {
     const handleClick = props.handleClick
     return (
         <>
-            <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => selected ? handleClick(e, row.star_name) :()=>false}>
+            <tr className={"table-row " + (selected ? "rowSelected" : "")} onClick={(e) => handleClick(e, row.star_name) }>
 
                 <td className={"col col1 noselect"}>
                     {row.star_name}
@@ -439,6 +441,7 @@ export function Graph_masse_distance() {
 
     useEffect(() => {
         let isMounted = true;
+        // if (!items) {
         chercheData().then((tt) => {
 
             var gg = Object.values(tt)
@@ -450,39 +453,41 @@ export function Graph_masse_distance() {
             }
             if (isMounted) setItems(gg)
         });
+        // }
         return () => { isMounted = false };
+
     }, [])
 
 
     return (
         /* <span className="mx-auto w-50">Masse en Masse jupitérienne et période de révolution en jour</span> */
-        <>
-            {process.env.NODE_ENV === "test" ?
-                <ScatterChart height={500} width={400} id="masse_distance"
+        // <>
+        <> {process.env.NODE_ENV === "test" ?
+            <ScatterChart height={500} width={400} id="masse_distance"
+                margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+                <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
+                <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
+                <Scatter name="A school" data={items} shape={<CustomizedShape />} />
+                <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
+                <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
+                <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
+                <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
+
+            </ScatterChart>
+            :
+            <ResponsiveContainer aspect={4.5}>
+                <ScatterChart id="masse_distance"
                     margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-                    <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 150]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
+                    <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 100]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
                     <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
-                    <Scatter name="A school" data={items} shape={<CustomizedShape />} />
+                    <Scatter isAnimationActive={false} name="A school" data={items} shape={<CustomizedShape />} />
                     <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
                     <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
                     <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
                     <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
 
                 </ScatterChart>
-                :
-                <ResponsiveContainer aspect={4.5}>
-                    <ScatterChart id="masse_distance"
-                        margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-                        <XAxis allowDataOverflow={true} xAxisId="0" dataKey="mass" name="masse" type="number" ticks={[0.01, 0.03, 0.1, 1, 10, 100]} scale="log" domain={[0.001, 100]} unit=" Mjup" />
-                        <YAxis allowDataOverflow={true} yAxisId="0" dataKey="orbital_period" ticks={[1, 10, 100, 365, 4380]} name="periode orbitale" type="number" scale="log" domain={[0.01, 1000000]} unit=" jour" />
-                        <Scatter isAnimationActive={false} name="A school" data={items} shape={<CustomizedShape />} />
-                        <ReferenceDot x={0.45} y={4} shape={<CustomizedShapePegasus />} label={<CustomLabel planet="Pegasus b 41" />} />
-                        <ReferenceDot x={0.003} y={365} shape={<CustomizedShapeTerre />} label={<CustomLabel planet="Terre" />} />
-                        <ReferenceDot x={1} y={4380} shape={<CustomizedShapeJupiter />} label={<CustomLabel planet="Jupiter" />} />
-                        <ReferenceLine xAxisId="0" yAxisId="0" label="Segment" stroke="green" strokeDasharray="5 5" segment={[{ x: 1, y: 0 }, { x: 1, y: 4380 }]} />
-
-                    </ScatterChart>
-                </ResponsiveContainer >}
+            </ResponsiveContainer >}
         </>)
 
 
@@ -500,6 +505,7 @@ export function Graph_count_type_planete() {
     const [items, setItems] = useState<typePlaneteT[]>();//l'état initial doit être un array ne contenant pas d'objet
     const myRef = useRef<HTMLHeadingElement>(null);
 
+    
     useEffect(() => {
         let isMounted = true;
         chercheData().then((tt) => {
@@ -580,7 +586,6 @@ export function Graph_count_type_planete() {
     return (
 
         <div ref={myRef}>
-
             {
                 process.env.NODE_ENV === "test" ?
                     <>
@@ -588,15 +593,18 @@ export function Graph_count_type_planete() {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                             <YAxis />
+
                             <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+
                         </BarChart></>
                     :
                     <div ref={ref}>
-                        <ResponsiveContainer aspect={0.5}>
+                        <ResponsiveContainer aspect={1.5}>
                             <BarChart id="stat_type_planete" data={items} margin={{ top: 0, right: 0, bottom: 50, left: 0 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="type" angle={80} textAnchor="begin" interval={0} dy={2} />
                                 <YAxis />
+
                                 <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
                             </BarChart>
                         </ResponsiveContainer>
@@ -611,7 +619,9 @@ export function Graph_count_type_planete() {
 export function Count_annee() {
 
     const [items, setItems] = useState<any[]>([0]);//l'état initial doit être un array ne contenant pas d'objet
+    const { scrollY } = useViewportScroll();
 
+    const [className, setClassName] = useState<string>("caca");
 
     useEffect(() => {
         let isMounted = true;
@@ -638,6 +648,17 @@ export function Count_annee() {
         return () => { isMounted = false };
     }, [])
 
+    useEffect(() => {
+        scrollY.onChange(v => {
+            // console.log("hh", v);
+            if (v < 310 && className === "animation") {
+                setClassName("caca");
+            }
+            if (v > 310 && className === "caca") {
+                setClassName("animation");
+            }
+        });
+    })
 
 
     return (
@@ -656,7 +677,8 @@ export function Count_annee() {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="year" />
                             <YAxis />
-                            <Bar isAnimationActive={false} dataKey="value" fill="#8884d8" />
+                            
+                            <Bar className={className} isAnimationActive={false} dataKey="value"  />
                         </BarChart>
                     </ResponsiveContainer>
             }
@@ -666,4 +688,4 @@ export function Count_annee() {
 
 }
 
-
+export default GraphiqueSystemeSolaire

@@ -1,90 +1,95 @@
-import { createTheme } from '@material-ui/core/styles';
+// import '@material-ui/core/styles/createPalette';
 import { red } from '@material-ui/core/colors';
+import {createTheme} from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createTheme';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui/core/styles/createPalette';
+// import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui/core/styles/createPalette';
 // Create a theme instance.
 // const defaultTheme = createTheme();
-// const theme = createTheme( {
-//   palette: {
-//     primary: {
-//       main: '#ffffff'
+const theme = createTheme( {
+  palette: {
+    primary: {
+      main: '#ffffff'
       
-//     },
-//     secondary: {
-//       main: '#ffffff',
-//       third:'rgb(154,80,82)',
-//       fourth:'rgb(72,145,118)',
-//       fifth:'rgb(160,175,82)',
-//       sixth:'rgb(104,120,131)',
-//       seventh:'rgb(204,182,82)',
-//       heigth:'rgb(164,135,105)',
-//       bgPaper: 'rgb(33,37,39)',
-//       tt:'rgb(5,98,138)',
-//       tenth:'rgb(5,98,138)',
-//       bar_droite1:'rgb(206,136,87)',
-//       bar_droite2:'rgb(5,98,138)',
-//       first:'rgb(5,98,138)',
-//       second:'rgb(5,98,138)',
-      
-//     },
-//     error: {
-//       main: red.A400,
-//     },
-//     background: {
-//       default: 'rgb(49,55,62)',
-//     }
-//   },
-//   breakpoints:{
-//     values:{
-//       xs:0,
-//       sm: 450,
-//       md: 700,
-//       lg: 900,
-//       xl: 1400
-//     }
-//   },
-//   overrides: {
-//     MuiAppBar: {
-//       colorPrimary: {
-//         backgroundColor: 'rgb(33,37,39)',
-//         color:'#ffffff'
-//       }
-//     },
-//     MuiSlider: {
-//       markLabel: {
-//         top: '20px',
-//         fontSize: '1rem',
-//         color:'#ffffff'
-//       },
-//       markLabelActive: {
-//         top: '20px',
-//         fontSize: '1rem',
-//         color:'#ffffff'
-//       },
-//       root: {
-//         margin: '0 2rem 0 0',
-//       }
-//     },
-//     MuiTypography: {
-//       body1: {
-//         fontSize: '1rem',
-//         color:'#ffffff'
-//       }
-//     },
-//     MuiPaper: {
-//       root: {
-//         backgroundColor:'rgb(33,37,39)',
-//         color:'#ffffff'
-//       }
-//     },
-//     MuiLinearProgress:{
-//       barColorPrimary: {
-//         backgroundColor:'#FF8042'
-//       }
-//     }
-//   }
-// })
+    },
+    secondary: {
+      main: '#ffffff',
+      third:'rgb(154,80,82)',
+      fourth:'rgb(72,145,118)',
+      fifth:'rgb(160,175,82)',
+      sixth:'rgb(104,120,131)',
+      seventh:'rgb(204,182,82)',
+      heigth:'rgb(164,135,105)',
+      bgPaper: 'rgb(33,37,39)',
+      tt:'rgb(5,98,15)',
+      tenth:'rgb(5,98,138)',
+      bar_droite1:'rgb(206,136,87)',
+      bar_droite2:'rgb(5,98,138)',
+      first:'rgb(5,98,138)',
+      second:'rgb(5,98,138)',
+      prout:'#ffffff'
+    },
+
+    neutralShade:{
+      main:'rgb(00,00,50)',
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: 'rgb(49,55,62)',
+    }
+  },
+  breakpoints:{
+    values:{
+      xs:0,
+      sm: 450,
+      md: 700,
+      lg: 900,
+      xl: 1400
+    }
+  },
+  overrides: {
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: 'rgb(33,37,39)',
+        color:'#ffffff'
+      }
+    },
+    MuiSlider: {
+      markLabel: {
+        top: '20px',
+        fontSize: '1rem',
+        color:'#ffffff'
+      },
+      markLabelActive: {
+        top: '20px',
+        fontSize: '1rem',
+        color:'#ffffff'
+      },
+      root: {
+        margin: '0 2rem 0 0',
+      }
+    },
+    MuiTypography: {
+      body1: {
+        fontSize: '1rem',
+        color:'#ffffff'
+      }
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor:'rgb(33,37,39)',
+        color:'#ffffff'
+      }
+    },
+    MuiLinearProgress:{
+      barColorPrimary: {
+        backgroundColor:'#FF8042'
+      }
+    }
+  }
+})
 
 // interface itemstype {
 //   max_text: number,
@@ -94,48 +99,54 @@ import createPalette,{SimplePaletteColorOptions,PaletteColor} from '@material-ui
 //   marks: { label: string, value: number }[]
 // }
 
-declare module '@material-ui/core/styles'; {
-  interface Theme {
-    status: {
-      danger: React.CSSProperties['color'];
-    };
-  }
+// declare module '@material-ui/core/styles'; {
+//   interface Theme {
+//     status: {
+//       danger: React.CSSProperties['color'];
+//     };
+//   }
 
-  interface Palette {
-    neutral: Palette['primary'];
-  }
-  interface PaletteOptions {
-    neutral: PaletteOptions['primary'];
-  }
+//   interface Palette {
+//     neutral: Palette['primary'];
+//   }
+//   interface PaletteOptions {
+//     neutral: PaletteOptions['primary'];
+//   }
 
-  interface PaletteColor {
-    darker?: string;
-  }
-  interface SimplePaletteColorOptions {
-    darker?: string;
-  }
-  interface ThemeOptions {
-    status: {
-      danger: React.CSSProperties['color'];
-    };
-  }
-}
+//   interface PaletteColor {
+//     darker?: string;
+//   }
+//   interface SimplePaletteColorOptions {
+//     darker?: string;
+//   }
+//   interface ThemeOptions {
+//     status: {
+//       danger: React.CSSProperties['color'];
+//     };
+//   }
+// }
+// declare module "@mui/material/styles/createPalette" {
+//   interface Common {
+//     layout: {
+//       offBlack: string;
+//       offWhite: string;
+//     }
+//   }
+// }
 
-const theme = createTheme({
-  status: {
-    danger: '#e53e3e',
-  },
-  palette: {
-    primary: {
-      main: '#0971f1',
-      darker: '#053e85',
-    },
-    neutral: {
-      main: '#64748B',
-      contrastText: '#fff',
-    },
-  },
-});
+
+
+// declare module '@material-ui/core/styles/createPalette' {
+//   // export interface DefaultTheme extends CustomTheme {}
+//   // export interface SimplePaletteColorOptions {}
+//   export interface SimplePaletteColorOptions {
+//     light?: string;
+//     main: string;
+//     dark?: string;
+//     darker?: string;
+//     contrastText?: string;
+//   }
+// }
 
 export default theme;
 

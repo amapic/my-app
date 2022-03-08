@@ -30,6 +30,14 @@ export interface dataT {
   count_planet?: number,
 }
 
+export type route_type = {
+  name: string,
+  path: string,
+  component?: JSX.Element,
+  roles?: string[],
+  routes?: route_type[],
+};
+
 export interface sSolaireT {
   discovered: number,
   star_distance: number,

@@ -86,6 +86,101 @@ export const chercheData = async (): Promise<dataT[]> => {
     })
 }
 
+export const get_login = async (): Promise<dataT[]> => {
+    const dataTempty = {} as dataT[]
+    // const response = await fetch(adresse + ":8080/get_login");
+    let token=document.cookie
+    let headers = {"Content-Type": "application/json; charset=UTF-8"};
+    if (token) {
+        // console.log("ttt");
+      headers["Authorization"] = `Token ${token}`;
+    }
+    // const dataTempty = {} as dataT[]
+    const response = await fetch("http://localhost:8080/get_login",{
+     
+        // Adding method type
+        method: "POST",
+         
+        // Adding body or contents to send
+        body: JSON.stringify({
+            nom: "A",
+            mdp: "mdp"
+        }),
+         
+        // Adding headers to the request
+        headers: headers
+    })
+    return new Promise((successCallback, failureCallback) => {
+        if (response.ok) {
+            // var data = [];
+            // var dictOfResponseData: any = {}
+            // var miniDict = {}
+            // for (const [key, value] of Object.entries(responseData)) {
+            //     dictOfResponseData[key] = value
+            // }
+            console.log(response);
+
+            successCallback(response)
+
+        } else {
+            // alert(JSON.stringify(responseData))
+            console.log("pas ok");
+            failureCallback(dataTempty)
+        }
+    })
+
+}
+
+export const test = async (): Promise<dataT[]> => {
+    // document.cookie = `token=${token}`
+    // console.log(document.cookie);
+    let token=document.cookie
+    let headers = {"Content-Type": "application/json; charset=UTF-8"};
+    if (token) {
+        console.log("ttt");
+      headers["Authorization"] = `Token ${token}`;
+    }
+    const dataTempty = {} as dataT[]
+    const response = await fetch("http://localhost:8080/hhapi",{
+     
+        // Adding method type
+        method: "POST",
+         
+        // Adding body or contents to send
+        body: JSON.stringify({
+            nom: "A",
+            mdp: "mdp"
+        }),
+         
+        // Adding headers to the request
+        headers: headers
+    })
+    // const response = await fetch("http://68.183.74.150:8080/api/planets");
+    // console.log(response);
+    const responseData = await response.json();
+    return new Promise((successCallback, failureCallback) => {
+        if (response.ok) {
+            var data = [];
+            var dictOfResponseData: any = {}
+            var miniDict = {}
+            for (const [key, value] of Object.entries(responseData)) {
+                dictOfResponseData[key] = value
+            }
+            // console.log(responseData);
+            // console.log(document.cookie);
+            document.cookie = `token=${dictOfResponseData['token']}`
+            successCallback(dictOfResponseData['token'])
+
+        } else {
+            alert(JSON.stringify(responseData))
+            console.log("fail",responseData)
+            failureCallback(dataTempty)
+        }
+    })
+}
+
+
+
 
 export const liste_planete_par_systeme = async () => {
 
@@ -115,9 +210,6 @@ export const liste_planete_par_systeme = async () => {
     Promise.all([get_planete(liste_planete_active[0]), get_planete(liste_planete_active[1]), get_planete(liste_planete_active[2])]).then(() => {
         liste_planete.next(array_retour)
     })
-    // liste_planete_active.forEach(planete_active => {
-
-    // });
 
 }
 
