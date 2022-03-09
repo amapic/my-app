@@ -50,7 +50,7 @@ export const check_login = async (): Promise<boolean> => {
 import { dataT } from '../types/interface'
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 
-export const fetch_enregistrement_token = async ({ username, password }): Promise<boolean> => {
+export const fetch_enregistrement_token = async ({ username, password }): Promise<[string, string] | boolean> => {
 
   let headers = { "Content-Type": "application/json; charset=UTF-8" };
   const response = await fetch("http://localhost:8080/login", {
@@ -74,9 +74,12 @@ export const fetch_enregistrement_token = async ({ username, password }): Promis
       for (const [key, value] of Object.entries(responseData)) {
         dictOfResponseData[key] = value
       }
-      document.cookie = `token=${dictOfResponseData['token']}`
+      if (dictOfResponseData['token']!=""){
+        document.cookie = `token=${dictOfResponseData['token']}`
+      }
+      
       // récupération du nom d'utilisateur de la personne
-      successCallback(dictOfResponseData['username'])
+      successCallback([dictOfResponseData['status'], dictOfResponseData['username']])
 
     } else {
       alert(JSON.stringify(responseData))
@@ -108,23 +111,27 @@ export default function Login({ setToken }) {
       username,
       password
     });
-    if (token) {
-      setMsg("")
-      setLog(token);
-    } else {
-      setMsg("Erreur Log")
+    if (Array.isArray(token)) {
+      if (token[0] === "erreur bdd") {
+        setMsg("Erreur bdd")
+      } else if (token[0] === "erreur mdp") {
+        setMsg("Erreur Log")
+      } else {
+        setMsg("")
+        setLog(token[1]);
+      }
     }
   }
   return (
     <div style={{ color: "black" }} className="login-wrapper">
       {!log ?
         <form onSubmit={handleSubmit}>
-          Enregistrez vous avec les identifiants admin/admin ou user/user pour ne voir que certaines pages
+          Enregistrez vous avec les identifiants admin/admin ou user/user pour vous logger
           {msg ? <p style={{ color: "red" }}>
             {msg}
           </p> : <></>}
           <div  >
-            <div style={{display:'inline'}} >
+            <div style={{ display: 'inline' }} >
               <label>
                 <p className="mb-1" >Nom</p>
                 <input type="text" defaultValue="admin" onChange={e => setUserName(e.target.value)} />

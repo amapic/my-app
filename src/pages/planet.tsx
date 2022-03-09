@@ -75,7 +75,7 @@ export default function Dashboard(): JSX.Element {
                     </div>
                     <div className="col-12">
                       {/* <h4><div id="titre_count_planete_habitable" data-testid="testid2" className='text-center mx-0'>20</div></h4> */}
-                      {/* <Total_planete /> */}
+                      <Total_planete />
                     </div>
                   </div>
                 </div>

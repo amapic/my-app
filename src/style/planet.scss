@@ -1,13 +1,13 @@
-$base-color: #036;
-@for $i from 1 through 3 {
-  .aaa>div:nth-child( #{$i}) {
-    background-color: lighten($base-color, $i * 5%)!important;
-  }
-}
-@for $i from 1 through 30 {
-  .recharts-bar-rectangles>g:nth-child( #{$i}) {
-    fill: lighten($base-color, $i * 3%)!important;
-  }
+$base-color: #8884d8;
+// @for $i from 1 through 3 {
+//   .aaa>div:nth-child( #{$i}) {
+//     background-color: lighten($base-color, $i * 5%)!important;
+//   }
+// }
+@for $i from 30 through 0 {
+  // .recharts-bar-rectangles>g:nth-child( #{$i}) {
+  //   fill: lighten($base-color, $i * 3%)!important;
+  // }
 }
 // @for $i from 1 through 30 {
 //   .animation>.recharts-bar-rectangles>g:nth-child( #{$i}) {

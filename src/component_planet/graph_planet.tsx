@@ -650,7 +650,6 @@ export function Count_annee() {
 
     useEffect(() => {
         scrollY.onChange(v => {
-            // console.log("hh", v);
             if (v < 310 && className === "animation") {
                 setClassName("caca");
             }
@@ -678,7 +677,7 @@ export function Count_annee() {
                             <XAxis dataKey="year" />
                             <YAxis />
                             
-                            <Bar className={className} isAnimationActive={false} dataKey="value"  />
+                            <Bar className={className} fill="#8884d8" isAnimationActive={false} dataKey="value"  />
                         </BarChart>
                     </ResponsiveContainer>
             }
