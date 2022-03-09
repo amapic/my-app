@@ -24,7 +24,7 @@ import theme from '../../custom.d';
 // import {DefaultTheme} from '@material-ui/core/styles'
 
 import Login from '../Login/Login'
-import {test,get_login} from '../fonction/fonction'
+import { test, get_login } from '../fonction/fonction'
 const drawerWidth = 0;
 
 // const theme = createTheme({
@@ -39,7 +39,7 @@ const drawerWidth = 0;
 // });
 
 const useStyles = makeStyles((theme) => ({
-  
+
   // target: {
   //   backgroundColor: theme.palette.primary
   // },
@@ -150,7 +150,6 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     boxSizing: 'border-box',
     justifyContent: 'center',
-    // backgroundColor: theme.palette.secondary.bgPaper
   },
   containerprinc: {
     paddingTop: theme.spacing(2),
@@ -159,8 +158,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '0.75rem',
     flexWrap: 'nowrap',
     width: '100%',
-    maxWidth:'1105px',
-    // zIndex:-3
+    maxWidth: '1105px',
   },
   fixedHeight: {
     height: 350,
@@ -182,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
 
   const classes = useStyles();
-  
+
 
   const fixedHeightPaper = clsx(classes.paper);
   const paper_droite = clsx(classes.paper_droite);
@@ -190,70 +188,88 @@ export default function Dashboard() {
 
   return (
     <React.StrictMode>
-    <div className={classes.root} >
+      <div className={classes.root} >
 
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <Navbar  >
+          <Navbar  >
             <NavItem  >
             </NavItem>
           </Navbar>
 
-        <main className={classes.content}>
-          {/* <div className={classes.appBarSpacer} /> */}
-          {/* <button onClick={test}>PROUT</button> */}
-          {/* <button onClick={get_login}>PROUT</button> */}
-          
-          <Container className={classes.containerprinc} maxWidth={false}>
-          <Login />
-            <Grid container className={classes.container} spacing={3}>
-              <Grid id="colonne_gauche" item xs={10} md={10} lg={10} >
-                <Grid item xs={12} md={12} lg={12} >
-                  <Paper className={fixedHeightPaper}>
-                    <div id="entete_chart">
-                      <div id="div_slider">
-                        <Slider_zone />
+          <main className={classes.content}>
+            {/* <div className={classes.appBarSpacer} /> */}
+            {/* <button onClick={test}>PROUT</button> */}
+            {/* <button onClick={get_login}>PROUT</button> */}
 
+            <Container className={classes.containerprinc} maxWidth={false}>
+              {/* <Login /> */}
+              <Grid container className={classes.container} spacing={3}>
+                <Grid id="colonne_gauche" item xs={12} md={12} lg={12} >
+                  <Grid item xs={12} md={12} lg={12} >
+                   
+                    <Paper className={fixedHeightPaper}>
+                    <span style={{size: "0.9rem"}}>Sélectionner une date et un vaccin pour voir l'évolution du nombre de vaccination</span>
+                      <br></br>
+                      <div id="entete_chart">
+                        <div id="div_slider">
+                          <Slider_zone />
+
+                        </div>
+                        <ToggleButtonPerso />
                       </div>
-                      <ToggleButtonPerso />
-                    </div>
-                    <Chart />
+                      <Chart />
 
-                  </Paper>
-                </Grid>
-                
-                <Grid item xs={12} md={12} lg={12} >
-                  <Paper className={classes.paper} >
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12} >
+                    <Grid container spacing={3} >
+                      <Grid item xs={6} md={6} lg={6} >
+                        <Paper className={classes.paper_droite} >
 
-                    <div className={classes.flexRow}>
-                      <Maps />
-                      <div className={classes.barchart_container}>
-                        <BarChartWrap />
+                          <Camembert />
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={6} md={6} lg={6} >
+                        <Paper className={classes.paper_droite}  >
+                          <Deposits />
+                        </Paper>
+                      </Grid>
+                    </Grid >
+                  </Grid>
+
+                  <Grid item xs={12} md={12} lg={12} >
+                    <Paper className={classes.paper} >
+
+                      <div className={classes.flexRow}>
+                        <Maps />
+                        <div className={classes.barchart_container}>
+                          <BarChartWrap />
+                        </div>
                       </div>
-                    </div>
 
-                  </Paper>
+                    </Paper>
+                  </Grid>
+
                 </Grid>
+                {/* <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
+                  <Paper className={classes.paper_droite} >
 
+                    <Camembert />
+                  </Paper>
+                  <Paper className={classes.paper_droite}  >
+                    <Deposits />
+                  </Paper>
+
+                </Grid> */}
               </Grid>
-              <Grid id="colonne_droite" container direction="column" xs={2} md={2} lg={2}  >
-                <Paper className={classes.paper_droite} >
 
-                  <Camembert />
-                </Paper>
-                <Paper className={classes.paper_droite}  >
-                  <Deposits />
-                </Paper>
-
-              </Grid>
-            </Grid>
-
-          </Container>
-        </main>
-      </ThemeProvider>
-    </div >
-    </React.StrictMode>
+            </Container>
+          </main>
+        </ThemeProvider>
+      </div >
+    </React.StrictMode >
 
   );
 }

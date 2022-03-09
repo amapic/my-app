@@ -39,8 +39,8 @@ function createData(name: string, value: number) {
   };
 }
 
-// const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-const COLORS2 = [theme.palette.neutralShade.main, theme.palette.secondary.tt, theme.palette.secondary.third, theme.palette.secondary.fourth];
+const COLORS2 = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+// const COLORS2 = [theme.palette.neutralShade.main, theme.palette.secondary.tt, theme.palette.secondary.third, theme.palette.secondary.fourth];
 // const COLORS2 =[theme.palette.neutralShade.main, theme.palette.secondary.prout, '#FFBB28', '#FF8042'];
 // const hhh=theme.palette.neutralShade.main
 
@@ -61,7 +61,7 @@ export function Camembert() {
   return (
     <>
       <Title>Vaccin administré</Title>
-      <ResponsiveContainer aspect={0.7}>
+      <ResponsiveContainer aspect={5}>
       <PieChart >
         <Pie isAnimationActive={false} data={items} dataKey="value" nameKey="name"  cx="50%" cy="50%" outerRadius="80%"  >
           {
