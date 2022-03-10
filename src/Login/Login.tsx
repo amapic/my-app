@@ -18,10 +18,11 @@ export const check_login = async (): Promise<boolean> => {
   let token = document.cookie.split('=')[1]
   let headers = { "Content-Type": "application/json; charset=UTF-8" };
   if (token) {
-    headers["authorization"] = `Token ${token}`;
+    headers["authorization"] = `Token=${token}`;
   }
   // const dataTempty = {} as dataT[]
-  const response = await fetch("http://localhost:8080/check_login", {
+  // const response = await fetch("http://68.183.74.150:8080/check_login", {
+    const response = await fetch("http://localhost:8080/check_login", {
 
     // Adding method type
     method: "POST",

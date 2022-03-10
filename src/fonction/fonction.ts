@@ -1,6 +1,8 @@
 import adresse from './conf'
 import fetch from "node-fetch";
 import { liste_planete } from '../component_planet/observable/observable';
+import mysql from 'mysql';
+
 export var liste_nom_region: { [key: string]: string } = {}
 liste_nom_region["1"] = "Guadeloupe"
 liste_nom_region["2"] = "Martinique"
@@ -86,6 +88,18 @@ export const chercheData = async (): Promise<dataT[]> => {
     })
 }
 
+// const connection = mysql.createConnection({
+// 	host: 'http://68.183.74.150',
+// 	user: 'root',
+// 	password: 'root',
+// 	port: '3306',
+// 	database: 'login'
+// });
+
+// export const test_connection=()=>{
+//     alert(connection)
+// }
+
 export const get_login = async (): Promise<dataT[]> => {
     const dataTempty = {} as dataT[]
     // const response = await fetch(adresse + ":8080/get_login");
@@ -96,7 +110,7 @@ export const get_login = async (): Promise<dataT[]> => {
       headers["Authorization"] = `Token ${token}`;
     }
     // const dataTempty = {} as dataT[]
-    const response = await fetch("http://localhost:8080/get_login",{
+    const response = await fetch("http://68.183.74.150:8080/get_login",{
      
         // Adding method type
         method: "POST",
@@ -141,7 +155,7 @@ export const test = async (): Promise<dataT[]> => {
       headers["Authorization"] = `Token ${token}`;
     }
     const dataTempty = {} as dataT[]
-    const response = await fetch("http://localhost:8080/hhapi",{
+    const response = await fetch("http://68.183.74.150:8080/hhapi",{
      
         // Adding method type
         method: "POST",

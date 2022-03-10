@@ -12,3 +12,5 @@ export const liste_vaccin: liste_vaccinT[] = [
     { value: "4", name: "Janssen" },
 ]
 
+export default liste_vaccin
+

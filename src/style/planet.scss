@@ -190,6 +190,12 @@ thead {
   background: #ccc;
 }
 
+.table-row:hover {
+  // border-color: #ccc;
+  background: #c3c1eb;
+  // opacity:0.5;
+}
+
 .table-row-collapse {
   background: #f00 !important;
 }
