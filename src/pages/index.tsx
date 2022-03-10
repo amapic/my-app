@@ -204,7 +204,7 @@ export default function Dashboard() {
             {/* <button onClick={get_login}>PROUT</button> */}
 
             <Container className={classes.containerprinc} maxWidth={false}>
-              <Login />
+              {/* <Login /> */}
               <Grid container className={classes.container} spacing={3}>
                 <Grid id="colonne_gauche" item xs={12} md={12} lg={12} >
                   <Grid item xs={12} md={12} lg={12} >

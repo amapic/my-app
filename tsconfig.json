@@ -91,7 +91,7 @@
     "custom_palette.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "src/fonction/region_load.js", "src/pages/detail_dev.js",
+    "**/*.tsx", "src/fonction/region_load.js", "src/old_pages/detail_dev.js",
   ],
   "exclude": [
     "node_modules"

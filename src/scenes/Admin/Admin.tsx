@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { ThemeConsumerHook } from '../themeStore';
-import { getPath } from '../../pages/routes';
+import { getPath } from '../../old_pages/routes';
 
 
 const Admin = ({ history }):JSX.Element => {

@@ -24,7 +24,7 @@ export default function Dashboard(): JSX.Element {
           
           <div className="mt-2 ps-3 pe-3">
             <div className="rounded  p-2 mb-5">
-            <Login />
+            {/* <Login /> */}
               <h4 id="titre_interne_0" className="animate-pulse feature-title text-left">Historique</h4>
               <p style={{ textIndent: "0%" }}>En 1995, la première exoplanète est découverte par Michel Mayor et ses collaborateurs à l'observatoire de Haute Provence.
                 Depuis, de nombreuses autres planètes plus petites et plus éloignées de leurs étoiles, donc plus difficile à repérer, ont été trouvées.
