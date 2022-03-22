@@ -3,13 +3,13 @@ import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { subjectvac } from "./observable/observable";
-
-export function ToggleButtonPerso(props:any) {
+import shortid from 'shortid'
+export function ToggleButtonPerso(props: any) {
   // const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('0');
 
   const radios = liste_vaccin
-  const handleChange = (newValue:string) => {
+  const handleChange = (newValue: string) => {
     console.log(newValue);
     subjectvac.next(newValue);
   };
@@ -33,11 +33,11 @@ export function ToggleButtonPerso(props:any) {
           }
           return (
 
-            <>
-            {radioValue === item.value}
-              <input key={item.value +"input"} checked={radioValue === item.value} onChange={(e) => { setRadioValue(e.currentTarget.value); handleChange(e.currentTarget.value) }} className={classInput} id={"radio1-" + item.value.toString()} name="radio" type="radio" value={item.value.toString()}/>
-              <label key={item.value+"label"} id={"radio2-" + item.value.toString()} htmlFor={"radio1-" + item.value.toString()} role="button" className={classLabel}>{item.name}</label>
-            </>)
+            <div id={shortid.generate()}>
+              {radioValue === item.value}
+              <input  key={item.value + "input"} checked={radioValue === item.value} onChange={(e) => { setRadioValue(e.currentTarget.value); handleChange(e.currentTarget.value) }} className={classInput} id={"radio1-" + item.value.toString()} name="radio" type="radio" value={item.value.toString()} />
+              <label key={item.value + "label"} id={"radio2-" + item.value.toString()} htmlFor={"radio1-" + item.value.toString()} role="button" className={classLabel}>{item.name}</label>
+            </div>)
         })}
       </div>
       {/* <ButtonGroup className="mb-2">

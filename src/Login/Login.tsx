@@ -21,8 +21,8 @@ export const check_login = async (): Promise<boolean> => {
     headers["authorization"] = `Token=${token}`;
   }
   // const dataTempty = {} as dataT[]
-  // const response = await fetch("http://68.183.74.150:8080/check_login", {
-    const response = await fetch("http://localhost:8080/check_login", {
+  const response = await fetch("http://68.183.74.150:8080/check_login", {
+    // const response = await fetch("http://localhost:8080/check_login", {
 
     // Adding method type
     method: "POST",
@@ -54,7 +54,8 @@ import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 export const fetch_enregistrement_token = async ({ username, password }): Promise<[string, string] | boolean> => {
 
   let headers = { "Content-Type": "application/json; charset=UTF-8" };
-  const response = await fetch("http://localhost:8080/login", {
+  // const response = await fetch("http://localhost:8080/login", {
+  const response = await fetch("http://68.183.74.150:8080/login", {
 
     // Adding method type
     method: "POST",
@@ -70,15 +71,16 @@ export const fetch_enregistrement_token = async ({ username, password }): Promis
   })
   const responseData = await response.json();
   return new Promise((successCallback, failureCallback) => {
+    console.log("responseData", responseData)
     if (response.ok) {
       var dictOfResponseData: any = {}
       for (const [key, value] of Object.entries(responseData)) {
         dictOfResponseData[key] = value
       }
-      if (dictOfResponseData['token']!=""){
+      if (dictOfResponseData['token'] != "") {
         document.cookie = `token=${dictOfResponseData['token']}`
       }
-      
+
       // récupération du nom d'utilisateur de la personne
       successCallback([dictOfResponseData['status'], dictOfResponseData['username']])
 
@@ -90,7 +92,7 @@ export const fetch_enregistrement_token = async ({ username, password }): Promis
   })
 }
 
-export default function Login({ setToken }) {
+export default function Login() {
   const [username, setUserName] = useState("admin");
   const [password, setPassword] = useState("admin");
   const [msg, setMsg] = useState("");
@@ -112,6 +114,7 @@ export default function Login({ setToken }) {
       username,
       password
     });
+    console.log(token)
     if (Array.isArray(token)) {
       if (token[0] === "erreur bdd") {
         setMsg("Erreur bdd")
@@ -155,6 +158,6 @@ export default function Login({ setToken }) {
   )
 }
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+// Login.propTypes = {
+//   setToken: PropTypes.func.isRequired
+// }

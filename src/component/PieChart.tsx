@@ -8,7 +8,7 @@ import {
   from 'recharts';
 
 import React, { useState, useEffect } from 'react'
-import liste_vaccin,{liste_vaccinT } from '../data/liste_vaccin';
+import liste_vaccin, { liste_vaccinT } from '../data/liste_vaccin';
 import Title from './Title';
 import theme from '../../custom.d';
 import adresse from '../fonction/conf'
@@ -39,7 +39,7 @@ function createData(name: string, value: number) {
   };
 }
 
-const COLORS2 = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS2 = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF8042', '#FF8042'];
 // const COLORS2 = [theme.palette.neutralShade.main, theme.palette.secondary.tt, theme.palette.secondary.third, theme.palette.secondary.fourth];
 // const COLORS2 =[theme.palette.neutralShade.main, theme.palette.secondary.prout, '#FFBB28', '#FF8042'];
 // const hhh=theme.palette.neutralShade.main
@@ -47,33 +47,35 @@ const COLORS2 = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export function Camembert() {
   const [items, setItems] = useState<createDataT[]>([]);//l'état initial doit être un array ne contenant pas d'objet
-  // useEffect(() => {
-  //   chercheData(adresse + ":8052/bilan_par_vaccin").then((tt:{[k:string]:number}) => {
-  //     console.log(tt);
-  //     var arr:createDataT[] = []
-  //     type A = keyof liste_vaccinT;
-  //     Object.keys(tt).forEach((obj:string):void=> {
-  //       arr.push({name:liste_vaccin.liste_vaccin[obj].name, value:tt[obj]})
-  //     })
-  //     setItems(arr.slice(1));
-  //   })
+  useEffect(() => {
+    chercheData(adresse + ":8052/bilan_par_vaccin").then((tt: { [k: string]: number }) => {
+      // console.log(tt);
+      // console.log(liste_vaccin);
+      var arr: createDataT[] = []
+      type A = keyof liste_vaccinT;
+      Object.keys(tt).slice(0, 4).forEach((obj: string): void => {
+        console.log(obj);
+        arr.push({ name: liste_vaccin[obj].name, value: tt[obj] })
+      })
+      setItems(arr.slice(1));
+    })
 
-  // }, []);
+  }, []);
   return (
     <>
       <Title>Vaccin administré</Title>
       <ResponsiveContainer aspect={5}>
-      <PieChart >
-        <Pie isAnimationActive={false} data={items} dataKey="value" nameKey="name"  cx="50%" cy="50%" outerRadius="80%"  >
-          {
-            items.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS2[index % COLORS2.length]} />
-            ))
-          }
-        </Pie>
-        <Legend align="left" />
-      </PieChart>
+        <PieChart >
+          <Pie isAnimationActive={false} data={items} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%"  >
+            {
+              items.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS2[index % COLORS2.length]} />
+              ))
+            }
+          </Pie>
+          <Legend align="left" />
+        </PieChart>
       </ResponsiveContainer>
-      </>
-      );
+    </>
+  );
 }

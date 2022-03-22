@@ -1,0 +1,5 @@
+Host ocean
+    HostName 68.183.74.150
+    User root
+    IdentityFile C:/Users/Amaury/ssh/ocean/openssh_private
+    Port 22
