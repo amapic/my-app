@@ -64,7 +64,7 @@ export function Camembert() {
   return (
     <>
       <Title>Vaccin administré</Title>
-      <ResponsiveContainer aspect={5}>
+      <ResponsiveContainer aspect={3}>
         <PieChart >
           <Pie isAnimationActive={false} data={items} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%"  >
             {
@@ -73,7 +73,7 @@ export function Camembert() {
               ))
             }
           </Pie>
-          <Legend align="left" />
+          <Legend align="center" />
         </PieChart>
       </ResponsiveContainer>
     </>
